@@ -22,13 +22,104 @@ button2.addEventListener("click", rollTwoDice);
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
 
+// The number of faces on the dice for the dice rollers
 const faces = 6;
+
+// Empty user object to be written to during operation
+let userObject = {
+  displayName: "",
+  ip: "",
+};
+
+// User IP address to be stored on this variable during calculation
+let userIPAddress;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
 ///////////////////////////////
+// USER DATA SET UP
+
+// This code below kind of works to extract a user's IP address using an API. It is asynchronous with all the tragedy that this involves. At the end it successfully stores the value of the users IP address to an object which can then be accessed outside of the functions, providing they have had time to run.
+
+// TODO
+// CONNECT THIS FUNCTION TO THE PAGE LOAD EVENT
+// Starts the webpage code running on page load - not yet connected
+// Invoked automatically
+function autoRun() {
+  setUpUserData();
+
+  setTimeout(() => {
+    addDisplayName();
+    console.log(`userObject: `, userObject);
+  }, 1200);
+}
+
+// Fetches the user's IP address and assigns it to the userObject object for use in the rest of the program
+// Called by autoRun()
+function setUpUserData() {
+  console.log(`Set up running...`);
+  fetchData(); // Calls the async function
+  setUserIP(); // Assigns the fetched value to the userObject
+
+  // Gets the user's IP address using the async/await syntax
+  // Called by setUpUserData()
+  async function fetchData() {
+    userIPAddress = await getUserIP();
+    return userIPAddress;
+  }
+}
+
+// Fetches the user's IP address from an API and returns it
+// Called by fetchData()
+async function getUserIP() {
+  try {
+    const response = await fetch("https://api.ipify.org?format=json");
+    const data = await response.json();
+    userIPAddress = data.ip;
+    console.log(`Success fetching IP Address of User`);
+    return userIPAddress;
+  } catch (error) {
+    console.error("Error fetching IP:", error);
+    return "Unknown";
+  }
+}
+
+// TODO
+// NEEDS TESTING WITH DIFFERENT TIMINGS AND A MORE COMPLEX ENVIRONMENT, SLOWER OVER REAL INTERNET?
+// Assigns the value of the user's IP address in steps long enough for the async function to properly return a result
+// Called by setUpUserData()
+function setUserIP() {
+  setTimeout(() => {
+    console.log(`userIPAddress: `, userIPAddress);
+  }, 250);
+
+  setTimeout(() => {
+    userObject.ip = userIPAddress;
+    console.log(`userObject:`, userObject);
+  }, 300);
+
+  setTimeout(() => {
+    console.log(`Set up complete!`);
+    return;
+  }, 350);
+}
+
+// TODO
+// NEEDS TO BE OPTIONAL FOR THE USER IN FUTURE
+// Allows a user to choose a display name via prompt
+// Called by autoRun()
+function addDisplayName() {
+  userObject.displayName = prompt(
+    `What would you like your display name to be?`
+  );
+  return;
+}
+
+///////////////////////////////
 // DICE ROLLERS
+
+// Functions relating to the dice rollers and their visual elements on the webpage
 
 // Creates a random dice roll based on the specified number of die faces for the program (default: 6)
 function diceRoller() {
@@ -42,7 +133,7 @@ function rollOneDie() {
   rollingAnimation(target1);
   setTimeout(() => {
     const roll1 = diceRoller();
-    console.log(roll1);
+    console.log(`Roll 1: `, roll1);
     cycleDieFaces(roll1, "set", target1);
   }, 2000);
 }
@@ -109,6 +200,20 @@ function cycleDieFaces(result = null, flag = "random", target) {
 }
 
 ///////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// AUTO RUNNING CODE
+
+autoRun();
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// EXPERIMENTAL CODE SNIPPETS
+
+// A test to see if the userObject properties are available after assignment during set up - PASS
+setTimeout(() => {
+  console.log(`userObject.displayName: `, userObject.displayName);
+  console.log(`userObject.ip: `, userObject.ip);
+}, 5000);
 
 // END OF CODE
 //////////////////////////////////////////////////////////////////////////////////////////////////////
