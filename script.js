@@ -92,17 +92,17 @@ async function getUserIP() {
 function setUserIP() {
   setTimeout(() => {
     console.log(`userIPAddress: `, userIPAddress);
-  }, 250);
+  }, 300);
 
   setTimeout(() => {
     userObject.ip = userIPAddress;
     console.log(`userObject:`, userObject);
-  }, 300);
+  }, 350);
 
   setTimeout(() => {
     console.log(`Set up complete!`);
     return;
-  }, 350);
+  }, 400);
 }
 
 // TODO
