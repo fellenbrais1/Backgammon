@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.pagebox {
+  margin-top: 50px;
+  margin-left: 50px;
+  display: block;
+  max-width: 95%;
+  max-height: 95%;
+  background-color: yellow;
+  height: 900px;
+}
+
+.header p {
+  color: red;
+  font-weight: bold;
+}
+
+.gamebox img {
+  height: 800px;
+  width: 1000px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: auto, auto;
+}
