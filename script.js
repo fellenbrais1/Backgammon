@@ -15,10 +15,32 @@ const diceFace1 = document.querySelector(".dice_img1");
 const diceFace2 = document.querySelector(".dice_img2");
 const gameboxAd = document.querySelector(".gamebox_ad");
 
+const chatboxDisplay = document.querySelector(".chatbox_display");
+const chatboxInput = document.getElementById("chatbox_input");
+
 const diceRollSound = document.getElementById("dice_roll_sound");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLERS
+
+chatboxInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const message = chatboxInput.value;
+    console.log(message);
+    chatboxInput.value = "";
+
+    const messageHTML = createChatMessage(message, messageCount);
+    postChatMessage(messageHTML);
+
+    if (messageCount >= maxMessages) {
+      // console.log(`Too many messages!`);
+      removeOldestMessage();
+    } else {
+      messageCount++;
+    }
+  }
+});
 
 button1.addEventListener("click", rollOneDie);
 button2.addEventListener("click", rollTwoDice);
@@ -37,6 +59,10 @@ let userObject = {
 
 // User IP address to be stored on this variable during calculation
 let userIPAddress;
+
+let messageCount = 0;
+const maxMessages = 10;
+let messageStyleToggle = false;
 
 let adsDisabled = false;
 
@@ -217,7 +243,7 @@ function cycleDieFaces(result = null, flag = "random", target) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // AUTO RUNNING CODE
 
-// autoRun();
+autoRun();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EXPERIMENTAL CODE SNIPPETS
@@ -231,7 +257,7 @@ function ipTest() {
   }, 5000);
 }
 
-// ipTest();
+ipTest();
 
 // Adding eventListeners etc. for testing toggleAds()
 const adDisabler = document.querySelector(".toggle_ads_button");
@@ -250,6 +276,37 @@ function toggleAds() {
     gameboxAd.style.display = "block";
     adsDisabled = false;
     return;
+  }
+}
+
+function createChatMessage(message) {
+  const timeStamp = getTimeStamp();
+  const messageClass = messageStyleToggle
+    ? "chatbox_entry_a"
+    : "chatbox_entry_b";
+  const messageHTML = `<p class='${messageClass}'><strong>${userObject.displayName}</strong>: ${message} - ${timeStamp}</p>`;
+  messageStyleToggle = messageStyleToggle ? false : true;
+  console.log(messageHTML);
+  return messageHTML;
+}
+
+function getTimeStamp() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+function postChatMessage(messageHTML) {
+  chatboxDisplay.insertAdjacentHTML("beforeend", messageHTML);
+  console.log(`Message count: ${messageCount}`);
+}
+
+function removeOldestMessage() {
+  if (chatboxDisplay.children.length > maxMessages) {
+    chatboxDisplay.removeChild(chatboxDisplay.children[0]);
+    messageCount--;
   }
 }
 

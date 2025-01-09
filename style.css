@@ -49,7 +49,6 @@
 .gamebox img {
   height: 91%;
   width: 100%;
-  cursor: pointer;
 }
 
 .gamebox_ad {
@@ -67,9 +66,49 @@
   overflow: hidden;
 }
 
-.chatbox_block {
-  background-color: aliceblue;
+.chatbox_section {
+  background-color: yellow;
   width: auto;
+  display: grid;
+  grid-template-rows: 90% 10%;
+}
+
+.chatbox_display {
+  background-color: aliceblue;
+  height: 96%;
+  width: 96%;
+  margin-top: 2%;
+  margin-left: 2%;
+  border: solid 2px green;
+}
+
+.chatbox_entry_a {
+  padding: 4px;
+  padding-left: 8px;
+  padding-bottom: 0px;
+  background-color: aliceblue;
+  font-size: 18px;
+}
+
+.chatbox_entry_b {
+  padding: 4px;
+  padding-left: 8px;
+  padding-bottom: 0px;
+  background-color: rgb(165, 216, 247);
+  font-size: 18px;
+}
+
+/* .chatbox_form {
+  background-color: purple; */
+/* margin-left: 2%; */
+/* } */
+
+#chatbox_input {
+  width: 96%;
+  height: 70%;
+  /* margin-top: 2%; */
+  margin-left: 2%;
+  padding-left: 2%;
 }
 
 .dice_section {
