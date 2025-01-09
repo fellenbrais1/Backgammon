@@ -8,10 +8,14 @@ console.log(`Backgammon script`);
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // DOM ELEMENT SELECTION
 
-const button1 = document.querySelector(".button1");
-const button2 = document.querySelector(".button2");
-const diceFace1 = document.querySelector(".dice1");
-const diceFace2 = document.querySelector(".dice2");
+const button1 = document.querySelector(".dice_button_roll1");
+const button2 = document.querySelector(".dice_button_roll2");
+const diceRollResult = document.querySelector(".dice_result_display");
+const diceFace1 = document.querySelector(".dice_img1");
+const diceFace2 = document.querySelector(".dice_img2");
+const gameboxAd = document.querySelector(".gamebox_ad");
+
+const diceRollSound = document.getElementById("dice_roll_sound");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLERS
@@ -34,6 +38,8 @@ let userObject = {
 // User IP address to be stored on this variable during calculation
 let userIPAddress;
 
+let adsDisabled = false;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
@@ -44,6 +50,7 @@ let userIPAddress;
 
 // TODO
 // CONNECT THIS FUNCTION TO THE PAGE LOAD EVENT
+// RENAME TO MAKE WHAT IT DOES CLEAR
 // Starts the webpage code running on page load - not yet connected
 // Invoked automatically
 function autoRun() {
@@ -52,7 +59,7 @@ function autoRun() {
   setTimeout(() => {
     addDisplayName();
     console.log(`userObject: `, userObject);
-  }, 1200);
+  }, 1000);
 }
 
 // Fetches the user's IP address and assigns it to the userObject object for use in the rest of the program
@@ -129,18 +136,23 @@ function diceRoller() {
 // Simulates a one dice roll
 // Called by eventHandler on 'button1'
 function rollOneDie() {
+  diceFace2.style.opacity = 0;
+  diceRollSound.play();
   const target1 = diceFace1;
   rollingAnimation(target1);
   setTimeout(() => {
     const roll1 = diceRoller();
     console.log(`Roll 1: `, roll1);
     cycleDieFaces(roll1, "set", target1);
-  }, 2000);
+    diceRollResult.textContent = roll1;
+  }, 1010);
 }
 
 // Simulates a two dice roll
 // Called by eventHandler on 'button2'
 function rollTwoDice() {
+  diceFace2.style.opacity = 1;
+  diceRollSound.play();
   const target1 = diceFace1;
   const target2 = diceFace2;
   rollingAnimation(target1);
@@ -153,7 +165,8 @@ function rollTwoDice() {
     console.log(`Roll 1: ${roll1}, Roll 2: ${roll2}`);
     const totalRoll = roll1 + roll2;
     console.log(`Total: ${totalRoll}`);
-  }, 2000);
+    diceRollResult.textContent = totalRoll;
+  }, 1010);
 }
 
 // Creates an animation of the dice faces cycling through their possibles, every 100 milliseconds for 2 seconds.
@@ -164,7 +177,7 @@ function rollingAnimation(target) {
   }, 100);
   setTimeout(() => {
     clearInterval(rollInterval);
-  }, 2000);
+  }, 1000);
 }
 
 // Changes the face of the targetted dice depending on the result of a roll.
@@ -204,16 +217,41 @@ function cycleDieFaces(result = null, flag = "random", target) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // AUTO RUNNING CODE
 
-autoRun();
+// autoRun();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EXPERIMENTAL CODE SNIPPETS
 
-// A test to see if the userObject properties are available after assignment during set up - PASS
-setTimeout(() => {
-  console.log(`userObject.displayName: `, userObject.displayName);
-  console.log(`userObject.ip: `, userObject.ip);
-}, 5000);
+// Tests to see if the userObject properties are available after assignment during set up - PASS
+// Called automatically
+function ipTest() {
+  setTimeout(() => {
+    console.log(`userObject.displayName: `, userObject.displayName);
+    console.log(`userObject.ip: `, userObject.ip);
+  }, 5000);
+}
+
+// ipTest();
+
+// Adding eventListeners etc. for testing toggleAds()
+const adDisabler = document.querySelector(".toggle_ads_button");
+adDisabler.addEventListener("click", toggleAds);
+
+// Experimental function to toggle the visibility of ads displayed in front of the gamebox element
+// Called by eventHandler on the 'Toggle ads' button
+function toggleAds() {
+  if (!adsDisabled) {
+    console.log(`Disabling ads - toggleAds()`);
+    gameboxAd.style.display = "none";
+    adsDisabled = true;
+    return;
+  } else {
+    console.log(`Enabling ads - toggleAds()`);
+    gameboxAd.style.display = "block";
+    adsDisabled = false;
+    return;
+  }
+}
 
 // END OF CODE
 //////////////////////////////////////////////////////////////////////////////////////////////////////

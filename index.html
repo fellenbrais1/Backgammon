@@ -9,20 +9,48 @@
   <body>
     <div class="pagebox">
       <section class="header">
+        <h1 class="main_title">Play Backgammon</h1>
         <p>Welcome to the page!</p>
       </section>
-      <div class="gamebox">
-        <img src="img/Backgammon.jpg" />
-      </div>
-    </div>
-    <div class="buttons">
-      <button class="button1">One dice roll</button>
-      <button class="button2">Two dice roll</button>
-    </div>
-    <div class="diceTest">
-      <img class="dice1" src="img/dice-six.png" />
-      <img class="dice2" src="img/dice-six.png" />
+      <section class="section1_boxes">
+        <div class="gamebox">
+          <iframe
+            class="gamebox_ad"
+            width="965px"
+            height="633px"
+            src="https://www.youtube.com/embed/ESsRiSbIuKM?si=-01MaUZ28_EbQA-L"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          <img src="img/Backgammon.jpg" />
+        </div>
+        <div class="support_boxes">
+          <div class="chatbox_block">
+            <h1>CHATBOX</h1>
+          </div>
+          <section class="dice_section">
+            <p class="dice_result_display">12</p>
+            <div class="dice_button_block">
+              <button class="dice_button_roll1">One dice roll</button>
+            </div>
+            <div class="dice_button_block">
+              <button class="dice_button_roll2">Two dice roll</button>
+            </div>
+            <div class="dice_img_block">
+              <img class="dice_img1" src="img/dice-six.png" />
+            </div>
+            <div class="dice_img_block">
+              <img class="dice_img2" src="img/dice-six.png" />
+            </div>
+          </section>
+        </div>
+      </section>
+      <button class="toggle_ads_button">Toggle ads - TEST</button>
     </div>
   </body>
+  <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
   <script src="script.js"></script>
 </html>
