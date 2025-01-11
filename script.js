@@ -86,7 +86,6 @@ let playedGames = 0;
 // Invoked automatically
 function autoRun() {
   setUpUserData();
-
   setTimeout(() => {
     addDisplayName();
     console.log(`userObject: `, userObject);
@@ -131,12 +130,10 @@ function setUserIP() {
   setTimeout(() => {
     console.log(`userIPAddress: `, userIPAddress);
   }, 300);
-
   setTimeout(() => {
     userObject.ip = userIPAddress;
     console.log(`userObject:`, userObject);
   }, 350);
-
   setTimeout(() => {
     console.log(`Set up complete!`);
     return;
@@ -163,7 +160,6 @@ function addChatMessage() {
   const message = chatboxInput.value;
   console.log(message);
   chatboxInput.value = "";
-
   const messageHTML = createChatMessage(message);
   postChatMessage(messageHTML);
   displayLatestMessage();
@@ -267,7 +263,6 @@ function cycleDieFaces(result = null, flag = "random", target) {
   if (flag !== "set") {
     result = diceRoller();
   }
-
   if (result !== null) {
     switch (result) {
       case 1:
@@ -458,15 +453,12 @@ const currentAdPicture = document.querySelector(".test_ad");
 function imgAdCycler() {
   setTimeout(() => {
     const oldAdNumber = currentAdNumber;
-
     while (oldAdNumber === currentAdNumber) {
       currentAdNumber = Math.round(Math.random() * (adList.length - 1));
     }
-
     currentAdPicture.src = adList[currentAdNumber].source;
     currentAdPicture.title = adList[currentAdNumber].title;
     currentAdPicture.alt = adList[currentAdNumber].altText;
-
     currentAdLink.href = adList[currentAdNumber].href;
   }, 0);
 }
