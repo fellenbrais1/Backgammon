@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="pagebox">
+    <main class="pagebox">
       <section class="header">
         <h1 class="main_title">Play Backgammon</h1>
         <p>Welcome to the page!</p>
@@ -25,7 +25,13 @@
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
           ></iframe>
-          <img src="img/Backgammon.jpg" />
+          <div class="gamestart_block">
+            <p class="gamestart_text">Would you like to play a game?</p>
+            <p class="gamestart_button_fun">Fun Game</p>
+            <p class="gamestart_button_pro">Professional Game</p>
+          </div>
+          <img class="board_img" src="img/backgammon.jpg" />
+          <div class="grey_overlay"></div>
         </div>
         <div class="support_boxes">
           <section class="chatbox_section">
@@ -59,7 +65,11 @@
         </div>
       </section>
       <button class="toggle_ads_button">Toggle ads - TEST</button>
-    </div>
+      <button class="toggle_game_button">Toggle Game - TEST</button>
+      <div class="test_adbox">
+        <img class="test_ad" src="img/cash4gold.jpg" />
+      </div>
+    </main>
   </body>
   <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
   <script src="script.js"></script>

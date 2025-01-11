@@ -8,42 +8,43 @@ console.log(`Backgammon script`);
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // DOM ELEMENT SELECTION
 
-const button1 = document.querySelector(".dice_button_roll1");
-const button2 = document.querySelector(".dice_button_roll2");
+const buttonRoll1 = document.querySelector(".dice_button_roll1");
+const buttonRoll2 = document.querySelector(".dice_button_roll2");
 const diceRollResult = document.querySelector(".dice_result_display");
 const diceFace1 = document.querySelector(".dice_img1");
 const diceFace2 = document.querySelector(".dice_img2");
+
 const gameboxAd = document.querySelector(".gamebox_ad");
+
+const gamestartBox = document.querySelector(".gamestart_block");
+const buttonGamestartFun = document.querySelector(".gamestart_button_fun");
+const buttonGamestartPro = document.querySelector(".gamestart_button_pro");
+const greyOverlay = document.querySelector(".grey_overlay");
+
+const gameBoard = document.querySelector(".board_img");
 
 const chatboxDisplay = document.querySelector(".chatbox_display");
 const chatboxInput = document.getElementById("chatbox_input");
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// MEDIA: SOUNDS
 const diceRollSound = document.getElementById("dice_roll_sound");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLERS
 
+buttonGamestartFun.addEventListener("click", displayFunBoard);
+buttonGamestartPro.addEventListener("click", displayProBoard);
+
 chatboxInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    const message = chatboxInput.value;
-    console.log(message);
-    chatboxInput.value = "";
-
-    const messageHTML = createChatMessage(message, messageCount);
-    postChatMessage(messageHTML);
-
-    if (messageCount >= maxMessages) {
-      // console.log(`Too many messages!`);
-      removeOldestMessage();
-    } else {
-      messageCount++;
-    }
+    addChatMessage();
   }
 });
 
-button1.addEventListener("click", rollOneDie);
-button2.addEventListener("click", rollTwoDice);
+buttonRoll1.addEventListener("click", rollOneDie);
+buttonRoll2.addEventListener("click", rollTwoDice);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -61,10 +62,11 @@ let userObject = {
 let userIPAddress;
 
 let messageCount = 0;
-const maxMessages = 10;
 let messageStyleToggle = false;
 
 let adsDisabled = false;
+
+let playedGames = 0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -150,6 +152,48 @@ function addDisplayName() {
 }
 
 ///////////////////////////////
+// CHAT BOX
+
+function addChatMessage() {
+  const message = chatboxInput.value;
+  console.log(message);
+  chatboxInput.value = "";
+
+  const messageHTML = createChatMessage(message, messageCount);
+  postChatMessage(messageHTML);
+  displayLatestMessage();
+  messageCount++;
+}
+
+function createChatMessage(message) {
+  const timeStamp = getTimeStamp();
+  const messageClass = messageStyleToggle
+    ? "chatbox_entry_a"
+    : "chatbox_entry_b";
+  const messageHTML = `<p class='${messageClass}'><strong>${userObject.displayName}</strong>: ${message} - ${timeStamp}</p>`;
+  messageStyleToggle = messageStyleToggle ? false : true;
+  console.log(messageHTML);
+  return messageHTML;
+}
+
+function getTimeStamp() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+function postChatMessage(messageHTML) {
+  chatboxDisplay.insertAdjacentHTML("beforeend", messageHTML);
+  console.log(`Message count: ${messageCount}`);
+}
+
+function displayLatestMessage() {
+  chatboxDisplay.scrollTop = chatboxDisplay.scrollHeight;
+}
+
+///////////////////////////////
 // DICE ROLLERS
 
 // Functions relating to the dice rollers and their visual elements on the webpage
@@ -160,7 +204,7 @@ function diceRoller() {
 }
 
 // Simulates a one dice roll
-// Called by eventHandler on 'button1'
+// Called by an eventHandler on the 'ONe dice roll' button
 function rollOneDie() {
   diceFace2.style.opacity = 0;
   diceRollSound.play();
@@ -175,7 +219,7 @@ function rollOneDie() {
 }
 
 // Simulates a two dice roll
-// Called by eventHandler on 'button2'
+// Called by an eventHandler on the 'Two dice roll' button
 function rollTwoDice() {
   diceFace2.style.opacity = 1;
   diceRollSound.play();
@@ -243,7 +287,7 @@ function cycleDieFaces(result = null, flag = "random", target) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // AUTO RUNNING CODE
 
-autoRun();
+// autoRun();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EXPERIMENTAL CODE SNIPPETS
@@ -257,14 +301,20 @@ function ipTest() {
   }, 5000);
 }
 
-ipTest();
+// ipTest();
 
 // Adding eventListeners etc. for testing toggleAds()
 const adDisabler = document.querySelector(".toggle_ads_button");
 adDisabler.addEventListener("click", toggleAds);
 
-// Experimental function to toggle the visibility of ads displayed in front of the gamebox element
-// Called by eventHandler on the 'Toggle ads' button
+// Allows ads to be enabled based on clicks on game board - to be changed later for games completed
+gameBoard.addEventListener("click", playedGamesCount);
+
+const gameToggler = document.querySelector(".toggle_game_button");
+gameToggler.addEventListener("click", resetGame);
+
+// Experimental function to toggle the visibility of ads displayed in front of the gamebox element, will eventually be leveraged as a way opf showing/ hiding ads
+// Called by an eventHandler on the 'Toggle ads' button
 function toggleAds() {
   if (!adsDisabled) {
     console.log(`Disabling ads - toggleAds()`);
@@ -279,36 +329,65 @@ function toggleAds() {
   }
 }
 
-function createChatMessage(message) {
-  const timeStamp = getTimeStamp();
-  const messageClass = messageStyleToggle
-    ? "chatbox_entry_a"
-    : "chatbox_entry_b";
-  const messageHTML = `<p class='${messageClass}'><strong>${userObject.displayName}</strong>: ${message} - ${timeStamp}</p>`;
-  messageStyleToggle = messageStyleToggle ? false : true;
-  console.log(messageHTML);
-  return messageHTML;
+// Experimental function to reset the gamestart_block element and the image displayed in the gamebox, will later be assimilated into the page as a game reset type button
+// Called by an eventHandler on the 'Toggle game' button
+function resetGame() {
+  gamestartBox.style.display = "grid";
+  greyOverlay.style.display = "block";
+  gameBoard.src = "img/backgammon.jpg";
 }
 
-function getTimeStamp() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const seconds = String(now.getSeconds()).padStart(2, "0");
-  return `${hours}:${minutes}:${seconds}`;
+// Displays the fun game board - To be changed later to the fun game logic, can use the standard dice roller
+// Called by an eventHandler on the 'Fun Game' button
+function displayFunBoard() {
+  gameBoard.src = "img/backgammon.jpg";
+  gamestartBox.style.display = "none";
+  greyOverlay.style.display = "none";
 }
 
-function postChatMessage(messageHTML) {
-  chatboxDisplay.insertAdjacentHTML("beforeend", messageHTML);
-  console.log(`Message count: ${messageCount}`);
+// Displays the professional game board - To be changed later to the professional game logic, also needs to change the dice roller elements to a professional version
+// Called by an eventHandler on the 'Professional Game' button
+function displayProBoard() {
+  gameBoard.src = "img/backgammonHard.jpg";
+  gamestartBox.style.display = "none";
+  greyOverlay.style.display = "none";
 }
 
-function removeOldestMessage() {
-  if (chatboxDisplay.children.length > maxMessages) {
-    chatboxDisplay.removeChild(chatboxDisplay.children[0]);
-    messageCount--;
+// Experimental function to count games played and can then enable ads when the count reaches a certain value
+// Called by an eventHandler when clicking the 'board_img' element - later to be replaced with a call from games once they have been completed.
+function playedGamesCount() {
+  playedGames++;
+  console.log(`Games played: ${playedGames}`);
+  if (playedGames === 3) {
+    toggleAds();
+    playedGames = 0;
+    return;
+  } else {
+    return;
   }
 }
+
+const ad1 = "img/cash4gold.jpg";
+const ad2 = "img/kier.avif";
+const ad3 = "img/chocowhopper.webp";
+const ad4 = "img/vizswan.jpg";
+
+const adList = [ad1, ad2, ad3, ad4];
+
+let currentAdNumber = 0;
+const currentAd = document.querySelector(".test_ad");
+
+function imgAdCycler() {
+  setTimeout(() => {
+    const oldAdNumber = currentAdNumber;
+    while (oldAdNumber === currentAdNumber) {
+      currentAdNumber = Math.round(Math.random() * (adList.length - 1));
+    }
+    currentAd.src = adList[currentAdNumber];
+  }, 2000);
+}
+
+setInterval(imgAdCycler, 5000);
 
 // END OF CODE
 //////////////////////////////////////////////////////////////////////////////////////////////////////

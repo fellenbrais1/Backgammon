@@ -1,19 +1,28 @@
+/* CODE START */
+
+/* VARIABLES */
 :root {
   --light_felt_green: #436767;
   --felt_green: #325656;
   --dark_felt_green: #2b4242;
+  --youtube_red: #ff0000;
 }
+
+/* UNIVERSAL RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ELEMENTS */
 .pagebox {
   min-height: 100vh;
   margin: 0 50px;
   max-width: 95%;
   background-color: #65ad78;
+  position: relative;
+  padding-bottom: 48px;
 }
 
 .main_title {
@@ -55,6 +64,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
 }
 
 .support_boxes {
@@ -71,6 +81,7 @@
   width: auto;
   display: grid;
   grid-template-rows: 90% 10%;
+  overflow: hidden;
 }
 
 .chatbox_display {
@@ -80,33 +91,31 @@
   margin-top: 2%;
   margin-left: 2%;
   border: solid 2px green;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.chatbox_entry_a {
-  padding: 4px;
-  padding-left: 8px;
-  padding-bottom: 0px;
-  background-color: aliceblue;
-  font-size: 18px;
-}
-
+.chatbox_entry_a,
 .chatbox_entry_b {
   padding: 4px;
   padding-left: 8px;
   padding-bottom: 0px;
-  background-color: rgb(165, 216, 247);
   font-size: 18px;
+  white-space: wrap;
+  word-wrap: break-word;
 }
 
-/* .chatbox_form {
-  background-color: purple; */
-/* margin-left: 2%; */
-/* } */
+.chatbox_entry_a {
+  background-color: aliceblue;
+}
+
+.chatbox_entry_b {
+  background-color: rgb(165, 216, 247);
+}
 
 #chatbox_input {
   width: 96%;
   height: 70%;
-  /* margin-top: 2%; */
   margin-left: 2%;
   padding-left: 2%;
 }
@@ -166,10 +175,110 @@
   transform: translate(-50%);
   width: 80px;
   height: 80px;
-  background-color: #ff0000;
+  background-color: var(--youtube_red);
   border-radius: 50%;
   color: white;
   font-size: 40px;
   font-weight: bold;
-  z-index: 3;
+  z-index: 1;
+}
+
+.gamestart_block {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  position: absolute;
+  width: 400px;
+  background-color: var(--felt_green);
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5%;
+  border: solid 4px white;
+  z-index: 1;
+}
+
+.gamestart_text {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.gamestart_button_fun,
+.gamestart_button_pro {
+  color: white;
+  height: 40px;
+  width: 50%;
+  margin-left: 25%;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5%;
+  box-shadow: 0px 4px 4px #696969;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.gamestart_button_fun {
+  background-color: var(--youtube_red);
+  border: solid 2px var(--youtube_red);
+}
+
+.gamestart_button_pro {
+  background-color: blue;
+  border: solid 2px blue;
+  margin-bottom: 20px;
+}
+
+.gamestart_button_fun:hover {
+  box-shadow: 0px 4px 4px #ec7070;
+}
+
+.gamestart_button_pro:hover {
+  box-shadow: 0px 4px 4px lightblue;
+}
+
+.gamestart_button_fun:active {
+  background-color: rgb(255, 191, 0);
+  border: solid 2px rgb(255, 191, 0);
+}
+
+.board_img {
+  position: relative;
+}
+
+.grey_overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  mix-blend-mode: multiply;
+}
+
+.test_adbox {
+  border: solid 4px black;
+  height: 400px;
+  width: 600px;
+  margin: auto;
+}
+
+.test_ad {
+  height: 100%;
+  width: 100%;
+}
+
+.toggle_ads_button {
+  position: absolute;
+  top: 0;
+}
+
+.toggle_game_button {
+  position: absolute;
+  top: 2%;
 }
