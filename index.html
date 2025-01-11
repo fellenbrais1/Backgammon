@@ -8,10 +8,10 @@
   </head>
   <body>
     <main class="pagebox">
-      <section class="header">
+      <header class="header">
         <h1 class="main_title">Play Backgammon</h1>
         <p>Welcome to the page!</p>
-      </section>
+      </header>
       <section class="section1_boxes">
         <div class="gamebox">
           <iframe
@@ -64,13 +64,26 @@
           </section>
         </div>
       </section>
-      <button class="toggle_ads_button">Toggle ads - TEST</button>
+      <button class="toggle_ads_button">Toggle Ads - TEST</button>
       <button class="toggle_game_button">Toggle Game - TEST</button>
       <div class="test_adbox">
-        <img class="test_ad" src="img/cash4gold.jpg" />
+        <a
+          class="test_ad_link"
+          href="https://www.cash4goldonline.co.uk/"
+          target="_blank"
+        >
+          <img
+            class="test_ad"
+            src="img/cash4gold.jpg"
+            alt="Cash 4 Gold Advertisement"
+            title="Cash 4 Gold Online"
+            target="_blank"
+        /></a>
       </div>
     </main>
   </body>
+  <! SOUNDS -->
   <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
+  <! SCRIPTS -->
   <script src="script.js"></script>
 </html>

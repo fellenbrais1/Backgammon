@@ -8,12 +8,6 @@ console.log(`Backgammon script`);
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // DOM ELEMENT SELECTION
 
-const buttonRoll1 = document.querySelector(".dice_button_roll1");
-const buttonRoll2 = document.querySelector(".dice_button_roll2");
-const diceRollResult = document.querySelector(".dice_result_display");
-const diceFace1 = document.querySelector(".dice_img1");
-const diceFace2 = document.querySelector(".dice_img2");
-
 const gameboxAd = document.querySelector(".gamebox_ad");
 
 const gamestartBox = document.querySelector(".gamestart_block");
@@ -26,8 +20,15 @@ const gameBoard = document.querySelector(".board_img");
 const chatboxDisplay = document.querySelector(".chatbox_display");
 const chatboxInput = document.getElementById("chatbox_input");
 
+const buttonRoll1 = document.querySelector(".dice_button_roll1");
+const buttonRoll2 = document.querySelector(".dice_button_roll2");
+const diceFace1 = document.querySelector(".dice_img1");
+const diceFace2 = document.querySelector(".dice_img2");
+const diceRollResult = document.querySelector(".dice_result_display");
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // MEDIA: SOUNDS
+
 const diceRollSound = document.getElementById("dice_roll_sound");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,11 +62,13 @@ let userObject = {
 // User IP address to be stored on this variable during calculation
 let userIPAddress;
 
-let messageCount = 0;
+// Variable used to alternate message format in the chatbox
 let messageStyleToggle = false;
 
-let adsDisabled = false;
+// Allows video ads to be disabled, for example in premium mode
+let videoAdsDisabled = false;
 
+// Counts the number of played games in order to display ads
 let playedGames = 0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,7 +77,7 @@ let playedGames = 0;
 ///////////////////////////////
 // USER DATA SET UP
 
-// This code below kind of works to extract a user's IP address using an API. It is asynchronous with all the tragedy that this involves. At the end it successfully stores the value of the users IP address to an object which can then be accessed outside of the functions, providing they have had time to run.
+// This code works to extract a user's IP address using an API using an async/ await syntax. It stores the value of the users IP address to an object which can then be accessed by future functions
 
 // TODO
 // CONNECT THIS FUNCTION TO THE PAGE LOAD EVENT
@@ -154,17 +157,20 @@ function addDisplayName() {
 ///////////////////////////////
 // CHAT BOX
 
+// Captures a users chat message from the input box and adds it to the chat display
+// Called by an eventHandler when pressing enter in the chat input box
 function addChatMessage() {
   const message = chatboxInput.value;
   console.log(message);
   chatboxInput.value = "";
 
-  const messageHTML = createChatMessage(message, messageCount);
+  const messageHTML = createChatMessage(message);
   postChatMessage(messageHTML);
   displayLatestMessage();
-  messageCount++;
 }
 
+// Assembles and returns  an HTML literal string to add to the chat display element
+// Called by addChatMessage()
 function createChatMessage(message) {
   const timeStamp = getTimeStamp();
   const messageClass = messageStyleToggle
@@ -176,6 +182,8 @@ function createChatMessage(message) {
   return messageHTML;
 }
 
+// Generates a time stamp in minutes and seconds when a message is added to the chat display
+// Called by createChatMessage()
 function getTimeStamp() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, "0");
@@ -184,19 +192,21 @@ function getTimeStamp() {
   return `${hours}:${minutes}:${seconds}`;
 }
 
+// Adds a chat message HTML literal string to the chat display elements innerHTML
+// Called by addChatMessage()
 function postChatMessage(messageHTML) {
   chatboxDisplay.insertAdjacentHTML("beforeend", messageHTML);
-  console.log(`Message count: ${messageCount}`);
+  console.log(`Message content: ${messageHTML}`);
 }
 
+// Scrolls the chat box display down to the lcoation of the latest message - could be annoying when trying to look back through chats later? - UX?
+// Called by addChatMessage()
 function displayLatestMessage() {
   chatboxDisplay.scrollTop = chatboxDisplay.scrollHeight;
 }
 
 ///////////////////////////////
 // DICE ROLLERS
-
-// Functions relating to the dice rollers and their visual elements on the webpage
 
 // Creates a random dice roll based on the specified number of die faces for the program (default: 6)
 function diceRoller() {
@@ -287,10 +297,22 @@ function cycleDieFaces(result = null, flag = "random", target) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // AUTO RUNNING CODE
 
-// autoRun();
+///////////////////////////////
+// CORE
+
+autoRun();
+
+///////////////////////////////
+// EXPERIMENTAL
+
+ipTest();
+setInterval(imgAdCycler, 10000);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EXPERIMENTAL CODE SNIPPETS
+
+///////////////////////////////
+// TESTING USER IP CAPTURE
 
 // Tests to see if the userObject properties are available after assignment during set up - PASS
 // Called automatically
@@ -301,33 +323,55 @@ function ipTest() {
   }, 5000);
 }
 
-// ipTest();
+///////////////////////////////
+// TRIGGERING VIDEO AD DISPLAY
 
-// Adding eventListeners etc. for testing toggleAds()
-const adDisabler = document.querySelector(".toggle_ads_button");
-adDisabler.addEventListener("click", toggleAds);
-
-// Allows ads to be enabled based on clicks on game board - to be changed later for games completed
+// Attaching playedGamesCount() to the 'board_img' element
 gameBoard.addEventListener("click", playedGamesCount);
 
-const gameToggler = document.querySelector(".toggle_game_button");
-gameToggler.addEventListener("click", resetGame);
+// Experimental function to count games played and can then enable ads when the count reaches a certain value
+// Called by an eventHandler when clicking the 'board_img' element - later to be replaced with a call from games once they have been completed
+function playedGamesCount() {
+  playedGames++;
+  console.log(`Games played: ${playedGames}`);
+  if (playedGames === 3) {
+    toggleAds();
+    playedGames = 0;
+    return;
+  } else {
+    return;
+  }
+}
+
+///////////////////////////////
+// TOGGLING VIDEO ADS
+
+// Attaching toggleAds() to the 'Toggle_Ads - TEST' button
+const adDisabler = document.querySelector(".toggle_ads_button");
+adDisabler.addEventListener("click", toggleAds);
 
 // Experimental function to toggle the visibility of ads displayed in front of the gamebox element, will eventually be leveraged as a way opf showing/ hiding ads
 // Called by an eventHandler on the 'Toggle ads' button
 function toggleAds() {
-  if (!adsDisabled) {
+  if (!videoAdsDisabled) {
     console.log(`Disabling ads - toggleAds()`);
     gameboxAd.style.display = "none";
-    adsDisabled = true;
+    videoAdsDisabled = true;
     return;
   } else {
     console.log(`Enabling ads - toggleAds()`);
     gameboxAd.style.display = "block";
-    adsDisabled = false;
+    videoAdsDisabled = false;
     return;
   }
 }
+
+///////////////////////////////
+// TOGGLING GAME OVERLAY
+
+// Attaching resetGame() to the 'Toggle Game - TEST' button
+const gameToggler = document.querySelector(".toggle_game_button");
+gameToggler.addEventListener("click", resetGame);
 
 // Experimental function to reset the gamestart_block element and the image displayed in the gamebox, will later be assimilated into the page as a game reset type button
 // Called by an eventHandler on the 'Toggle game' button
@@ -353,41 +397,81 @@ function displayProBoard() {
   greyOverlay.style.display = "none";
 }
 
-// Experimental function to count games played and can then enable ads when the count reaches a certain value
-// Called by an eventHandler when clicking the 'board_img' element - later to be replaced with a call from games once they have been completed.
-function playedGamesCount() {
-  playedGames++;
-  console.log(`Games played: ${playedGames}`);
-  if (playedGames === 3) {
-    toggleAds();
-    playedGames = 0;
-    return;
-  } else {
-    return;
-  }
-}
+///////////////////////////////
+// CYCLING THROUGH PICTURE ADS
 
-const ad1 = "img/cash4gold.jpg";
-const ad2 = "img/kier.avif";
-const ad3 = "img/chocowhopper.webp";
-const ad4 = "img/vizswan.jpg";
+// Consts to define details of image adverts - details could be populated from Google Ad Sense later?
+const ad1 = {
+  source: "img/cash4gold.jpg",
+  altText: "Cash 4 Gold Advertisement",
+  href: "https://www.cash4goldonline.co.uk/",
+  title: "Cash 4 Gold Online",
+};
 
-const adList = [ad1, ad2, ad3, ad4];
+const ad2 = {
+  source: "img/kier.avif",
+  altText: "Kier Starmer Advertismeent",
+  href: "https://en.wikipedia.org/wiki/Keir_Starmer",
+  title: "Kier Starmer Action Figures",
+};
 
+const ad3 = {
+  source: "img/chocowhopper.webp",
+  altText: "Burger King Advertisment",
+  href: "https://youtube.com/watch?v=2JaCzLZTYAE",
+  title: "The NEW Chocolate Whopper",
+};
+
+const ad4 = {
+  source: "img/vizswan.jpg",
+  altText: "Viz Swan Advertisment",
+  href: "https://www.amazon.co.uk/Brainbox-Candy-Official-Advert-Birthday/dp/B0BMGXMB61",
+  title: "Retrain as a Swan Today",
+};
+
+const ad5 = {
+  source: "img/hokusaiNuke.jpeg",
+  altText: "Japanese Nuclear Waste Advertisment",
+  href: "https://www.globaltimes.cn/page/202104/1221726.shtml",
+  title: "Japanese Nuclear Waste Near You!",
+};
+
+const ad6 = {
+  source: "img/gizmo.jpg",
+  altText: "Baby Gizmo Advertismement",
+  href: "https://fastshow.fandom.com/wiki/Chanel_9_Neus",
+  title: "Baby Gizmo Action Pumpo",
+};
+
+// Array to hold all of the image ads for cycling through
+const adList = [ad1, ad2, ad3, ad4, ad5, ad6];
+
+// Counter showing index of the currently displayed ad
 let currentAdNumber = 0;
-const currentAd = document.querySelector(".test_ad");
 
+// Query selectors for image ad elements
+const currentAdLink = document.querySelector(".test_ad_link");
+const currentAdPicture = document.querySelector(".test_ad");
+
+// Experimental function to cycle through the available ads using random numbers, changes properties of image ad elements on the page
+// Called automatically on a 10 second interval
 function imgAdCycler() {
   setTimeout(() => {
     const oldAdNumber = currentAdNumber;
+
     while (oldAdNumber === currentAdNumber) {
       currentAdNumber = Math.round(Math.random() * (adList.length - 1));
     }
-    currentAd.src = adList[currentAdNumber];
-  }, 2000);
+
+    currentAdPicture.src = adList[currentAdNumber].source;
+    currentAdPicture.title = adList[currentAdNumber].title;
+    currentAdPicture.alt = adList[currentAdNumber].altText;
+
+    currentAdLink.href = adList[currentAdNumber].href;
+  }, 0);
 }
 
-setInterval(imgAdCycler, 5000);
+///////////////////////////////
 
-// END OF CODE
+// CODE END
 //////////////////////////////////////////////////////////////////////////////////////////////////////
