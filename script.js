@@ -352,11 +352,13 @@ function toggleAds() {
     console.log(`Disabling ads - toggleAds()`);
     gameboxAd.style.display = "none";
     videoAdsDisabled = true;
+    resetGame();
     return;
   } else {
     console.log(`Enabling ads - toggleAds()`);
     gameboxAd.style.display = "block";
     videoAdsDisabled = false;
+    resetGame();
     return;
   }
 }
