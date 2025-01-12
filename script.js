@@ -66,7 +66,7 @@ let userIPAddress;
 let messageStyleToggle = false;
 
 // Allows video ads to be disabled, for example in premium mode
-let videoAdsDisabled = false;
+let videoAdsDisabled = true;
 
 // Counts the number of played games in order to display ads
 let playedGames = 0;
@@ -295,12 +295,12 @@ function cycleDieFaces(result = null, flag = "random", target) {
 ///////////////////////////////
 // CORE
 
-autoRun();
+// autoRun();
 
 ///////////////////////////////
 // EXPERIMENTAL
 
-ipTest();
+// ipTest();
 setInterval(imgAdCycler, 10000);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
