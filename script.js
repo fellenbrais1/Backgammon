@@ -71,6 +71,9 @@ let videoAdsDisabled = true;
 // Counts the number of played games in order to display ads
 let playedGames = 0;
 
+// Allows checking to see if session cookies have been previously enabled
+let cookiesEnabled = false;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
@@ -301,7 +304,7 @@ autoRun();
 // EXPERIMENTAL
 
 ipTest();
-admireCookie("userDetails");
+// admireCookie("userDetails");
 setInterval(imgAdCycler, 10000);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -395,6 +398,16 @@ function displayProBoard() {
   greyOverlay.style.display = "none";
 }
 
+const cookieClearer = document.querySelector(".clear_cookie_button");
+cookieClearer.addEventListener("click", () => {
+  const cookieName = "userDetails";
+  clearCookie(cookieName);
+});
+function clearCookie(cookieName) {
+  document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  console.log(`Cookie: ${cookieName} deleted!`);
+}
+
 ///////////////////////////////
 // CYCLING THROUGH PICTURE ADS
 
@@ -486,7 +499,7 @@ function admireCookie(cookieName) {
     };
     const cookieString = JSON.stringify(cookieValues);
     bakeCookie(cookieName, cookieString, 1);
-    console.log(JSON.stringify(document.cookie));
+    console.log(`Cookie string: ${JSON.stringify(document.cookie)}`);
     const retrievedValues = serveCookie(cookieName);
     if (retrievedValues) {
       const userIP = retrievedValues.userIP;
@@ -496,7 +509,7 @@ function admireCookie(cookieName) {
     } else {
       console.log(`FROM COOKIE: Cookie not found or invalid.`);
     }
-  }, 6000);
+  }, 1000);
 }
 
 function serveCookie(cookieName) {
@@ -516,6 +529,50 @@ function serveCookie(cookieName) {
   } else {
     return null;
   }
+}
+
+const cookieBar = document.querySelector(".cookie_permission");
+const cookieAgreeButton = document.querySelector(".cookie_accept_button");
+const cookieDisagreeButton = document.querySelector(".cookie_reject_button");
+
+cookieAgreeButton.addEventListener("click", acceptCookies);
+cookieDisagreeButton.addEventListener("click", rejectCookies);
+
+window.addEventListener("DOMContentLoaded", cookieCheck("userDetails"));
+
+// The idea of this function is to not display the cookie permissions bar again if the user already has
+function cookieCheck(cookieName) {
+  console.log(`Cookie check is running!`);
+  const cookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith(`${cookieName}=`));
+  if (cookie) {
+    acceptCookies();
+    console.log(`User has previously enabled cookies!`);
+  } else {
+    showCookieBar();
+  }
+}
+
+function acceptCookies() {
+  console.log(`Cookies enabled!`);
+  admireCookie("userDetails");
+  cookiesEnabled = true;
+  hideCookieBar();
+}
+
+function rejectCookies() {
+  console.log("Cookies disabled!");
+  cookiesEnabled = false;
+  hideCookieBar();
+}
+
+function showCookieBar() {
+  cookieBar.style.display = "grid";
+}
+
+function hideCookieBar() {
+  cookieBar.style.display = "none";
 }
 
 ///////////////////////////////

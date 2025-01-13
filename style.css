@@ -300,11 +300,19 @@
 .toggle_ads_button {
   position: absolute;
   top: 140px;
+  z-index: 10;
 }
 
 .toggle_game_button {
   position: absolute;
   top: 160px;
+  z-index: 10;
+}
+
+.clear_cookie_button {
+  position: absolute;
+  top: 180px;
+  z-index: 10;
 }
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////CODE END */
@@ -375,4 +383,55 @@ body {
 .topbar_login {
   background-color: red;
   width: 90%;
+}
+
+.cookie_permission {
+  display: none;
+  grid-template-columns: 6fr 4fr;
+  height: 60px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background-color: green;
+  z-index: 2;
+}
+
+.cookie_permission_text {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  padding-top: 20px;
+  padding-left: 15%;
+}
+
+.cookie_permission_button_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
+  gap: 48px;
+}
+
+.cookie_permission_button {
+  display: block;
+  height: 40px;
+  width: 200px;
+  background-color: lime;
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 10px;
+  border: solid 2px black;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cookie_permission_button_grid div:nth-child(2) .cookie_permission_button {
+  background-color: red;
+}
+
+.cookie_information_button {
+  margin-left: 40px;
+  /* width: 180px; */
+  margin-right: 4rem;
+  text-decoration: none;
+  color: black;
 }
