@@ -295,12 +295,13 @@ function cycleDieFaces(result = null, flag = "random", target) {
 ///////////////////////////////
 // CORE
 
-// autoRun();
+autoRun();
 
 ///////////////////////////////
 // EXPERIMENTAL
 
-// ipTest();
+ipTest();
+admireCookie("userDetails");
 setInterval(imgAdCycler, 10000);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -463,6 +464,58 @@ function imgAdCycler() {
     currentAdPicture.alt = adList[currentAdNumber].altText;
     currentAdLink.href = adList[currentAdNumber].href;
   }, 0);
+}
+
+function bakeCookie(name, values, lifespan) {
+  let expires = "";
+  if (lifespan) {
+    let date = new Date();
+    date.setTime(date.getTime() + lifespan * 1000 * 60 * 60 * 24);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + values + expires + "; path=/";
+}
+
+// Cookie creation etc. has to run after the user object has been successfully created with the autorun processes
+
+function admireCookie(cookieName) {
+  setTimeout(() => {
+    const cookieValues = {
+      userIP: userObject.ip,
+      userDisplayName: userObject.displayName,
+    };
+    const cookieString = JSON.stringify(cookieValues);
+    bakeCookie(cookieName, cookieString, 1);
+    console.log(JSON.stringify(document.cookie));
+    const retrievedValues = serveCookie(cookieName);
+    if (retrievedValues) {
+      const userIP = retrievedValues.userIP;
+      const userDisplayName = retrievedValues.userDisplayName;
+      console.log(`FROM COOKIE: User IP: ${userIP}`);
+      console.log(`FROM COOKIE: User Display Name: ${userDisplayName}`);
+    } else {
+      console.log(`FROM COOKIE: Cookie not found or invalid.`);
+    }
+  }, 6000);
+}
+
+function serveCookie(cookieName) {
+  const cookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith(`${cookieName}=`));
+
+  if (cookie) {
+    const cookieValueString = cookie.split("=")[1];
+    try {
+      const parsedValues = JSON.parse(cookieValueString);
+      return parsedValues;
+    } catch (error) {
+      console.error(`Error parsing cookie values: ${error}`);
+      return null;
+    }
+  } else {
+    return null;
+  }
 }
 
 ///////////////////////////////
