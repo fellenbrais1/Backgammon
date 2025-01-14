@@ -22,7 +22,7 @@
   min-height: 100vh;
   margin: 0 50px;
   max-width: 95%;
-  /* background-color: #65ad78; */
+  background-color: #65ad78;
   position: relative;
   padding-bottom: 48px;
   padding-top: 100px;
@@ -400,10 +400,10 @@
 
 body {
   position: relative;
-  background-image: url("img/background_v7.png");
-  background-position: center center;
-  background-repeat: repeat-y;
-  background-size: cover;
+  /* background-image: url("img/background_v7.png"); */
+  /* background-position: center center; */
+  /* background-repeat: repeat-y; */
+  /* background-size: cover; */
 }
 
 .topbar_login {
