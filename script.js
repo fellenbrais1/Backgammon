@@ -63,7 +63,8 @@ let userObject = {
 let userIPAddress;
 
 // Variable used to alternate message format in the chatbox
-let messageStyleToggle = false;
+let userMessageStyleToggle = false;
+let opponentMessageStyleToggle = false;
 
 // Allows video ads to be disabled, for example in premium mode
 let videoAdsDisabled = true;
@@ -71,8 +72,11 @@ let videoAdsDisabled = true;
 // Counts the number of played games in order to display ads
 let playedGames = 0;
 
-// Allows checking to see if session cookies have been previously enabled
-let cookiesEnabled = false;
+// EXPERIMENTAL
+let userIP;
+let userDisplayName;
+
+let nameIsGuest = false;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -82,15 +86,15 @@ let cookiesEnabled = false;
 
 // This code works to extract a user's IP address using an API using an async/ await syntax. It stores the value of the users IP address to an object which can then be accessed by future functions
 
-// TODO
-// CONNECT THIS FUNCTION TO THE PAGE LOAD EVENT
-// RENAME TO MAKE WHAT IT DOES CLEAR
-// Starts the webpage code running on page load - not yet connected
-// Invoked automatically
-function autoRun() {
+// TODO - RENAME TO MAKE WHAT IT DOES CLEAR
+// Facilitates the gathering of user data and its assignment to the userObject called with the tag 'guest' will still capture the user's IP but will not prompt the user to enter a display name
+// Called by setCookieUserDetails()
+function autoRun(tag = "") {
   setUpUserData();
   setTimeout(() => {
-    addDisplayName();
+    if (tag !== "guest") {
+      addDisplayName();
+    }
     console.log(`userObject: `, userObject);
   }, 1000);
 }
@@ -111,7 +115,7 @@ function setUpUserData() {
 }
 
 // Fetches the user's IP address from an API and returns it
-// Called by fetchData()
+// Called by fetchData() inside setUpUserData()
 async function getUserIP() {
   try {
     const response = await fetch("https://api.ipify.org?format=json");
@@ -125,8 +129,7 @@ async function getUserIP() {
   }
 }
 
-// TODO
-// NEEDS TESTING WITH DIFFERENT TIMINGS AND A MORE COMPLEX ENVIRONMENT, SLOWER OVER REAL INTERNET?
+// TODO - NEEDS TESTING WITH DIFFERENT TIMINGS AND A MORE COMPLEX ENVIRONMENT, SLOWER OVER REAL INTERNET?
 // Assigns the value of the user's IP address in steps long enough for the async function to properly return a result
 // Called by setUpUserData()
 function setUserIP() {
@@ -143,14 +146,17 @@ function setUserIP() {
   }, 400);
 }
 
-// TODO
-// NEEDS TO BE OPTIONAL FOR THE USER IN FUTURE
+// TODO - NEEDS TO BE OPTIONAL FOR THE USER IN FUTURE
 // Allows a user to choose a display name via prompt
 // Called by autoRun()
 function addDisplayName() {
   userObject.displayName = prompt(
     `What would you like your display name to be?`
   );
+  if (!userObject.displayName) {
+    window.alert(`No display name given, defaulting to 'Guest'`);
+    userObject.displayName = "Guest";
+  }
   return;
 }
 
@@ -172,11 +178,12 @@ function addChatMessage() {
 // Called by addChatMessage()
 function createChatMessage(message) {
   const timeStamp = getTimeStamp();
-  const messageClass = messageStyleToggle
+  const messageClass = userMessageStyleToggle
     ? "chatbox_entry_a"
     : "chatbox_entry_b";
-  const messageHTML = `<p class='${messageClass}'><strong>${userObject.displayName}</strong>: ${message} - ${timeStamp}</p>`;
-  messageStyleToggle = messageStyleToggle ? false : true;
+  const displayName = getUserDisplayName();
+  const messageHTML = `<p class='${messageClass}'><strong class='player_name'>${displayName}:</strong> ${message} - ${timeStamp}</p>`;
+  userMessageStyleToggle = userMessageStyleToggle ? false : true;
   console.log(messageHTML);
   return messageHTML;
 }
@@ -193,8 +200,8 @@ function getTimeStamp() {
 
 // Adds a chat message HTML literal string to the chat display elements innerHTML
 // Called by addChatMessage()
-function postChatMessage(messageHTML) {
-  chatboxDisplay.insertAdjacentHTML("beforeend", messageHTML);
+function postChatMessage(messageHTML, position = "beforeend") {
+  chatboxDisplay.insertAdjacentHTML(position, messageHTML);
   console.log(`Message content: ${messageHTML}`);
 }
 
@@ -202,6 +209,14 @@ function postChatMessage(messageHTML) {
 // Called by addChatMessage()
 function displayLatestMessage() {
   chatboxDisplay.scrollTop = chatboxDisplay.scrollHeight;
+}
+
+function deleteGuestMessage() {
+  const firstMessage = document.querySelector(".disposable_message");
+
+  if (firstMessage) {
+    firstMessage.remove();
+  }
 }
 
 ///////////////////////////////
@@ -213,7 +228,7 @@ function diceRoller() {
 }
 
 // Simulates a one dice roll
-// Called by an eventHandler on the 'ONe dice roll' button
+// Called by an eventHandler on the 'One dice roll' button
 function rollOneDie() {
   diceFace2.style.opacity = 0;
   diceRollSound.play();
@@ -298,12 +313,12 @@ function cycleDieFaces(result = null, flag = "random", target) {
 ///////////////////////////////
 // CORE
 
-autoRun();
+// autoRun();
 
 ///////////////////////////////
 // EXPERIMENTAL
 
-ipTest();
+// ipTest();
 // admireCookie("userDetails");
 setInterval(imgAdCycler, 10000);
 
@@ -345,12 +360,12 @@ function playedGamesCount() {
 ///////////////////////////////
 // TOGGLING VIDEO ADS
 
-// Attaching toggleAds() to the 'Toggle_Ads - TEST' button
+// Attaching toggleAds() to the 'Toggle Ads - TEST' button
 const adDisabler = document.querySelector(".toggle_ads_button");
 adDisabler.addEventListener("click", toggleAds);
 
 // Experimental function to toggle the visibility of ads displayed in front of the gamebox element, will eventually be leveraged as a way opf showing/ hiding ads
-// Called by an eventHandler on the 'Toggle ads' button
+// Called by an eventHandler on the 'Toggle Ads - TEST' button
 function toggleAds() {
   if (!videoAdsDisabled) {
     console.log(`Disabling ads - toggleAds()`);
@@ -375,7 +390,7 @@ const gameToggler = document.querySelector(".toggle_game_button");
 gameToggler.addEventListener("click", resetGame);
 
 // Experimental function to reset the gamestart_block element and the image displayed in the gamebox, will later be assimilated into the page as a game reset type button
-// Called by an eventHandler on the 'Toggle game' button
+// Called by an eventHandler on the 'Toggle Game - TEST' button
 function resetGame() {
   gamestartBox.style.display = "grid";
   greyOverlay.style.display = "block";
@@ -388,6 +403,10 @@ function displayFunBoard() {
   gameBoard.src = "img/backgammon.jpg";
   gamestartBox.style.display = "none";
   greyOverlay.style.display = "none";
+  autoRun("guest");
+  const opponentName = getOpponentName();
+  console.log(userDisplayName);
+  startGameMessages("fun", userDisplayName, opponentName);
 }
 
 // Displays the professional game board - To be changed later to the professional game logic, also needs to change the dice roller elements to a professional version
@@ -396,13 +415,24 @@ function displayProBoard() {
   gameBoard.src = "img/backgammonHard.jpg";
   gamestartBox.style.display = "none";
   greyOverlay.style.display = "none";
+  autoRun("guest");
+  const opponentName = getOpponentName();
+  console.log(userDisplayName);
+  startGameMessages("pro", userDisplayName, opponentName);
 }
 
 const cookieClearer = document.querySelector(".clear_cookie_button");
+
+// Test function call to delete the cookie and reload the page
+// Called by an eventHandler on the 'Clear Cookie - TEST' button
 cookieClearer.addEventListener("click", () => {
   const cookieName = "userDetails";
   clearCookie(cookieName);
+  location.reload();
 });
+
+// Deletes the cookie by setting its expiry date to UTC time 0
+// Called by an eventHandler on the 'Clear Cookie - TEST' button
 function clearCookie(cookieName) {
   document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   console.log(`Cookie: ${cookieName} deleted!`);
@@ -479,7 +509,9 @@ function imgAdCycler() {
   }, 0);
 }
 
-function bakeCookie(name, values, lifespan) {
+// Creates a cookie from a supplied name, data, and lifespan in days - should be fully configurable for other usecases
+// Called by acceptCookies()
+function createCookie(name, values, lifespan) {
   let expires = "";
   if (lifespan) {
     let date = new Date();
@@ -489,30 +521,46 @@ function bakeCookie(name, values, lifespan) {
   document.cookie = name + "=" + values + expires + "; path=/";
 }
 
-// Cookie creation etc. has to run after the user object has been successfully created with the autorun processes
-
-function admireCookie(cookieName) {
-  setTimeout(() => {
-    const cookieValues = {
-      userIP: userObject.ip,
-      userDisplayName: userObject.displayName,
-    };
-    const cookieString = JSON.stringify(cookieValues);
-    bakeCookie(cookieName, cookieString, 1);
-    console.log(`Cookie string: ${JSON.stringify(document.cookie)}`);
-    const retrievedValues = serveCookie(cookieName);
-    if (retrievedValues) {
-      const userIP = retrievedValues.userIP;
-      const userDisplayName = retrievedValues.userDisplayName;
-      console.log(`FROM COOKIE: User IP: ${userIP}`);
-      console.log(`FROM COOKIE: User Display Name: ${userDisplayName}`);
-    } else {
-      console.log(`FROM COOKIE: Cookie not found or invalid.`);
-    }
-  }, 1000);
+// Assigns values from the userObject to the cookie 'userDetails'
+// Called by acceptCookies()
+function createCookieValuesUserDetails() {
+  const cookieValues = {
+    userIP: userObject.ip,
+    userDisplayName: userObject.displayName,
+  };
+  const cookieString = JSON.stringify(cookieValues);
+  return cookieString;
 }
 
-function serveCookie(cookieName) {
+// Cookie creation etc. has to run after the user object has been successfully created with the autorun processes
+
+// Finds if a cookie exists based on the supplied name then retrieves
+function readCookie(cookieName) {
+  let userIP,
+    userDisplayName = "";
+  console.log(`Cookie string: ${JSON.stringify(document.cookie)}`);
+  const retrievedValues = retrieveCookieValues(cookieName);
+  if (retrievedValues) {
+    userIP = retrievedValues.userIP;
+    userDisplayName = retrievedValues.userDisplayName;
+    deleteGuestMessage();
+    const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
+    postChatMessage(chatHTML);
+    if (nameIsGuest) {
+      nameChangeCheck("Guest", userDisplayName);
+      nameIsGuest = false;
+    }
+    console.log(`FROM COOKIE: User IP: ${userIP}`);
+    console.log(`FROM COOKIE: User Display Name: ${userDisplayName}`);
+  } else {
+    console.log(`FROM COOKIE: Cookie not found or invalid.`);
+  }
+  return [userIP, userDisplayName];
+}
+
+// Parses the values from inside a particular cookie based on the supplied name
+// Called by readCookie()
+function retrieveCookieValues(cookieName) {
   const cookie = document.cookie
     .split(";")
     .find((row) => row.startsWith(`${cookieName}=`));
@@ -535,45 +583,158 @@ const cookieBar = document.querySelector(".cookie_permission");
 const cookieAgreeButton = document.querySelector(".cookie_accept_button");
 const cookieDisagreeButton = document.querySelector(".cookie_reject_button");
 
-cookieAgreeButton.addEventListener("click", acceptCookies);
+cookieAgreeButton.addEventListener("click", setCookieUserDetails);
 cookieDisagreeButton.addEventListener("click", rejectCookies);
 
 window.addEventListener("DOMContentLoaded", cookieCheck("userDetails"));
 
-// The idea of this function is to not display the cookie permissions bar again if the user already has
+// Checks if a particular cookie already exists and either parses its values if existing, or shows the cookies permission bar if it does not yet exist
+// Called by an eventHandler linked to the loading of the window
 function cookieCheck(cookieName) {
   console.log(`Cookie check is running!`);
   const cookie = document.cookie
     .split(";")
     .find((row) => row.startsWith(`${cookieName}=`));
   if (cookie) {
-    acceptCookies();
+    console.log(`COOKIE - RUNNING`);
+    [userIP, userDisplayName] = readCookie(cookieName);
+    console.log(`COOKIE - ${userIP}`);
+    console.log(`COOKIE - ${userDisplayName}`);
     console.log(`User has previously enabled cookies!`);
   } else {
     showCookieBar();
+    const displayName = getUserDisplayName();
+    const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
+    postChatMessage(chatHTML, "afterbegin");
+    nameIsGuest = true;
   }
 }
 
+// Allows the 'userDetails' cookie to be created and then read all at once by introducing a time delay, this happens the first time the cookie is created so its values are instantly available to the program
+// Called by an eventHandler on the 'Accept Cookies' button
+function setCookieUserDetails() {
+  autoRun();
+  setTimeout(() => {
+    acceptCookies();
+  }, 1100);
+}
+
+// Facilitates the creation of the 'userDetails' cookie and assigns its data to variables
+// Called by setCookieUserDetails()
 function acceptCookies() {
   console.log(`Cookies enabled!`);
-  admireCookie("userDetails");
-  cookiesEnabled = true;
+  const cookieValues = createCookieValuesUserDetails();
+  createCookie("userDetails", cookieValues, 1);
+  [userIP, userDisplayName] = readCookie("userDetails");
+  console.log(`COOKIE - ${userIP}`);
+  console.log(`COOKIE - ${userDisplayName}`);
+  ipTest(); // TEST FUNCTION - COULD BE REMOVED
   hideCookieBar();
 }
 
+// Hides the cookie permission bar in the case of a useer clicking the 'Reject Cookies' button
+// Called by an eventHandler on the 'Reject Cookies' button
 function rejectCookies() {
   console.log("Cookies disabled!");
-  cookiesEnabled = false;
   hideCookieBar();
 }
 
+// Causes the cookies permission bar to be displayed on the webpage
+// Called by cookieCheck()
 function showCookieBar() {
-  cookieBar.style.display = "grid";
+  cookieBar.classList.add("show_cookie_permission_bar");
 }
 
+// Causes the cookies permission bar to be removed from the webpage
+// Called by acceptCookies(), rejectCookies()
 function hideCookieBar() {
-  cookieBar.style.display = "none";
+  cookieBar.classList.remove("show_cookie_permission_bar");
 }
+
+// TODO - ADD DISPLAY OF PLAYERS SCORES/ RATINGS LATER
+// Displays information messages in the chatbox when starting a new game
+// Called by displayFunBoard(), displayProBoard()
+function startGameMessages(mode, userDisplayName, opponentName) {
+  console.log(`This code is running - startGameMessages()`);
+  let chatHTML, chatHTML2;
+  if (mode === "fun") {
+    chatHTML = `<p class='chatbox_entry_c'>Starting a fun mode game.</p>`;
+  } else if (mode === "debug") {
+    chatHTML = `<p class='chatbox_entry_c'>Starting a debug mode game.</p>`;
+  } else if (mode === "pro") {
+    chatHTML = `<p class='chatbox_entry_c'>Starting a professional mode game.</p>`;
+  }
+  const displayName = getUserDisplayName();
+  chatHTML2 = `<p class='chatbox_entry_d'><strong>${displayName}</strong> playing against <strong>${opponentName}!</strong></p>`;
+  chatboxDisplay.insertAdjacentHTML("beforeend", chatHTML);
+  chatboxDisplay.insertAdjacentHTML("beforeend", chatHTML2);
+}
+
+// Captures the users display name or 'Guest' if one is not set and returns it
+// Called by startGameMessages(), createChatMessage()
+function getUserDisplayName() {
+  const displayName =
+    userDisplayName === undefined || userDisplayName === null
+      ? "Guest"
+      : userDisplayName;
+  return displayName;
+}
+
+// TODO - TO BE REPLACED WITH REAL LOGIC CAPTURING THE OTHER PLAYER'S IP ADDRESS LATER - ALSO NEEDS TO BE IMPLEMENTED INTO DISPLAYING THE OTHER USERS CHAT MESSAGES
+// Gets the name of the other player for use in the chatbox display messages
+// Called by displayFunBoard(), displayProBoard()
+function getOpponentName() {
+  console.log(`This code is running - getOpponentName()`);
+  const opponentName = "PLAYER 2";
+  return opponentName;
+}
+
+// TESTING OTHER USER MESSAGES
+const askJack = document.querySelector(".ask_jack_button");
+askJack.addEventListener("click", pretendOpponentMessage);
+
+// Generates and posts a chatbox message from a pretend opponent
+// Called by an eventHandler on the 'Ask Jack - TEST' button
+function pretendOpponentMessage() {
+  const messageHTML = createOpponentMessage(
+    "Jack",
+    "That would be an ecumenical matter..."
+  );
+  postChatMessage(messageHTML);
+  displayLatestMessage();
+}
+
+// TODO -
+// Creates a message form an opponent to them be posted in the chatbox, message styling is unique to the opponent to differentiate between player 1 and player 2
+// Called by pretendOpponentMessage()
+function createOpponentMessage(opponentName, message) {
+  const timeStamp = getTimeStamp();
+  const messageClass = opponentMessageStyleToggle
+    ? "chatbox_entry_e"
+    : "chatbox_entry_f";
+  const messageHTML = `<p class='${messageClass}'><strong class='opponent_name'>${opponentName}:</strong> ${message} - ${timeStamp}</p>`;
+  opponentMessageStyleToggle = opponentMessageStyleToggle ? false : true;
+  console.log(messageHTML);
+  return messageHTML;
+}
+
+const logInButton = document.querySelector(".topbar_login");
+logInButton.addEventListener("click", setCookieUserDetails);
+
+function nameChangeCheck(oldName, newName) {
+  if (newName !== oldName) {
+    const message = `<strong>${oldName}</strong> changed their name to <strong>${newName}</strong></>`;
+    const changeNameHTML = createChatMessage(message);
+    postChatMessage(changeNameHTML);
+    return;
+  } else {
+    return;
+  }
+}
+
+// function logIn() {
+
+// }
 
 ///////////////////////////////
 

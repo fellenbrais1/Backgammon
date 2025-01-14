@@ -188,7 +188,11 @@
 }
 
 .chatbox_entry_a,
-.chatbox_entry_b {
+.chatbox_entry_b,
+.chatbox_entry_c,
+.chatbox_entry_d,
+.chatbox_entry_e,
+.chatbox_entry_f {
   padding: 4px;
   padding-left: 8px;
   padding-bottom: 0px;
@@ -198,11 +202,27 @@
 }
 
 .chatbox_entry_a {
-  background-color: aliceblue;
+  background-color: rgb(234, 245, 255);
 }
 
 .chatbox_entry_b {
   background-color: rgb(165, 216, 247);
+}
+
+.chatbox_entry_c {
+  background-color: rgb(230, 181, 148);
+}
+
+.chatbox_entry_d {
+  background-color: rgb(230, 207, 191);
+}
+
+.chatbox_entry_e {
+  background-color: rgb(242, 235, 236);
+}
+
+.chatbox_entry_f {
+  background-color: rgb(251, 192, 201);
 }
 
 #chatbox_input {
@@ -315,6 +335,12 @@
   z-index: 10;
 }
 
+.ask_jack_button {
+  position: absolute;
+  top: 200px;
+  z-index: 10;
+}
+
 /* ///////////////////////////////////////////////////////////////////////////////////////////CODE END */
 
 .topbar {
@@ -386,14 +412,19 @@ body {
 }
 
 .cookie_permission {
-  display: none;
+  display: grid;
   grid-template-columns: 6fr 4fr;
   height: 60px;
   width: 100vw;
   position: fixed;
-  bottom: 0;
+  bottom: -60px;
   background-color: green;
   z-index: 2;
+  transition: bottom 0.5s ease-in-out;
+}
+
+.show_cookie_permission_bar {
+  bottom: 0;
 }
 
 .cookie_permission_text {
@@ -434,4 +465,12 @@ body {
   margin-right: 4rem;
   text-decoration: none;
   color: black;
+}
+
+.player_name {
+  color: blue;
+}
+
+.opponent_name {
+  color: red;
 }
