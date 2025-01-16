@@ -760,27 +760,31 @@ const topbarPointer = document.querySelector(".topbar_pointer");
 
 gamesButton.addEventListener("click", () => {
   const pageElement = gamesDropdown;
+  topbarPointer.style.backgroundColor = "rgb(23, 132, 168)";
   toggleDropdowns(pageElement);
   repositionPointer(44);
 });
 
 playersButton.addEventListener("click", () => {
   const pageElement = playersDropdown;
+  topbarPointer.style.backgroundColor = "rgb(23, 132, 168)";
   toggleDropdowns(pageElement);
-  repositionPointer(33);
+  repositionPointer(34);
 });
 
 signUpButton.addEventListener("click", () => {
   const pageElement = signUpDropdown;
+  topbarPointer.style.backgroundColor = "rgb(23, 132, 168)";
   toggleDropdowns(pageElement);
-  repositionPointer(22);
+  repositionPointer(23.5);
 });
 
 // logInButton.addEventListener("click", setCookieUserDetails);
 logInButton.addEventListener("click", () => {
   const pageElement = logInDropdown;
+  topbarPointer.style.backgroundColor = "#ff0000";
   toggleDropdowns(pageElement);
-  repositionPointer(7.5);
+  repositionPointer(10);
 });
 
 function nameChangeCheck(oldName, newName) {
@@ -837,10 +841,6 @@ function toggleDropdowns(dropdownElement) {
     topbarPointer.style.opacity = "0";
   }
 }
-
-// function logIn() {
-
-// }
 
 ///////////////////////////////
 
