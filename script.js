@@ -34,8 +34,19 @@ const diceRollSound = document.getElementById("dice_roll_sound");
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENT HANDLERS
 
-buttonGamestartFun.addEventListener("click", displayFunBoard);
-buttonGamestartPro.addEventListener("click", displayProBoard);
+buttonGamestartFun.addEventListener("click", () => {
+  displayFunBoard();
+  toggleDropdowns();
+});
+
+buttonGamestartPro.addEventListener("click", () => {
+  displayProBoard();
+  toggleDropdowns();
+});
+
+chatboxInput.addEventListener("click", () => {
+  toggleDropdowns();
+});
 
 chatboxInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -44,8 +55,15 @@ chatboxInput.addEventListener("keydown", (event) => {
   }
 });
 
-buttonRoll1.addEventListener("click", rollOneDie);
-buttonRoll2.addEventListener("click", rollTwoDice);
+buttonRoll1.addEventListener("click", () => {
+  rollOneDie();
+  toggleDropdowns();
+});
+
+buttonRoll2.addEventListener("click", () => {
+  rollTwoDice();
+  toggleDropdowns();
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -364,6 +382,8 @@ function playedGamesCount() {
 const adDisabler = document.querySelector(".toggle_ads_button");
 adDisabler.addEventListener("click", toggleAds);
 
+gameboxAd.addEventListener("click", toggleAds);
+
 // Experimental function to toggle the visibility of ads displayed in front of the gamebox element, will eventually be leveraged as a way opf showing/ hiding ads
 // Called by an eventHandler on the 'Toggle Ads - TEST' button
 function toggleAds() {
@@ -586,7 +606,9 @@ const cookieDisagreeButton = document.querySelector(".cookie_reject_button");
 cookieAgreeButton.addEventListener("click", setCookieUserDetails);
 cookieDisagreeButton.addEventListener("click", rejectCookies);
 
-window.addEventListener("DOMContentLoaded", cookieCheck("userDetails"));
+window.addEventListener("DOMContentLoaded", () => {
+  cookieCheck("userDetails");
+});
 
 // Checks if a particular cookie already exists and either parses its values if existing, or shows the cookies permission bar if it does not yet exist
 // Called by an eventHandler linked to the loading of the window
@@ -666,8 +688,15 @@ function startGameMessages(mode, userDisplayName, opponentName) {
   }
   const displayName = getUserDisplayName();
   chatHTML2 = `<p class='chatbox_entry_d'><strong>${displayName}</strong> playing against <strong>${opponentName}!</strong></p>`;
-  chatboxDisplay.insertAdjacentHTML("beforeend", chatHTML);
-  chatboxDisplay.insertAdjacentHTML("beforeend", chatHTML2);
+  addGameNotification(chatHTML);
+  addGameNotification(chatHTML2);
+}
+
+// TODO - CAN BE USED FOR DISPLAYING DICE ROLLS ETC. AS WELL
+// Allows a game start notification to be added to the chatbox
+// Called by startGameMessages()
+function addGameNotification(HTML) {
+  chatboxDisplay.insertAdjacentHTML("beforeend", HTML);
 }
 
 // Captures the users display name or 'Guest' if one is not set and returns it
@@ -718,8 +747,41 @@ function createOpponentMessage(opponentName, message) {
   return messageHTML;
 }
 
+const gamesButton = document.querySelector(".topbar_games");
+const playersButton = document.querySelector(".topbar_players");
+const signUpButton = document.querySelector(".topbar_signup");
 const logInButton = document.querySelector(".topbar_login");
-logInButton.addEventListener("click", setCookieUserDetails);
+
+const gamesDropdown = document.querySelector(".topbar_dropdown_games");
+const playersDropdown = document.querySelector(".topbar_dropdown_players");
+const signUpDropdown = document.querySelector(".topbar_dropdown_signup");
+const logInDropdown = document.querySelector(".topbar_dropdown_login");
+const topbarPointer = document.querySelector(".topbar_pointer");
+
+gamesButton.addEventListener("click", () => {
+  const pageElement = gamesDropdown;
+  toggleDropdowns(pageElement);
+  repositionPointer(44);
+});
+
+playersButton.addEventListener("click", () => {
+  const pageElement = playersDropdown;
+  toggleDropdowns(pageElement);
+  repositionPointer(33);
+});
+
+signUpButton.addEventListener("click", () => {
+  const pageElement = signUpDropdown;
+  toggleDropdowns(pageElement);
+  repositionPointer(22);
+});
+
+// logInButton.addEventListener("click", setCookieUserDetails);
+logInButton.addEventListener("click", () => {
+  const pageElement = logInDropdown;
+  toggleDropdowns(pageElement);
+  repositionPointer(7.5);
+});
 
 function nameChangeCheck(oldName, newName) {
   if (newName !== oldName) {
@@ -729,6 +791,50 @@ function nameChangeCheck(oldName, newName) {
     return;
   } else {
     return;
+  }
+}
+
+const dropdownsList = [
+  gamesDropdown,
+  playersDropdown,
+  signUpDropdown,
+  logInDropdown,
+];
+
+// Changes the position of the topbar pointer element based on a supplied percentage
+// Called by eventHandlers on all of the topbar buttons
+function repositionPointer(percent) {
+  topbarPointer.style.right = `${percent}%`;
+}
+
+function toggleDropdowns(dropdownElement) {
+  if (dropdownElement) {
+    dropdownElement?.classList.contains("topbar_descended")
+      ? (() => {
+          dropdownElement.classList.remove("topbar_descended");
+          dropdownElement.style.maxHeight = "0";
+          topbarPointer.style.opacity = "0";
+        })()
+      : (() => {
+          dropdownElement.style.maxHeight = gamesDropdown.scrollHeight + "px";
+          dropdownElement.classList.add("topbar_descended");
+          const newList = dropdownsList.filter((current) => {
+            if (current !== dropdownElement) {
+              return current;
+            }
+          });
+          newList.forEach((element) => {
+            element.classList.remove("topbar_descended");
+            element.style.maxHeight = 0;
+          });
+          topbarPointer.style.opacity = "1";
+        })();
+  } else {
+    dropdownsList.forEach((element) => {
+      element.classList.remove("topbar_descended");
+      element.style.maxHeight = 0;
+    });
+    topbarPointer.style.opacity = "0";
   }
 }
 
