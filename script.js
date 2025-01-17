@@ -812,7 +812,8 @@ function repositionPointer(percent) {
 }
 
 function toggleDropdowns(dropdownElement) {
-  if (dropdownElement) {
+  console.log(dropdownElement);
+  if (dropdownElement || dropdownElement !== undefined) {
     dropdownElement?.classList.contains("topbar_descended")
       ? (() => {
           dropdownElement.classList.remove("topbar_descended");
