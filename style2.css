@@ -1,0 +1,354 @@
+:root {
+  --light_felt_green: #436767;
+  --felt_green: #325656;
+  --dark_felt_green: #2b4242;
+  --youtube_red: #ff0000;
+  --topbar_light_blue: rgb(76, 173, 205);
+  --button_dark_teal: rgb(23, 132, 168);
+  --pagebox_green: #d1e3d5;
+  --active_button_gold: rgb(255, 191, 0);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  vertical-align: baseline;
+  background: transparent;
+  color: white;
+}
+
+html {
+  overflow: hidden;
+}
+
+.pagebox {
+  min-height: 100vh;
+  padding-top: 15vh;
+  padding-bottom: 15vh;
+  background-image: url(img/background_huge2.webp);
+  background-size: cover;
+  display: relative;
+}
+
+.main_display {
+  width: 960px;
+  height: 630px;
+  margin: auto;
+  position: relative;
+  opacity: 0;
+  z-index: 0;
+  transform: translateX(-200%);
+  transition: transform ease-in-out 2s, opacity ease-in-out 3s;
+  overflow: hidden;
+}
+
+.intro_display {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: 100%;
+  width: 100%;
+  background-color: var(--topbar_light_blue);
+  border-radius: 25px;
+  position: relative;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  z-index: 3;
+  transition: opacity 1s ease-in-out;
+}
+
+.intro_image {
+  height: 20%;
+  width: auto;
+  margin-left: 10%;
+  margin-top: 30%;
+  border: 2px solid white;
+  border-radius: 15px;
+}
+
+.intro_play_div {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 48px;
+  padding-top: 40%;
+}
+
+.intro_display p {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.play_button {
+  width: 35%;
+  height: 100px;
+  background-color: var(--youtube_red);
+  border-radius: 25px;
+  text-justify: center;
+  text-align: center;
+  cursor: pointer;
+  z-index: 3;
+  margin-left: 22.5%;
+  border: solid 2px white;
+}
+
+.game_board {
+  height: 630px;
+  width: 960px;
+  z-index: 0;
+  border-radius: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  border: solid 2px white;
+}
+
+.gamestart_block {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  position: absolute;
+  width: 400px;
+  background-color: var(--felt_green);
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5%;
+  border: solid 4px white;
+  z-index: 2;
+}
+
+.grey_overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  mix-blend-mode: multiply;
+  border-radius: 25px;
+}
+
+.grey_overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.gamestart_text {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.gamestart_button_fun,
+.gamestart_button_pro {
+  color: white;
+  height: 40px;
+  width: 50%;
+  margin-left: 25%;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 9999px;
+  box-shadow: 0px 0px 4px var(--felt_green);
+  outline: 2px solid white;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.gamestart_button_fun {
+  background-color: var(--youtube_red);
+}
+
+.gamestart_button_pro {
+  background-color: var(--button_dark_teal);
+  margin-bottom: 20px;
+}
+
+.play_button:hover,
+.round_button:hover,
+.gamestart_button_fun:hover,
+.gamestart_button_pro:hover {
+  box-shadow: 0px 0px 20px white;
+}
+
+.play_button:active,
+.round_button:active,
+.gamestart_button_fun:active,
+.gamestart_button_pro:active {
+  background-color: var(--active_button_gold);
+}
+
+.floating_buttons_left {
+  height: 630px;
+  width: 100px;
+  display: grid;
+  grid-template-rows: 150px 150px 150px 150px;
+  position: absolute;
+  top: 17%;
+  left: 19%;
+  transform: translateY(-1000px);
+  opacity: 0;
+  transition: transform ease-in-out 2.5s, opacity ease-in-out 3.5s;
+}
+
+.floating_buttons_right {
+  height: 630px;
+  width: 100px;
+  display: grid;
+  grid-template-rows: 150px 150px 150px 150px;
+  position: absolute;
+  top: 17%;
+  left: 76%;
+  transform: translateY(1000px);
+  opacity: 0;
+  transition: transform ease-in-out 2.5s, opacity ease-in-out 3.5s;
+}
+
+.round_button {
+  background-color: red;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 24px;
+  outline: solid 3px white;
+  z-index: 3;
+}
+
+.button_cls {
+  background-color: var(--active_button_gold);
+}
+
+.cls_logo {
+  margin: 15px;
+}
+
+.round_button svg {
+  margin: 20%;
+}
+
+/* /////////////////////////////DICE SECTION */
+.dice_roller {
+  display: grid;
+  height: 300px;
+  width: 400px;
+  z-index: 0;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1fr 4fr;
+  row-gap: 48px;
+  background-color: var(--light_felt_green);
+  position: absolute;
+  top: 2%;
+  left: 3.6%;
+  border-radius: 25px;
+  border: 2px solid white;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.dice_button_block {
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  margin-top: 5%;
+  height: 2rem;
+}
+
+.dice_button_roll1,
+.dice_button_roll2 {
+  display: block;
+  background-color: var(--dark_felt_green);
+  width: 70%;
+  height: 60px;
+  border: solid 2px white;
+  border-radius: 5%;
+  margin: 0 16%;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.dice_img_block {
+  margin: 0 auto;
+  height: 80%;
+  width: 80%;
+  padding-bottom: 24px;
+}
+
+.dice_img1,
+.dice_img2 {
+  height: 160px;
+  width: 160px;
+  border-radius: 10%;
+  margin: 0 auto;
+}
+
+.dice_result_display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 90px;
+  height: 90px;
+  background-color: var(--youtube_red);
+  border-radius: 50%;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 1;
+  transform-origin: center;
+  transition: background-color 1s ease-in-out, transform 1s ease-in-out,
+    left 1s ease-in-out;
+}
+
+.dice_result_display_final {
+  background-color: var(--active_button_gold);
+  transform: scale(2);
+  left: 40%;
+}
+
+/* HELPER CLASSES */
+.show {
+  opacity: 1;
+}
+
+.scroll_on_left {
+  transform: translateX(0);
+}
+
+.scroll_on_top {
+  transform: translateY(0);
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.removed {
+  display: none;
+}
+
+.no_pointer_events {
+  pointer-events: none;
+}
