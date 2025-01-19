@@ -282,9 +282,24 @@
           <img class="dice_img2" src="img/dice-six.png" />
         </div>
       </section>
+      <section class="chatbox_section hidden removed no_pointer_events">
+        <div class="chatbox_display">
+          <p class="chatbox_entry_d">Start chatting!</p>
+        </div>
+        <form class="chatbox_form">
+          <input
+            type="text"
+            id="chatbox_input"
+            placeholder="Enter your message..."
+            aria-label="Chatbox Message Input"
+          />
+        </form>
+        <div class="chat_x_button">X</div>
+      </section>
     </div>
   </body>
   <! SOUNDS -->
+  <audio id="button_click_sound" src="sound/mouse_click.wav"></audio>
   <audio id="opening_jingle" src="sound/jingle.wav"></audio>
   <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
   <audio id="number1" src="sound/number1.wav"></audio>

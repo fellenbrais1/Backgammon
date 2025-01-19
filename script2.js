@@ -1,16 +1,32 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// START OF CODE
+
 "use strict";
 
+console.log(`Backgammon page script V2`);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// DOM ELEMENT SELECTION
+
+// Main overlay elements
 const mainDisplay = document.querySelector(".main_display");
 const introDisplay = document.querySelector(".intro_display");
 const playButton = document.querySelector(".play_button");
 
+// Game start elements
 const gamestartBox = document.querySelector(".gamestart_block");
 const buttonGamestartFun = document.querySelector(".gamestart_button_fun");
 const buttonGamestartPro = document.querySelector(".gamestart_button_pro");
 const greyOverlay = document.querySelector(".grey_overlay");
 
+// Game board elements
 const gameBoard = document.querySelector(".game_board");
 
+// Sidebar button sections
+const floatingButtonsLeft = document.querySelector(".floating_buttons_left");
+const floatingButtonsRight = document.querySelector(".floating_buttons_right");
+
+// Sidebar button elements
 const diceButton = document.querySelector(".button_dice");
 const chatButton = document.querySelector(".button_chat");
 const playersButton = document.querySelector(".button_players");
@@ -18,11 +34,9 @@ const rulesButton = document.querySelector(".button_rules");
 const loginButton = document.querySelector(".button_login");
 const settingsButton = document.querySelector(".button_settings");
 const gamesButton = document.querySelector(".button_games");
-// const clsButton = document.querySelector(".button_cls");
+const clsButton = document.querySelector(".button_cls");
 
-const floatingButtonsLeft = document.querySelector(".floating_buttons_left");
-const floatingButtonsRight = document.querySelector(".floating_buttons_right");
-
+// Dice section elements
 const diceDisplay = document.querySelector(".dice_roller");
 const buttonRoll1 = document.querySelector(".dice_button_roll1");
 const buttonRoll2 = document.querySelector(".dice_button_roll2");
@@ -30,13 +44,23 @@ const diceFace1 = document.querySelector(".dice_img1");
 const diceFace2 = document.querySelector(".dice_img2");
 const diceRollResult = document.querySelector(".dice_result_display");
 
+// Chatbox section elements
+const chatboxSection = document.querySelector(".chatbox_section");
+const chatBoxDisplay = document.querySelector(".chatbox_display");
+const chatboxInput = document.getElementById("chatbox_input");
+const chatXButton = document.querySelector(".chat_x_button");
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // MEDIA: SOUNDS
 
+// Page sounds
+const buttonClickSound = document.getElementById("button_click_sound");
 const openingJingle = document.getElementById("opening_jingle");
 
+// Dice sounds
 const diceRollSound = document.getElementById("dice_roll_sound");
 
+// Spoken numbers
 const number1 = document.getElementById("number1");
 const number2 = document.getElementById("number2");
 const number3 = document.getElementById("number3");
@@ -50,26 +74,15 @@ const number10 = document.getElementById("number10");
 const number11 = document.getElementById("number11");
 const number12 = document.getElementById("number12");
 
-// Empty user object to be written to during operation
-let userObject = {
-  displayName: "",
-  ip: "",
-};
-
-let userIP;
-let userDisplayName;
-
-// User IP address to be stored on this variable during calculation
-let userIPAddress;
-
-// The number of faces on the dice for the dice rollers
-const faces = 6;
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// EVENT LISTENERS
 
 window.addEventListener("load", () => {
   showMain();
 });
 
 diceButton.addEventListener("click", () => {
+  playClickSound();
   toggleClass(diceDisplay, "removed");
   setTimeout(() => {
     toggleClass(diceDisplay, "hidden");
@@ -91,6 +104,68 @@ buttonRoll2.addEventListener("click", () => {
   toggleClass(buttonRoll2, "no_pointer_events");
 });
 
+playButton.addEventListener("click", () => {
+  toggleClass(introDisplay, "hidden");
+  openingJingle.play();
+  setTimeout(() => {
+    toggleClass(introDisplay, "removed");
+  }, 1000);
+});
+
+buttonGamestartFun.addEventListener("click", () => {
+  playClickSound();
+  displayFunBoard();
+});
+
+buttonGamestartPro.addEventListener("click", () => {
+  playClickSound();
+  displayProBoard();
+});
+
+clsButton.addEventListener("click", playClickSound);
+
+chatboxInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addChatMessage();
+  }
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// GLOBAL VARIABLES
+
+// The number of faces on the dice for the dice rollers
+const faces = 6;
+
+// Empty user object to be written to during operation
+let userObject = {
+  displayName: "",
+  ip: "",
+};
+
+// User IP address to be stored on this variable during calculation
+let userIPAddress;
+
+// Variable used to alternate message format in the chatbox
+let userMessageStyleToggle = false;
+let opponentMessageStyleToggle = false;
+
+// Allows video ads to be disabled, for example in premium mode
+let videoAdsDisabled = true;
+
+// Counts the number of played games in order to display ads
+let playedGames = 0;
+
+// EXPERIMENTAL
+
+let userIP;
+let userDisplayName;
+
+let nameIsGuest = false;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS
+
 function showMain() {
   mainDisplay.classList.add("show");
   mainDisplay.classList.add("scroll_on_left");
@@ -102,40 +177,6 @@ function showMain() {
   }, 10);
 }
 
-playButton.addEventListener("click", () => {
-  toggleClass(introDisplay, "hidden");
-  openingJingle.play();
-  setTimeout(() => {
-    toggleClass(introDisplay, "removed");
-  }, 1000);
-});
-
-// Toggles the opacity of a specified element by adding/ removing the helper class 'hidden'
-// function toggleOpacity(pageElement) {
-//   console.log(`This code is running`);
-//   pageElement.classList.contains("hidden")
-//     ? pageElement.classList.remove("hidden")
-//     : pageElement.classList.add("hidden");
-//   console.log(pageElement.classList);
-// }
-
-// Toggles the display setting of a specified element by adding/ removing the helper class 'removed'
-// function toggleDisplay(pageElement) {
-//   console.log(`This code is running`);
-//   pageElement.classList.contains("removed")
-//     ? pageElement.classList.remove("removed")
-//     : pageElement.classList.add("removed");
-//   console.log(pageElement.classList);
-// }
-
-// function togglePointerEvents(pageElement) {
-//   console.log(`This code is running`);
-//   pageElement.classList.contains("no_pointer_events")
-//     ? pageElement.classList.remove("no_pointer_events")
-//     : pageElement.classList.add("no_pointer_events");
-//   console.log(pageElement.classList);
-// }
-
 function toggleClass(pageElement, property) {
   console.log(`This code is running`);
   pageElement.classList.contains(property)
@@ -144,16 +185,6 @@ function toggleClass(pageElement, property) {
   console.log(pageElement.classList);
 }
 
-buttonGamestartFun.addEventListener("click", () => {
-  displayFunBoard();
-  // toggleDropdowns();
-});
-
-buttonGamestartPro.addEventListener("click", () => {
-  displayProBoard();
-  // toggleDropdowns();
-});
-
 // Displays the fun game board - To be changed later to the fun game logic, can use the standard dice roller
 // Called by an eventHandler on the 'Fun Game' button
 function displayFunBoard() {
@@ -161,9 +192,9 @@ function displayFunBoard() {
   gamestartBox.style.display = "none";
   greyOverlay.style.display = "none";
   autoRun("guest");
-  // const opponentName = getOpponentName();
+  const opponentName = getOpponentName();
   console.log(userDisplayName);
-  // startGameMessages("fun", userDisplayName, opponentName);
+  startGameMessages("fun", userDisplayName, opponentName);
 }
 
 // Displays the professional game board - To be changed later to the professional game logic, also needs to change the dice roller elements to a professional version
@@ -173,9 +204,9 @@ function displayProBoard() {
   gamestartBox.style.display = "none";
   greyOverlay.style.display = "none";
   autoRun("guest");
-  // const opponentName = getOpponentName();
+  const opponentName = getOpponentName();
   console.log(userDisplayName);
-  // startGameMessages("pro", userDisplayName, opponentName);
+  startGameMessages("pro", userDisplayName, opponentName);
 }
 
 function autoRun(tag = "") {
@@ -252,11 +283,11 @@ function addDisplayName() {
 // TODO - TO BE REPLACED WITH REAL LOGIC CAPTURING THE OTHER PLAYER'S IP ADDRESS LATER - ALSO NEEDS TO BE IMPLEMENTED INTO DISPLAYING THE OTHER USERS CHAT MESSAGES
 // Gets the name of the other player for use in the chatbox display messages
 // Called by displayFunBoard(), displayProBoard()
-// function getOpponentName() {
-//   console.log(`This code is running - getOpponentName()`);
-//   const opponentName = "PLAYER 2";
-//   return opponentName;
-// }
+function getOpponentName() {
+  console.log(`This code is running - getOpponentName()`);
+  const opponentName = "PLAYER 2";
+  return opponentName;
+}
 
 // Attaching resetGame() to the 'Toggle Game - TEST' button
 const gameToggler = document.querySelector(".toggle_game_button");
@@ -430,3 +461,141 @@ function hideDiceRoller() {
 }
 
 ///////////////////////////////
+// CHAT BOX
+
+// Captures a users chat message from the input box and adds it to the chat display
+// Called by an eventHandler when pressing enter in the chat input box
+function addChatMessage() {
+  const message = chatboxInput.value;
+  console.log(message);
+  chatboxInput.value = "";
+  const messageHTML = createChatMessage(message);
+  postChatMessage(messageHTML);
+  displayLatestMessage();
+}
+
+// Assembles and returns  an HTML literal string to add to the chat display element
+// Called by addChatMessage()
+function createChatMessage(message) {
+  const timeStamp = getTimeStamp();
+  const messageClass = userMessageStyleToggle
+    ? "chatbox_entry_a"
+    : "chatbox_entry_b";
+  const displayName = getUserDisplayName();
+  const messageHTML = `<p class='${messageClass}'><strong class='player_name'>${displayName}:</strong> ${message} - ${timeStamp}</p>`;
+  userMessageStyleToggle = userMessageStyleToggle ? false : true;
+  console.log(messageHTML);
+  return messageHTML;
+}
+
+// Generates a time stamp in minutes and seconds when a message is added to the chat display
+// Called by createChatMessage()
+function getTimeStamp() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+// Adds a chat message HTML literal string to the chat display elements innerHTML
+// Called by addChatMessage()
+function postChatMessage(messageHTML, position = "beforeend") {
+  chatBoxDisplay.insertAdjacentHTML(position, messageHTML);
+  console.log(`Message content: ${messageHTML}`);
+}
+
+// Scrolls the chat box display down to the lcoation of the latest message - could be annoying when trying to look back through chats later? - UX?
+// Called by addChatMessage()
+function displayLatestMessage() {
+  chatBoxDisplay.scrollTop = chatBoxDisplay.scrollHeight;
+}
+
+// Captures the users display name or 'Guest' if one is not set and returns it
+// Called by startGameMessages(), createChatMessage()
+function getUserDisplayName() {
+  const displayName =
+    userDisplayName === undefined || userDisplayName === null
+      ? "Guest"
+      : userDisplayName;
+  return displayName;
+}
+
+// TESTING OTHER USER MESSAGES
+const askJack = document.querySelector(".ask_jack_button");
+askJack.addEventListener("click", pretendOpponentMessage);
+
+// Generates and posts a chatbox message from a pretend opponent
+// Called by an eventHandler on the 'Ask Jack - TEST' button
+function pretendOpponentMessage() {
+  const messageHTML = createOpponentMessage(
+    "Jack",
+    "That would be an ecumenical matter..."
+  );
+  postChatMessage(messageHTML);
+  displayLatestMessage();
+}
+
+// TODO -
+// Creates a message form an opponent to them be posted in the chatbox, message styling is unique to the opponent to differentiate between player 1 and player 2
+// Called by pretendOpponentMessage()
+function createOpponentMessage(opponentName, message) {
+  const timeStamp = getTimeStamp();
+  const messageClass = opponentMessageStyleToggle
+    ? "chatbox_entry_e"
+    : "chatbox_entry_f";
+  const messageHTML = `<p class='${messageClass}'><strong class='opponent_name'>${opponentName}:</strong> ${message} - ${timeStamp}</p>`;
+  opponentMessageStyleToggle = opponentMessageStyleToggle ? false : true;
+  console.log(messageHTML);
+  return messageHTML;
+}
+
+chatXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(chatboxSection, "hidden");
+  setTimeout(() => {
+    toggleClass(chatboxSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(chatboxSection, "removed");
+  }, 60);
+});
+
+chatButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(chatboxSection, "removed");
+  setTimeout(() => {
+    toggleClass(chatboxSection, "hidden");
+    toggleClass(chatboxSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+  }, 60);
+});
+
+function playClickSound() {
+  buttonClickSound.play();
+}
+
+// TODO - ADD DISPLAY OF PLAYERS SCORES/ RATINGS LATER
+// Displays information messages in the chatbox when starting a new game
+// Called by displayFunBoard(), displayProBoard()
+function startGameMessages(mode, userDisplayName, opponentName) {
+  console.log(`This code is running - startGameMessages()`);
+  let chatHTML, chatHTML2;
+  if (mode === "fun") {
+    chatHTML = `<p class='chatbox_entry_c'>Starting a fun mode game.</p>`;
+  } else if (mode === "debug") {
+    chatHTML = `<p class='chatbox_entry_c'>Starting a debug mode game.</p>`;
+  } else if (mode === "pro") {
+    chatHTML = `<p class='chatbox_entry_c'>Starting a professional mode game.</p>`;
+  }
+  const displayName = getUserDisplayName();
+  chatHTML2 = `<p class='chatbox_entry_d'><strong>${displayName}</strong> playing against <strong>${opponentName}!</strong></p>`;
+  addGameNotification(chatHTML);
+  addGameNotification(chatHTML2);
+}
+
+// TODO - CAN BE USED FOR DISPLAYING DICE ROLLS ETC. AS WELL
+// Allows a game start notification to be added to the chatbox
+// Called by startGameMessages()
+function addGameNotification(HTML) {
+  chatBoxDisplay.insertAdjacentHTML("beforeend", HTML);
+}

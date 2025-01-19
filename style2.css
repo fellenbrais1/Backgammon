@@ -328,6 +328,111 @@ html {
   left: 40%;
 }
 
+/* //////////////////////////////////CHATBOX */
+.chatbox_section {
+  background-color: var(--active_button_gold);
+  width: auto;
+  display: grid;
+  grid-template-rows: 90% 10%;
+  overflow: hidden;
+  position: absolute;
+  height: 630px;
+  width: 450px;
+  top: 15%;
+  left: 1%;
+  z-index: 9;
+  border-radius: 25px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.chatbox_display {
+  background-color: aliceblue;
+  height: 95%;
+  width: 95%;
+  margin-top: 3%;
+  margin-left: 2.5%;
+  border: solid 1px black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 5px;
+}
+
+.chatbox_entry_a,
+.chatbox_entry_b,
+.chatbox_entry_c,
+.chatbox_entry_d,
+.chatbox_entry_e,
+.chatbox_entry_f {
+  padding: 4px;
+  padding-left: 8px;
+  padding-bottom: 4px;
+  font-size: 18px;
+  white-space: wrap;
+  word-wrap: break-word;
+  color: black;
+}
+
+.chatbox_entry_a {
+  background-color: rgb(234, 245, 255);
+}
+
+.chatbox_entry_b {
+  background-color: rgb(165, 216, 247);
+}
+
+.chatbox_entry_c {
+  background-color: rgb(230, 181, 148);
+}
+
+.chatbox_entry_d {
+  background-color: rgb(230, 207, 191);
+}
+
+.chatbox_entry_e {
+  background-color: rgb(242, 235, 236);
+}
+
+.chatbox_entry_f {
+  background-color: rgb(251, 192, 201);
+}
+
+.player_name {
+  color: blue;
+}
+
+.opponent_name {
+  color: var(--youtube_red);
+}
+
+#chatbox_input {
+  width: 96%;
+  height: 70%;
+  margin-left: 2%;
+  padding-left: 2%;
+  background-color: aliceblue;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+}
+
+.chat_x_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 36px;
+  width: 36px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 50%;
+  padding-top: 2px;
+  text-align: center;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
 /* HELPER CLASSES */
 .show {
   opacity: 1;
