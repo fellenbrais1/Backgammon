@@ -163,6 +163,7 @@
             />
           </svg>
         </div>
+        <div class="chat_notifications hidden">0</div>
       </div>
       <div class="floating_buttons_right">
         <div class="round_button button_login" title="Log In">
@@ -296,6 +297,102 @@
         </form>
         <div class="chat_x_button">X</div>
       </section>
+      <section class="rules_section hidden removed no_pointer_events">
+        <div class="rules_info">
+          <p><strong>RULES OF BACKGAMMON</strong></p>
+          <p><strong>ORIGIN</strong></p>
+          <p>
+            Backgammon evolved from ancient games such as Rome’s
+            <a
+              href="https://www.britannica.com/sports/backgammon"
+              target="_blank"
+              title="History of backgammon"
+              rel="noopener noreferrer"
+              >Ludus Duodecim Scriptorum</a
+            >, making it over 5,000 years old. Thanks to such popularity, it’s
+            become the national game for eight countries, including Egypt,
+            Turkey, and Greece. What makes backgammon so compelling (and worthy
+            of worldwide tournaments) is its balance of chance by incorporating
+            dice rolls, and strategy. It’s also very easy to learn and can scale
+            in difficulty depending on who you’re playing; so, finding the right
+            backgammon opponent can be its own fun challenge.
+          </p>
+          <p><strong>HOW TO PLAY</strong></p>
+          <p>
+            Backgammon is a two-player game where each player controls 15
+            pieces, aka “men” or checkers, one black and one white. The first
+            player to remove their pieces from the board wins.
+          </p>
+          <p>
+            A board consists of 24 arrow-shaped spaces, the colors split into
+            alternating rows. Six spaces, or “points,” take up each quadrant.
+            The home board for the white checkers is on a player’s right, while
+            the home board for the black checkers is on a player’s left. The
+            white checkers only move counterclockwise, and the black checkers
+            move clockwise.
+          </p>
+          <p>
+            Each player tries to move their 15 pieces around the board until
+            they can remove them from play by getting them to the edge of the
+            home board. Removing a piece is known as “bearing off.” The starting
+            position for all the pieces are as follows:
+          </p>
+          <div class="rules_image_box">
+            <img class="rules_backgammon" src="img/rules_backgammon.webp" />
+          </div>
+          <p>
+            Players move their checkers to their home quadrant to remove them
+            from play. The player’s home quadrant contains the six rows in the
+            quadrant originally occupied by their opponent’s two checkers
+            (opposite left for player one and opposite right for player two).
+          </p>
+          <p><strong>MOVES AND RULES</strong></p>
+          <p>
+            Players each roll one die to see who goes first. The first player
+            moves spaces equal to the total of that first roll (their die and
+            their opponent’s). After that, players roll both their own dice.
+            Gamers move up to two pieces equal to the total of the dice roll. If
+            moving two pieces, each piece moves the same as a number on a die.
+            For example, if you roll a 2 and a 6, one piece must move 2 and the
+            other 6 (or 6 and then 2).
+          </p>
+          <ul>
+            <li>If you roll doubles, you can move that number four times.</li>
+            <li>
+              You <strong>can</strong> move to a space with only one of the
+              opponent’s checkers. Your opponent’s piece is then bumped to the
+              middle of the board, aka “jail” (which divides the four
+              quadrants). In order to remove the piece from jail, they have to
+              try to get the piece into their home quadrant on their next turn.
+            </li>
+            <li>
+              To escape jail, the roll must include a die with the number of
+              moves to a free space, following rules about blocked spaces, to
+              return a checker to play. Otherwise, that player passes their
+              turn.
+            </li>
+            <li>
+              You <strong>cannot</strong> move a piece to a point where your
+              opponent has at least two checkers.
+            </li>
+            <li>
+              You <strong>cannot</strong> move the same piece twice if it would
+              land on a blocked space at the end of a single die’s count. For
+              example, if you roll a 3 and a 4 and both the third and fourth
+              space are blocked, you cannot move your checker to the seventh
+              space, even if it’s free.
+            </li>
+          </ul>
+          <p><strong>WINNING THE GAME</strong></p>
+          <p>
+            Once all 15 pieces are in your home quadrant, you can begin to roll
+            dice to move them off the board and onto the side of the home board.
+            You must roll at least the number of spaces plus one to bear off.
+            Remove all your pieces to win!
+          </p>
+        </div>
+        <div class="rules_x_button">X</div>
+      </section>
     </div>
   </body>
   <! SOUNDS -->
@@ -314,5 +411,6 @@
   <audio id="number10" src="sound/number10.wav"></audio>
   <audio id="number11" src="sound/number11.wav"></audio>
   <audio id="number12" src="sound/number12.wav"></audio>
+  <audio id="chat_sound" src="sound/chat_notification.wav"></audio>
   <script src="script2.js"></script>
 </html>

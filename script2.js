@@ -49,6 +49,11 @@ const chatboxSection = document.querySelector(".chatbox_section");
 const chatBoxDisplay = document.querySelector(".chatbox_display");
 const chatboxInput = document.getElementById("chatbox_input");
 const chatXButton = document.querySelector(".chat_x_button");
+const chatNotification = document.querySelector(".chat_notifications");
+
+// Rules section elements
+const rulesSection = document.querySelector(".rules_section");
+const rulesXButton = document.querySelector(".rules_x_button");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // MEDIA: SOUNDS
@@ -73,6 +78,9 @@ const number9 = document.getElementById("number9");
 const number10 = document.getElementById("number10");
 const number11 = document.getElementById("number11");
 const number12 = document.getElementById("number12");
+
+// Chat sounds
+const chatPop = document.getElementById("chat_sound");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENT LISTENERS
@@ -523,7 +531,13 @@ function getUserDisplayName() {
 
 // TESTING OTHER USER MESSAGES
 const askJack = document.querySelector(".ask_jack_button");
-askJack.addEventListener("click", pretendOpponentMessage);
+askJack.addEventListener("click", () => {
+  pretendOpponentMessage();
+  if (chatNotification.textContent == 0) {
+    toggleClass(chatNotification, "hidden");
+  }
+  addChatNotification();
+});
 
 // Generates and posts a chatbox message from a pretend opponent
 // Called by an eventHandler on the 'Ask Jack - TEST' button
@@ -550,9 +564,26 @@ function createOpponentMessage(opponentName, message) {
   return messageHTML;
 }
 
+chatButton.addEventListener("click", () => {
+  playClickSound();
+  clearChatNotification();
+  toggleClass(chatboxSection, "removed");
+  setTimeout(() => {
+    toggleClass(chatboxSection, "hidden");
+    toggleClass(chatboxSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+  }, 60);
+  setTimeout(() => {
+    displayLatestMessage();
+  }, 1000);
+});
+
 chatXButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(chatboxSection, "hidden");
+  if (chatNotification.textContent != 0) {
+    toggleClass(chatNotification, "hidden");
+  }
   setTimeout(() => {
     toggleClass(chatboxSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
@@ -560,13 +591,23 @@ chatXButton.addEventListener("click", () => {
   }, 60);
 });
 
-chatButton.addEventListener("click", () => {
+rulesButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(chatboxSection, "removed");
+  toggleClass(rulesSection, "removed");
   setTimeout(() => {
-    toggleClass(chatboxSection, "hidden");
-    toggleClass(chatboxSection, "no_pointer_events");
+    toggleClass(rulesSection, "hidden");
+    toggleClass(rulesSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+  }, 60);
+});
+
+rulesXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(rulesSection, "hidden");
+  setTimeout(() => {
+    toggleClass(rulesSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(rulesSection, "removed");
   }, 60);
 });
 
@@ -598,4 +639,25 @@ function startGameMessages(mode, userDisplayName, opponentName) {
 // Called by startGameMessages()
 function addGameNotification(HTML) {
   chatBoxDisplay.insertAdjacentHTML("beforeend", HTML);
+}
+
+function addChatNotification() {
+  console.log("This code is running - ADD CHAT NOTIFICATION");
+  console.log(chatNotification);
+  if (chatNotification.classList.contains("hidden")) {
+    return;
+  } else {
+    let chatNumber = Number(chatNotification.textContent);
+    console.log(chatNumber);
+    chatNumber++;
+    chatNotification.textContent = String(chatNumber);
+    console.log(chatNotification.textContent);
+    chatPop.play();
+    return;
+  }
+}
+
+function clearChatNotification() {
+  chatNotification.textContent = 0;
+  chatNotification.classList.add("hidden");
 }

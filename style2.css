@@ -68,6 +68,7 @@ html {
   margin-top: 30%;
   border: 2px solid white;
   border-radius: 15px;
+  transform: rotate(180deg);
 }
 
 .intro_play_div {
@@ -255,7 +256,7 @@ html {
   row-gap: 48px;
   background-color: var(--light_felt_green);
   position: absolute;
-  top: 2%;
+  top: 15.5%;
   left: 3.6%;
   border-radius: 25px;
   border: 2px solid white;
@@ -329,6 +330,24 @@ html {
 }
 
 /* //////////////////////////////////CHATBOX */
+.chat_notifications {
+  background-color: orange;
+  border: 2px solid white;
+  text-align: center;
+  padding: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 26%;
+  right: 0;
+  opacity: 1;
+  z-index: 9;
+}
+
 .chatbox_section {
   background-color: var(--active_button_gold);
   width: auto;
@@ -338,6 +357,7 @@ html {
   position: absolute;
   height: 630px;
   width: 450px;
+  border: 2px solid white;
   top: 15%;
   left: 1%;
   z-index: 9;
@@ -416,6 +436,10 @@ html {
   color: black;
 }
 
+.chatbox_display strong {
+  color: black;
+}
+
 .chat_x_button {
   position: absolute;
   top: 5px;
@@ -431,6 +455,74 @@ html {
   text-align: center;
   border: 1px solid white;
   cursor: pointer;
+}
+
+/* RULES SECTION */
+
+.rules_section {
+  background-color: var(--youtube_red);
+  width: auto;
+  display: grid;
+  grid-template-rows: 90% 10%;
+  /* overflow-y: scroll; */
+  position: absolute;
+  height: 630px;
+  width: 450px;
+  top: 15%;
+  left: 1%;
+  z-index: 9;
+  border-radius: 25px;
+  border: solid 2px white;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.rules_info {
+  padding: 20px;
+  padding-right: 20px;
+  margin-top: 12px;
+  margin-right: 12px;
+  overflow-y: scroll;
+  height: 600px;
+}
+
+.rules_info p {
+  margin-bottom: 10px;
+}
+
+.rules_info li {
+  margin-bottom: 10px;
+  list-style-type: square;
+  list-style-position: inside;
+}
+
+.rules_x_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 36px;
+  width: 36px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 50%;
+  padding-top: 2px;
+  text-align: center;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.rules_image_box {
+  width: 100%;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.rules_image_box img {
+  width: 100%;
 }
 
 /* HELPER CLASSES */
@@ -456,4 +548,10 @@ html {
 
 .no_pointer_events {
   pointer-events: none;
+}
+
+.ask_jack_button {
+  position: absolute;
+  top: 90%;
+  cursor: pointer;
 }
