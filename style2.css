@@ -500,7 +500,7 @@ html {
   grid-template-columns: 24px auto;
   height: 20px;
   margin-bottom: 4px;
-  font-weight: 500;
+  font-weight: 450;
 }
 
 .is_player_active {
@@ -524,12 +524,21 @@ html {
   cursor: pointer;
 }
 
-.toggle_online p {
+.filter_div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.toggle_online p,
+.toggle_available p,
+.toggle_language p {
   font-size: 12px;
   margin-top: 2px;
 }
 
-.toggle_online_graphic {
+.toggle_online_graphic,
+.toggle_available_graphic,
+.toggle_language_graphic {
   height: 20px;
   width: 36px;
   position: relative;
@@ -557,6 +566,27 @@ html {
 
 .toggled_right_button {
   right: 1px;
+}
+
+.toggle_language_box {
+  height: 20px;
+  width: 100px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  border: 1px solid black;
+  border-radius: 2px;
+  background-color: aliceblue;
+  margin-top: 4px;
+  border-radius: 2px;
+}
+
+.toggle_language_box p {
+  color: black;
+  margin-left: 4px;
+}
+
+.language_selector_button {
+  cursor: pointer;
 }
 
 /* RULES SECTION */
