@@ -470,7 +470,6 @@ html {
   width: 450px;
   top: 15%;
   left: 1%;
-  z-index: 9;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
@@ -479,6 +478,9 @@ html {
 
 .players_display {
   background-color: aliceblue;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 24px;
   height: 80%;
   width: 98%;
   margin-top: 10px;
@@ -486,14 +488,78 @@ html {
   overflow-y: scroll;
   border: 2px solid white;
   border-radius: 10px;
+  color: black;
 }
 
 .players_friends {
   height: 70%;
 }
 
-/* RULES SECTION */
+.player_online_display {
+  display: grid;
+  grid-template-columns: 24px auto;
+  height: 20px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
 
+.is_player_active {
+  background-color: rgb(91, 218, 91);
+  border-radius: 50%;
+  border: 1px solid white;
+  height: 18px;
+  width: 18px;
+}
+
+.player_online_display.no_pointer_events {
+  font-weight: lighter;
+}
+
+.player_offline {
+  background-color: var(--youtube_red);
+}
+
+.player_text {
+  color: black;
+  cursor: pointer;
+}
+
+.toggle_online p {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.toggle_online_graphic {
+  height: 20px;
+  width: 36px;
+  position: relative;
+  background-color: var(--youtube_red);
+  border: solid 1px white;
+  border-radius: 9999px;
+  margin-top: 4px;
+  margin-left: 10px;
+}
+
+.slider_button {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border: solid 1px silver;
+  border-radius: 50%;
+  background-color: black;
+  position: absolute;
+  top: -3px;
+}
+
+.toggled_right {
+  background-color: rgb(91, 218, 91);
+}
+
+.toggled_right_button {
+  right: 1px;
+}
+
+/* RULES SECTION */
 .rules_section {
   background-color: var(--youtube_red);
   width: auto;
@@ -504,7 +570,6 @@ html {
   width: 450px;
   top: 15%;
   left: 1%;
-  /* z-index: 9; */
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;

@@ -54,6 +54,17 @@ const chatNotification = document.querySelector(".chat_notifications");
 // Players section elements
 const playersSection = document.querySelector(".players_section");
 const playersXButton = document.querySelector(".players_x_button");
+const playersFriends = document.querySelector(".players_friends");
+const playersPlayedBefore = document.querySelector(".players_played_before");
+const playersCurrentlyActive = document.querySelector(
+  ".players_currently_active"
+);
+const onlinePlayerToggleGraphic = document.querySelector(
+  ".toggle_online_graphic"
+);
+const onlinePlayersToggleButton = document.querySelector(
+  ".toggle_online_graphic p"
+);
 
 // Rules section elements
 const rulesSection = document.querySelector(".rules_section");
@@ -116,6 +127,95 @@ buttonRoll2.addEventListener("click", () => {
   toggleClass(buttonRoll2, "no_pointer_events");
 });
 
+chatButton.addEventListener("click", () => {
+  playClickSound();
+  clearChatNotification();
+  toggleClass(chatboxSection, "removed");
+  setTimeout(() => {
+    toggleClass(chatboxSection, "hidden");
+    toggleClass(chatboxSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+  }, 60);
+  setTimeout(() => {
+    displayLatestMessage();
+  }, 1000);
+});
+
+chatXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(chatboxSection, "hidden");
+  if (chatNotification.textContent != 0) {
+    toggleClass(chatNotification, "hidden");
+  }
+  setTimeout(() => {
+    toggleClass(chatboxSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(chatboxSection, "removed");
+  }, 60);
+});
+
+chatboxInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addChatMessage();
+  }
+});
+
+playersButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(playersSection, "removed");
+  toggleClass(playersSection, "hidden");
+  toggleClass(playersSection, "no_pointer_events");
+  toggleClass(floatingButtonsLeft, "no_pointer_events");
+  if (playersPopulatedFlag === false) {
+    populatePlayers(experimentalFriends, playersFriends);
+    populatePlayers(experimentalFriends, playersPlayedBefore);
+    populatePlayers(experimentalFriends, playersCurrentlyActive);
+    sortPlayerDisplay(playersFriends);
+    sortPlayerDisplay(playersPlayedBefore);
+    playersPopulatedFlag = true;
+  }
+});
+
+playersXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(playersSection, "hidden");
+  setTimeout(() => {
+    toggleClass(playersSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(playersSection, "removed");
+  }, 60);
+});
+
+onlinePlayersToggleButton.addEventListener("click", () => {
+  playClickSound();
+  toggleOnlinePlayersOnly();
+  toggleClass(onlinePlayerToggleGraphic, "toggled_right");
+  toggleClass(onlinePlayersToggleButton, "toggled_right_button");
+});
+
+rulesButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(rulesSection, "removed");
+  setTimeout(() => {
+    toggleClass(rulesSection, "hidden");
+    toggleClass(rulesSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+  }, 60);
+});
+
+rulesXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(rulesSection, "hidden");
+  setTimeout(() => {
+    toggleClass(rulesSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(rulesSection, "removed");
+  }, 60);
+});
+
+clsButton.addEventListener("click", playClickSound);
+
 playButton.addEventListener("click", () => {
   toggleClass(introDisplay, "hidden");
   openingJingle.play();
@@ -132,15 +232,6 @@ buttonGamestartFun.addEventListener("click", () => {
 buttonGamestartPro.addEventListener("click", () => {
   playClickSound();
   displayProBoard();
-});
-
-clsButton.addEventListener("click", playClickSound);
-
-chatboxInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    addChatMessage();
-  }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,6 +265,72 @@ let userIP;
 let userDisplayName;
 
 let nameIsGuest = false;
+
+const experimentalFriends = [
+  "Bob",
+  "Timmy",
+  "Elizabeth",
+  "Arcturus",
+  "Sarah",
+  "Grant",
+  "Zeratul",
+  "Ayako",
+  "Michael",
+  "William",
+  "Dolores",
+  "Jimmy",
+  "Artanis",
+  "Zagarra",
+  "Tommy",
+  "Biblobba",
+  "Squiglogs",
+  "Roboute",
+  "Jason",
+  "Jessica",
+];
+
+const playersOnline = [
+  "Sarah",
+  "Grant",
+  "Zeratul",
+  "Ayako",
+  "Michael",
+  "William",
+  "Tommy",
+  "Biblobba",
+  "Squiglogs",
+  "Roboute",
+  "Jason",
+];
+
+const userFriends = [
+  "Bob",
+  "Timmy",
+  "Elizabeth",
+  "Arcturus",
+  "Michael",
+  "William",
+  "Tommy",
+  "Biblobba",
+];
+
+const userPlayedBefore = [
+  "Bob",
+  "Timmy",
+  "Elizabeth",
+  "Arcturus",
+  "Michael",
+  "William",
+  "Tommy",
+  "Biblobba",
+  "Squiglogs",
+  "Roboute",
+  "Jason",
+  "Jessica",
+];
+
+let toggleOnlineOnlyFlag = false;
+let playersPopulatedFlag = false;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -568,77 +725,6 @@ function createOpponentMessage(opponentName, message) {
   return messageHTML;
 }
 
-chatButton.addEventListener("click", () => {
-  playClickSound();
-  clearChatNotification();
-  toggleClass(chatboxSection, "removed");
-  setTimeout(() => {
-    toggleClass(chatboxSection, "hidden");
-    toggleClass(chatboxSection, "no_pointer_events");
-    toggleClass(floatingButtonsLeft, "no_pointer_events");
-  }, 60);
-  setTimeout(() => {
-    displayLatestMessage();
-  }, 1000);
-});
-
-chatXButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(chatboxSection, "hidden");
-  if (chatNotification.textContent != 0) {
-    toggleClass(chatNotification, "hidden");
-  }
-  setTimeout(() => {
-    toggleClass(chatboxSection, "no_pointer_events");
-    toggleClass(floatingButtonsLeft, "no_pointer_events");
-    toggleClass(chatboxSection, "removed");
-  }, 60);
-});
-
-playersButton.addEventListener("click", () => {
-  playClickSound();
-  clearChatNotification();
-  toggleClass(playersSection, "removed");
-  setTimeout(() => {
-    toggleClass(playersSection, "hidden");
-    toggleClass(playersSection, "no_pointer_events");
-    toggleClass(floatingButtonsLeft, "no_pointer_events");
-  }, 60);
-  setTimeout(() => {
-    displayLatestMessage();
-  }, 1000);
-});
-
-playersXButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(playersSection, "hidden");
-  setTimeout(() => {
-    toggleClass(playersSection, "no_pointer_events");
-    toggleClass(floatingButtonsLeft, "no_pointer_events");
-    toggleClass(playersSection, "removed");
-  }, 60);
-});
-
-rulesButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(rulesSection, "removed");
-  setTimeout(() => {
-    toggleClass(rulesSection, "hidden");
-    toggleClass(rulesSection, "no_pointer_events");
-    toggleClass(floatingButtonsLeft, "no_pointer_events");
-  }, 60);
-});
-
-rulesXButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(rulesSection, "hidden");
-  setTimeout(() => {
-    toggleClass(rulesSection, "no_pointer_events");
-    toggleClass(floatingButtonsLeft, "no_pointer_events");
-    toggleClass(rulesSection, "removed");
-  }, 60);
-});
-
 function playClickSound() {
   buttonClickSound.play();
 }
@@ -688,4 +774,126 @@ function addChatNotification() {
 function clearChatNotification() {
   chatNotification.textContent = 0;
   chatNotification.classList.add("hidden");
+}
+
+function populatePlayers(playerList, section) {
+  const newPlayerList = playerList.toSorted().reverse();
+  console.log(section);
+  let HTML;
+  newPlayerList.forEach((player) => {
+    const specificClass = "player_is_" + player;
+    if (section === playersCurrentlyActive) {
+      checkPlayerOnline(player, playersOnline)
+        ? (() => {
+            HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`;
+            section.insertAdjacentHTML("afterbegin", HTML);
+          })()
+        : null;
+    } else if (section === playersFriends) {
+      if (userFriends.includes(player)) {
+        checkPlayerOnline(player, playersOnline)
+          ? (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+          : (HTML = `<div class='player_online_display no_pointer_events'><p class='is_player_active player_offline'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
+        section.insertAdjacentHTML("afterbegin", HTML);
+      }
+    } else if (section === playersPlayedBefore) {
+      if (userPlayedBefore.includes(player)) {
+        checkPlayerOnline(player, playersOnline)
+          ? (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+          : (HTML = `<div class='player_online_display no_pointer_events'><p class='is_player_active player_offline'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
+        section.insertAdjacentHTML("afterbegin", HTML);
+      }
+    } else {
+      checkPlayerOnline(player, playersOnline)
+        ? (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+        : (HTML = `<div class='player_online_display no_pointer_events'><p class='is_player_active player_offline'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
+      section.insertAdjacentHTML("afterbegin", HTML);
+    }
+  });
+  addPlayerEventListeners(playerList);
+  // toggleOnlinePlayersOnly();
+}
+
+function checkPlayerOnline(player, playersOnline) {
+  if (playersOnline.includes(player)) {
+    console.log(`playersOnline includes ${player}!`);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function sortPlayerDisplay(element) {
+  const container = element;
+  console.log(`This code is ruuning - SORT PLAYER DISPLAY`);
+
+  const sortedDivs = Array.from(container.children).sort((a, b) => {
+    const hasOfflineA = a.querySelector(".player_offline") !== null;
+    const hasOfflineB = b.querySelector(".player_offline") !== null;
+    if (hasOfflineA && !hasOfflineB) {
+      return 1;
+    } else if (!hasOfflineA && hasOfflineB) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+  sortedDivs.forEach((div) => container.appendChild(div));
+}
+
+function addPlayerEventListeners(playerList) {
+  playerList.forEach((player) => {
+    console.log(player);
+    const element = ".player_is_" + player;
+    console.log(element);
+    const DOMElement = document.querySelectorAll(element);
+    console.log(DOMElement);
+    DOMElement.forEach((current) => {
+      current.addEventListener("click", () => {
+        displayPlayerName(player);
+      });
+    });
+  });
+}
+
+// TODO
+// MAKE THIS FUNCTION CHANGE THE PLAYER SELECTION DIALOGUE BOX WHEN READY
+function displayPlayerName(playerName) {
+  playButton.textContent = playerName;
+}
+
+function toggleOnlinePlayersOnly() {
+  console.log(`This code is running - TOGGLEONLINEPLAYERSONLY`);
+  const container = playersFriends;
+  const playersArray = Array.from(container.children);
+  const container2 = playersPlayedBefore;
+  const playersArray2 = Array.from(container2.children);
+  const playersArrays = [playersArray, playersArray2];
+  if (!toggleOnlineOnlyFlag) {
+    removeOfflinePlayers(playersArrays);
+    toggleOnlineOnlyFlag = true;
+  } else {
+    addOfflinePlayers(playersArrays);
+    toggleOnlineOnlyFlag = false;
+  }
+}
+
+function removeOfflinePlayers(playersArrays) {
+  playersArrays.forEach((array) => {
+    array.forEach((current) => {
+      if (current.classList.contains("no_pointer_events")) {
+        current.classList.add("removed");
+      }
+    });
+  });
+}
+
+function addOfflinePlayers(playersArrays) {
+  playersArrays.forEach((array) => {
+    array.forEach((current) => {
+      if (current.classList.contains("removed")) {
+        current.classList.remove("removed");
+      }
+    });
+  });
 }
