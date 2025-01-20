@@ -51,6 +51,10 @@ const chatboxInput = document.getElementById("chatbox_input");
 const chatXButton = document.querySelector(".chat_x_button");
 const chatNotification = document.querySelector(".chat_notifications");
 
+// Players section elements
+const playersSection = document.querySelector(".players_section");
+const playersXButton = document.querySelector(".players_x_button");
+
 // Rules section elements
 const rulesSection = document.querySelector(".rules_section");
 const rulesXButton = document.querySelector(".rules_x_button");
@@ -588,6 +592,30 @@ chatXButton.addEventListener("click", () => {
     toggleClass(chatboxSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(chatboxSection, "removed");
+  }, 60);
+});
+
+playersButton.addEventListener("click", () => {
+  playClickSound();
+  clearChatNotification();
+  toggleClass(playersSection, "removed");
+  setTimeout(() => {
+    toggleClass(playersSection, "hidden");
+    toggleClass(playersSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+  }, 60);
+  setTimeout(() => {
+    displayLatestMessage();
+  }, 1000);
+});
+
+playersXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(playersSection, "hidden");
+  setTimeout(() => {
+    toggleClass(playersSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(playersSection, "removed");
   }, 60);
 });
 

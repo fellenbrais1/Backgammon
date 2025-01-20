@@ -245,6 +245,23 @@ html {
   margin: 20%;
 }
 
+.x_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 36px;
+  width: 36px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 50%;
+  padding-top: 2px;
+  text-align: center;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
 /* /////////////////////////////DICE SECTION */
 .dice_roller {
   display: grid;
@@ -440,21 +457,39 @@ html {
   color: black;
 }
 
-.chat_x_button {
+/* PLAYERS SECTION */
+.players_section {
+  background-color: var(--light_felt_green);
+  width: auto;
+  display: grid;
+  grid-template-rows: 70px 150px 190px 190px;
+  padding-left: 10px;
+  padding-top: 10px;
   position: absolute;
-  top: 5px;
-  right: 5px;
-  height: 36px;
-  width: 36px;
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 50%;
-  padding-top: 2px;
-  text-align: center;
-  border: 1px solid white;
-  cursor: pointer;
+  height: 630px;
+  width: 450px;
+  top: 15%;
+  left: 1%;
+  z-index: 9;
+  border-radius: 25px;
+  border: solid 2px white;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.players_display {
+  background-color: aliceblue;
+  height: 80%;
+  width: 98%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow-y: scroll;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.players_friends {
+  height: 70%;
 }
 
 /* RULES SECTION */
@@ -464,13 +499,12 @@ html {
   width: auto;
   display: grid;
   grid-template-rows: 90% 10%;
-  /* overflow-y: scroll; */
   position: absolute;
   height: 630px;
   width: 450px;
   top: 15%;
   left: 1%;
-  z-index: 9;
+  /* z-index: 9; */
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
@@ -494,23 +528,6 @@ html {
   margin-bottom: 10px;
   list-style-type: square;
   list-style-position: inside;
-}
-
-.rules_x_button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  height: 36px;
-  width: 36px;
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 50%;
-  padding-top: 2px;
-  text-align: center;
-  border: 1px solid white;
-  cursor: pointer;
 }
 
 .rules_image_box {
