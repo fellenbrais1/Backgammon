@@ -33,7 +33,7 @@ const playersButton = document.querySelector(".button_players");
 const rulesButton = document.querySelector(".button_rules");
 const loginButton = document.querySelector(".button_login");
 const settingsButton = document.querySelector(".button_settings");
-const gamesButton = document.querySelector(".button_games");
+const otherGamesButton = document.querySelector(".button_other_games");
 const clsButton = document.querySelector(".button_cls");
 
 // Dice section elements
@@ -66,9 +66,24 @@ const onlinePlayersToggleButton = document.querySelector(
   ".toggle_online_graphic p"
 );
 
+const freePlayersToggleGraphic = document.querySelector(".toggle_free_graphic");
+
+const freePlayersToggleButton = document.querySelector(
+  ".toggle_free_graphic p"
+);
+
 // Rules section elements
 const rulesSection = document.querySelector(".rules_section");
 const rulesXButton = document.querySelector(".rules_x_button");
+
+// Login section elements
+const logInSection = document.querySelector(".login_section");
+const logInXButton = document.querySelector(".login_x_button");
+
+// Other games section elements
+const otherGamesSection = document.querySelector(".other_games_section");
+const otherGamesDisplay = document.querySelector(".other_games_display");
+const otherGamesXButton = document.querySelector(".other_games_x_button");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // MEDIA: SOUNDS
@@ -171,8 +186,6 @@ playersButton.addEventListener("click", () => {
     populatePlayers(experimentalFriends, playersFriends);
     populatePlayers(experimentalFriends, playersPlayedBefore);
     populatePlayers(experimentalFriends, playersCurrentlyActive);
-    sortPlayerDisplay(playersFriends);
-    sortPlayerDisplay(playersPlayedBefore);
     playersPopulatedFlag = true;
   }
 });
@@ -194,6 +207,13 @@ onlinePlayersToggleButton.addEventListener("click", () => {
   toggleClass(onlinePlayersToggleButton, "toggled_right_button");
 });
 
+freePlayersToggleButton.addEventListener("click", () => {
+  playClickSound();
+  toggleFreePlayersOnly();
+  toggleClass(freePlayersToggleGraphic, "toggled_right");
+  toggleClass(freePlayersToggleButton, "toggled_right_button");
+});
+
 rulesButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(rulesSection, "removed");
@@ -211,6 +231,50 @@ rulesXButton.addEventListener("click", () => {
     toggleClass(rulesSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(rulesSection, "removed");
+  }, 60);
+});
+
+otherGamesButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(otherGamesSection, "removed");
+  setTimeout(() => {
+    toggleClass(otherGamesSection, "hidden");
+    toggleClass(otherGamesSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    populateOtherGames(otherGamesHTML);
+    addCurrentGameClass(currentGameFlag);
+    otherGamesPopulatedFlag = true;
+  }, 60);
+});
+
+otherGamesXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(otherGamesSection, "hidden");
+  setTimeout(() => {
+    toggleClass(otherGamesSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(otherGamesSection, "removed");
+  }, 60);
+});
+
+loginButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(logInSection, "removed");
+  setTimeout(() => {
+    toggleClass(logInSection, "hidden");
+    toggleClass(logInSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    otherGamesPopulatedFlag = true;
+  }, 60);
+});
+
+logInXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(logInSection, "hidden");
+  setTimeout(() => {
+    toggleClass(logInSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(logInSection, "removed");
   }, 60);
 });
 
@@ -265,6 +329,14 @@ let userIP;
 let userDisplayName;
 
 let nameIsGuest = false;
+
+const player_object_1 = {
+  username: "fellenbrais",
+  password: "Sorenson1",
+  displayName: "Michael",
+  languages: ["english"],
+  friends: [],
+};
 
 const experimentalFriends = [
   "Bob",
@@ -329,8 +401,29 @@ const userPlayedBefore = [
   "Jessica",
 ];
 
+const playersInGame = ["Michael", "Ayako", "Zeratul", "Squiglogs"];
+
 let toggleOnlineOnlyFlag = false;
+let toggleFreeOnlyFlag = false;
 let playersPopulatedFlag = false;
+let otherGamesPopulatedFlag = false;
+
+const otherGamesBackgammonButtonHTML = `<div class="game_button_backgammon" title="Backgammon">
+    <img src="img/MOMABackgammon.png" alt="Backgammon game picture" />
+    <p>Backgammon</p>
+  </div>`;
+
+const otherGamesMurderMansionButtonHTML = `<div class="game_button_murder_mansion" title="Murder Mansion">
+  <img src="img/murderMansion.jpg" alt="Murder Mansion game picture" />
+  <p>Murder Mansion</p>
+</div>`;
+
+const otherGamesHTML = [
+  otherGamesBackgammonButtonHTML,
+  otherGamesMurderMansionButtonHTML,
+];
+
+const currentGameFlag = "Backgammon";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -348,6 +441,7 @@ function showMain() {
 
 function toggleClass(pageElement, property) {
   console.log(`This code is running`);
+  console.log(pageElement);
   pageElement.classList.contains(property)
     ? pageElement.classList.remove(property)
     : pageElement.classList.add(property);
@@ -782,36 +876,41 @@ function populatePlayers(playerList, section) {
   let HTML;
   newPlayerList.forEach((player) => {
     const specificClass = "player_is_" + player;
-    if (section === playersCurrentlyActive) {
-      checkPlayerOnline(player, playersOnline)
-        ? (() => {
-            HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`;
-            section.insertAdjacentHTML("afterbegin", HTML);
-          })()
-        : null;
-    } else if (section === playersFriends) {
+    if (section === playersFriends) {
       if (userFriends.includes(player)) {
         checkPlayerOnline(player, playersOnline)
-          ? (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+          ? (() => {
+              checkPlayerInGame(player, playersInGame)
+                ? (HTML = `<div class='player_online_display not_free'><p class='is_player_active player_ingame'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+                : (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
+            })()
           : (HTML = `<div class='player_online_display no_pointer_events'><p class='is_player_active player_offline'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
         section.insertAdjacentHTML("afterbegin", HTML);
       }
     } else if (section === playersPlayedBefore) {
       if (userPlayedBefore.includes(player)) {
         checkPlayerOnline(player, playersOnline)
-          ? (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+          ? (() => {
+              checkPlayerInGame(player, playersInGame)
+                ? (HTML = `<div class='player_online_display not_free'><p class='is_player_active player_ingame'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+                : (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
+            })()
           : (HTML = `<div class='player_online_display no_pointer_events'><p class='is_player_active player_offline'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
         section.insertAdjacentHTML("afterbegin", HTML);
       }
-    } else {
-      checkPlayerOnline(player, playersOnline)
-        ? (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
-        : (HTML = `<div class='player_online_display no_pointer_events'><p class='is_player_active player_offline'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
-      section.insertAdjacentHTML("afterbegin", HTML);
+    } else if (section === playersCurrentlyActive) {
+      if (checkPlayerOnline(player, playersOnline)) {
+        (() => {
+          checkPlayerInGame(player, playersInGame)
+            ? (HTML = `<div class='player_online_display not_free'><p class='is_player_active player_ingame'></p><p class='player_text ${specificClass}'>${player}</p></div>`)
+            : (HTML = `<div class='player_online_display'><p class='is_player_active'></p><p class='player_text ${specificClass}'>${player}</p></div>`);
+        })();
+        section.insertAdjacentHTML("afterbegin", HTML);
+      }
     }
   });
   addPlayerEventListeners(playerList);
-  // toggleOnlinePlayersOnly();
+  sortPlayerDisplay(section);
 }
 
 function checkPlayerOnline(player, playersOnline) {
@@ -823,22 +922,62 @@ function checkPlayerOnline(player, playersOnline) {
   }
 }
 
+function checkPlayerInGame(player, playersInGame) {
+  if (playersInGame.includes(player)) {
+    console.log(`playersInGame includes ${player}!`);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// function sortPlayerDisplay(element) {
+//   const container = element;
+//   console.log(`This code is ruuning - SORT PLAYER DISPLAY`);
+
+//   const sortedDivs = Array.from(container.children).sort((a, b) => {
+//     const hasOfflineA = a.querySelector(".player_offline") !== null;
+//     const hasOfflineB = b.querySelector(".player_offline") !== null;
+
+//     if (hasOfflineA && !hasOfflineB) {
+//       return 1;
+//     } else if (!hasOfflineA && hasOfflineB) {
+//       return -1;
+//     } else {
+//       return 0;
+//     }
+//   });
+
+//   sortedDivs.forEach((div) => container.appendChild(div));
+// }
+
 function sortPlayerDisplay(element) {
   const container = element;
-  console.log(`This code is ruuning - SORT PLAYER DISPLAY`);
+  console.log(container);
+  const playersArray = Array.from(container.children);
 
-  const sortedDivs = Array.from(container.children).sort((a, b) => {
-    const hasOfflineA = a.querySelector(".player_offline") !== null;
-    const hasOfflineB = b.querySelector(".player_offline") !== null;
-    if (hasOfflineA && !hasOfflineB) {
-      return 1;
-    } else if (!hasOfflineA && hasOfflineB) {
-      return -1;
-    } else {
-      return 0;
-    }
+  playersArray.sort((a, b) => {
+    const firstChildA = a.firstElementChild;
+    const firstChildB = b.firstElementChild;
+    const classA = firstChildA
+      ? firstChildA.classList.contains("player_ingame")
+        ? 1
+        : firstChildA.classList.contains("player_offline")
+        ? 2
+        : 0
+      : 0;
+    const classB = firstChildB
+      ? firstChildB.classList.contains("player_ingame")
+        ? 1
+        : firstChildB.classList.contains("player_offline")
+        ? 2
+        : 0
+      : 0;
+
+    return classA - classB;
   });
-  sortedDivs.forEach((div) => container.appendChild(div));
+
+  playersArray.forEach((child) => element.appendChild(child));
 }
 
 function addPlayerEventListeners(playerList) {
@@ -891,9 +1030,85 @@ function removeOfflinePlayers(playersArrays) {
 function addOfflinePlayers(playersArrays) {
   playersArrays.forEach((array) => {
     array.forEach((current) => {
-      if (current.classList.contains("removed")) {
+      if (
+        current.classList.contains("removed") &&
+        current.classList.contains("no_pointer_events")
+      ) {
         current.classList.remove("removed");
       }
     });
   });
+}
+
+function toggleFreePlayersOnly() {
+  console.log(`This code is running - TOGGLEFREEPLAYERSONLY`);
+  const container = playersFriends;
+  const playersArray = Array.from(container.children);
+  const container2 = playersPlayedBefore;
+  const playersArray2 = Array.from(container2.children);
+  const container3 = playersCurrentlyActive;
+  const playersArray3 = Array.from(container3.children);
+  const playersArrays = [playersArray, playersArray2, playersArray3];
+  if (!toggleFreeOnlyFlag) {
+    removeInGamePlayers(playersArrays);
+    toggleFreeOnlyFlag = true;
+  } else {
+    addInGamePlayers(playersArrays);
+    toggleFreeOnlyFlag = false;
+  }
+}
+
+function removeInGamePlayers(playersArrays) {
+  playersArrays.forEach((array) => {
+    array.forEach((current) => {
+      if (current.classList.contains("not_free")) {
+        current.classList.add("removed");
+      }
+    });
+  });
+}
+
+function addInGamePlayers(playersArrays) {
+  playersArrays.forEach((array) => {
+    array.forEach((current) => {
+      if (
+        current.classList.contains("removed") &&
+        current.classList.contains("not_free")
+      ) {
+        current.classList.remove("removed");
+      }
+    });
+  });
+}
+
+function populateOtherGames(otherGamesHTML) {
+  if (otherGamesPopulatedFlag === false) {
+    let fullHTML = "";
+    otherGamesHTML.forEach((current) => {
+      fullHTML += current;
+    });
+    otherGamesDisplay.insertAdjacentHTML("beforeend", fullHTML);
+    otherGamesBackgammonButton = document.querySelector(
+      ".game_button_backgammon"
+    );
+    otherGamesMurderMansionButton = document.querySelector(
+      ".game_button_murder_mansion"
+    );
+  }
+}
+
+let otherGamesBackgammonButton;
+let otherGamesMurderMansionButton;
+
+function addCurrentGameClass(currentGameFlag) {
+  if (otherGamesPopulatedFlag === false) {
+    switch (currentGameFlag) {
+      case "Backgammon":
+        toggleClass(otherGamesBackgammonButton, "game_button_current");
+        break;
+      case "Murder Mansion":
+        toggleClass(otherGamesMurderMansionButton, "game_button_current");
+        break;
+    }
+  }
 }

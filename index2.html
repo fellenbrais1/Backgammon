@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fresh Version</title>
     <link rel="stylesheet" href="style2.css" />
+    <! FAVICON -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="img/favicon/site.webmanifest" />
   </head>
   <body>
     <div class="pagebox">
@@ -307,9 +326,9 @@
                 <p class="slider_button"></p>
               </div>
             </div>
-            <div class="toggle_available">
+            <div class="toggle_free">
               <p>FREE ONLY</p>
-              <div class="toggle_available_graphic">
+              <div class="toggle_free_graphic">
                 <p class="slider_button"></p>
               </div>
             </div>
@@ -449,6 +468,38 @@
           </p>
         </div>
         <div class="rules_x_button x_button">X</div>
+      </section>
+      <section class="login_section hidden removed no_pointer_events">
+        <div class="login_info">
+          <p class="login_title">LOGIN</p>
+          <form class="login_form">
+            <input
+              type="text"
+              id="login_username_input"
+              placeholder="Username"
+              aria-label="Login Username Input"
+            />
+          </form>
+          <form class="login_form">
+            <input
+              type="text"
+              id="login_password_input"
+              placeholder="Password"
+              aria-label="Login Password Input"
+            />
+          </form>
+          <p class="signup_title">Not already a member?</p>
+          <p class="signup_button">SIGN UP</p>
+        </div>
+        <div class="login_x_button x_button">X</div>
+        <div class="login_submit_button">GO</div>
+      </section>
+      <section class="other_games_section hidden removed no_pointer_events">
+        <div class="other_games_info">
+          <p>TRY SOME OF OUR OTHER GREAT GAMES</p>
+          <div class="other_games_display"></div>
+        </div>
+        <div class="other_games_x_button x_button">X</div>
       </section>
     </div>
   </body>
