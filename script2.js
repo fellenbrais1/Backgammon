@@ -931,26 +931,6 @@ function checkPlayerInGame(player, playersInGame) {
   }
 }
 
-// function sortPlayerDisplay(element) {
-//   const container = element;
-//   console.log(`This code is ruuning - SORT PLAYER DISPLAY`);
-
-//   const sortedDivs = Array.from(container.children).sort((a, b) => {
-//     const hasOfflineA = a.querySelector(".player_offline") !== null;
-//     const hasOfflineB = b.querySelector(".player_offline") !== null;
-
-//     if (hasOfflineA && !hasOfflineB) {
-//       return 1;
-//     } else if (!hasOfflineA && hasOfflineB) {
-//       return -1;
-//     } else {
-//       return 0;
-//     }
-//   });
-
-//   sortedDivs.forEach((div) => container.appendChild(div));
-// }
-
 function sortPlayerDisplay(element) {
   const container = element;
   console.log(container);
