@@ -85,9 +85,9 @@ const loginSubmitButton = document.querySelector(
   ".login_section_submit_button"
 );
 const loginInfoDisplay = document.querySelector(".login_section_info_display");
+const signupButton = document.querySelector(".signup_button");
 
 // Signup section elements
-const signupButton = document.querySelector(".signup_button");
 const signupSection = document.querySelector(".signup_section");
 const signupXButton = document.querySelector(".signup_x_button");
 const signupUsernameField = document.getElementById("signup_username_input");
@@ -98,6 +98,7 @@ const signupSubmitButton = document.querySelector(
 const signupInfoDisplay = document.querySelector(
   ".signup_section_info_display"
 );
+const backToLoginButton = document.querySelector(".back_to_login_button");
 
 // Other games section elements
 const otherGamesSection = document.querySelector(".other_games_section");
@@ -267,6 +268,8 @@ loginXButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(loginSection, "hidden");
   setTimeout(() => {
+    clearLoginInputFields();
+    clearSignupInputFields();
     toggleClass(loginSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(loginSection, "removed");
@@ -310,6 +313,8 @@ signupXButton.addEventListener("click", () => {
   toggleClass(loginSection, "hidden");
   toggleClass(signupSection, "hidden");
   setTimeout(() => {
+    clearLoginInputFields();
+    clearSignupInputFields();
     toggleClass(loginSection, "no_pointer_events");
     toggleClass(signupSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
@@ -339,6 +344,15 @@ signupSubmitButton.addEventListener("click", () => {
       signupInfoDisplay.textContent = `Please enter your details to log in.`;
     }, 2000);
   }
+});
+
+backToLoginButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(signupSection, "removed");
+  setTimeout(() => {
+    toggleClass(signupSection, "hidden");
+    toggleClass(signupSection, "no_pointer_events");
+  }, 60);
 });
 
 otherGamesButton.addEventListener("click", () => {

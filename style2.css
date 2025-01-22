@@ -663,7 +663,8 @@ html {
 }
 
 .login_title,
-.signup_title {
+.signup_title,
+.back_to_login_title {
   font-weight: bold;
   font-size: 20px;
   text-align: center;
@@ -731,7 +732,8 @@ html {
   text-align: center;
 }
 
-.signup_button {
+.signup_button,
+.back_to_login_button {
   text-align: center;
   margin-left: 25%;
   /* padding-bottom: 20px; */
