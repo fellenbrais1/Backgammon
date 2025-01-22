@@ -312,6 +312,7 @@
             id="chatbox_input"
             placeholder="Enter your message..."
             aria-label="Chatbox Message Input"
+            autocomplete="off"
           />
         </form>
         <div class="chat_x_button x_button">X</div>
@@ -321,13 +322,13 @@
           <strong>FILTERS</strong>
           <div class="filter_div">
             <div class="toggle_online">
-              <p>ONLINE ONLY</p>
+              <p>HIDE OFFLINE</p>
               <div class="toggle_online_graphic">
                 <p class="slider_button"></p>
               </div>
             </div>
             <div class="toggle_free">
-              <p>FREE ONLY</p>
+              <p>HIDE INGAME</p>
               <div class="toggle_free_graphic">
                 <p class="slider_button"></p>
               </div>
@@ -470,7 +471,7 @@
         <div class="rules_x_button x_button">X</div>
       </section>
       <section class="login_section hidden removed no_pointer_events">
-        <div class="login_info">
+        <div class="login_info_div">
           <p class="login_title">LOGIN</p>
           <form class="login_form">
             <input
@@ -478,21 +479,54 @@
               id="login_username_input"
               placeholder="Username"
               aria-label="Login Username Input"
+              autocomplete="off"
             />
           </form>
           <form class="login_form">
             <input
-              type="text"
+              type="password"
               id="login_password_input"
               placeholder="Password"
               aria-label="Login Password Input"
+              autocomplete="off"
             />
           </form>
+          <p class="login_section_info_display">
+            Please enter your details to log in.
+          </p>
           <p class="signup_title">Not already a member?</p>
           <p class="signup_button">SIGN UP</p>
+          <div class="login_section_submit_button">GO</div>
+          <div class="login_x_button x_button">X</div>
         </div>
-        <div class="login_x_button x_button">X</div>
-        <div class="login_submit_button">GO</div>
+      </section>
+      <section class="signup_section hidden removed no_pointer_events">
+        <div class="signup_info_div">
+          <p class="signup_title">SIGN UP</p>
+          <form class="signup_form">
+            <input
+              type="text"
+              id="signup_username_input"
+              placeholder="Username"
+              aria-label="Signup Username Input"
+              autocomplete="off"
+            />
+          </form>
+          <form class="signup_form">
+            <input
+              type="password"
+              id="signup_password_input"
+              placeholder="Password"
+              aria-label="Signup Password Input"
+              autocomplete="off"
+            />
+          </form>
+          <p class="signup_section_info_display">
+            Please enter your details to log in.
+          </p>
+        </div>
+        <div class="signup_x_button x_button">X</div>
+        <div class="signup_section_submit_button">GO</div>
       </section>
       <section class="other_games_section hidden removed no_pointer_events">
         <div class="other_games_info">

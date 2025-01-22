@@ -77,8 +77,27 @@ const rulesSection = document.querySelector(".rules_section");
 const rulesXButton = document.querySelector(".rules_x_button");
 
 // Login section elements
-const logInSection = document.querySelector(".login_section");
-const logInXButton = document.querySelector(".login_x_button");
+const loginSection = document.querySelector(".login_section");
+const loginXButton = document.querySelector(".login_x_button");
+const loginUsernameField = document.getElementById("login_username_input");
+const loginPasswordField = document.getElementById("login_password_input");
+const loginSubmitButton = document.querySelector(
+  ".login_section_submit_button"
+);
+const loginInfoDisplay = document.querySelector(".login_section_info_display");
+
+// Signup section elements
+const signupButton = document.querySelector(".signup_button");
+const signupSection = document.querySelector(".signup_section");
+const signupXButton = document.querySelector(".signup_x_button");
+const signupUsernameField = document.getElementById("signup_username_input");
+const signupPasswordField = document.getElementById("signup_password_input");
+const signupSubmitButton = document.querySelector(
+  ".signup_section_submit_button"
+);
+const signupInfoDisplay = document.querySelector(
+  ".signup_section_info_display"
+);
 
 // Other games section elements
 const otherGamesSection = document.querySelector(".other_games_section");
@@ -234,6 +253,94 @@ rulesXButton.addEventListener("click", () => {
   }, 60);
 });
 
+loginButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(loginSection, "removed");
+  setTimeout(() => {
+    toggleClass(loginSection, "hidden");
+    toggleClass(loginSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+  }, 60);
+});
+
+loginXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(loginSection, "hidden");
+  setTimeout(() => {
+    toggleClass(loginSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(loginSection, "removed");
+  }, 60);
+});
+
+loginUsernameField.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+  }
+});
+
+loginPasswordField.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+  }
+});
+
+loginSubmitButton.addEventListener("click", () => {
+  if (loginUsernameField.value !== "" && loginPasswordField.value !== "") {
+    userLogin(loginUsernameField.value, loginPasswordField.value);
+  } else
+    loginInfoDisplay.textContent = `Please enter both a username and password.`;
+  setTimeout(() => {
+    loginInfoDisplay.textContent = `Please enter your details to log in.`;
+    clearLoginInputFields();
+  }, 2000);
+});
+
+signupButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(signupSection, "removed");
+  setTimeout(() => {
+    toggleClass(signupSection, "hidden");
+    toggleClass(signupSection, "no_pointer_events");
+  }, 60);
+});
+
+signupXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(loginSection, "hidden");
+  toggleClass(signupSection, "hidden");
+  setTimeout(() => {
+    toggleClass(loginSection, "no_pointer_events");
+    toggleClass(signupSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(loginSection, "removed");
+    toggleClass(signupSection, "removed");
+  }, 60);
+});
+
+signupUsernameField.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+  }
+});
+
+signupPasswordField.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+  }
+});
+
+signupSubmitButton.addEventListener("click", () => {
+  if (signupUsernameField.value !== "" && signupPasswordField.value !== "") {
+    userSignup(signupUsernameField.value, signupPasswordField.value);
+  } else {
+    signupInfoDisplay.textContent = `Please enter both a username and a password.`;
+    setTimeout(() => {
+      signupInfoDisplay.textContent = `Please enter your details to log in.`;
+    }, 2000);
+  }
+});
+
 otherGamesButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(otherGamesSection, "removed");
@@ -254,27 +361,6 @@ otherGamesXButton.addEventListener("click", () => {
     toggleClass(otherGamesSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(otherGamesSection, "removed");
-  }, 60);
-});
-
-loginButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(logInSection, "removed");
-  setTimeout(() => {
-    toggleClass(logInSection, "hidden");
-    toggleClass(logInSection, "no_pointer_events");
-    toggleClass(floatingButtonsRight, "no_pointer_events");
-    otherGamesPopulatedFlag = true;
-  }, 60);
-});
-
-logInXButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(logInSection, "hidden");
-  setTimeout(() => {
-    toggleClass(logInSection, "no_pointer_events");
-    toggleClass(floatingButtonsRight, "no_pointer_events");
-    toggleClass(logInSection, "removed");
   }, 60);
 });
 
@@ -330,14 +416,6 @@ let userDisplayName;
 
 let nameIsGuest = false;
 
-const player_object_1 = {
-  username: "fellenbrais",
-  password: "Sorenson1",
-  displayName: "Michael",
-  languages: ["english"],
-  friends: [],
-};
-
 const experimentalFriends = [
   "Bob",
   "Timmy",
@@ -359,6 +437,7 @@ const experimentalFriends = [
   "Roboute",
   "Jason",
   "Jessica",
+  "Takeshi",
 ];
 
 const playersOnline = [
@@ -373,6 +452,7 @@ const playersOnline = [
   "Squiglogs",
   "Roboute",
   "Jason",
+  "Takeshi",
 ];
 
 const userFriends = [
@@ -384,6 +464,7 @@ const userFriends = [
   "William",
   "Tommy",
   "Biblobba",
+  "Takeshi",
 ];
 
 const userPlayedBefore = [
@@ -399,9 +480,47 @@ const userPlayedBefore = [
   "Roboute",
   "Jason",
   "Jessica",
+  "Takeshi",
 ];
 
 const playersInGame = ["Michael", "Ayako", "Zeratul", "Squiglogs"];
+
+// To be used to store test playerObjects to use
+const playersObjectArr = [
+  {
+    username: "fellenbrais",
+    password: "sorenson1",
+    displayName: "Michael",
+    member: true,
+    languages: ["english"],
+    friends: userFriends,
+  },
+  {
+    username: "ayachan",
+    password: "cutie1",
+    displayName: "Ayako",
+    member: false,
+    languages: ["english", "japanese"],
+    friends: userFriends,
+  },
+  {
+    username: "lastenvoy",
+    password: "falconer1",
+    displayName: "Takeshi",
+    member: true,
+    languages: ["japanese"],
+    friends: userFriends,
+  },
+];
+
+// const player_object_1 = {
+//   username: "fellenbrais",
+//   password: "Sorenson1",
+//   displayName: "Michael",
+//   member: true,
+//   languages: ["english"],
+//   friends: userFriends
+// };
 
 let toggleOnlineOnlyFlag = false;
 let toggleFreeOnlyFlag = false;
@@ -1091,4 +1210,91 @@ function addCurrentGameClass(currentGameFlag) {
         break;
     }
   }
+}
+
+function userLogin(usernameValue, passwordValue) {
+  console.log(`USERNAME VALUE: ${usernameValue}`);
+  console.log(`PASSWORD VALUE: ${passwordValue}`);
+  const userObject = playersObjectArr.find(
+    (current) => current.username === usernameValue
+  );
+  console.log(userObject);
+
+  if (userObject) {
+    if (userObject.password === passwordValue) {
+      console.log(`Password is correct!`);
+      loginInfoDisplay.textContent = `Welcome ${userObject.displayName}!`;
+      setTimeout(() => {
+        clearLoginInputFields();
+        toggleClass(loginSection, "hidden");
+        setTimeout(() => {
+          toggleClass(loginSection, "no_pointer_events");
+          toggleClass(floatingButtonsRight, "no_pointer_events");
+          toggleClass(loginSection, "removed");
+        }, 60);
+      }, 1000);
+    } else {
+      console.log(`Password is not correct!`);
+      loginInfoDisplay.textContent = `That password is not correct.`;
+      setTimeout(() => {
+        clearLoginInputFields();
+        loginInfoDisplay.textContent = `Please enter your details to log in.`;
+      }, 2000);
+    }
+  } else {
+    console.log(`User not found!`);
+    loginInfoDisplay.textContent = `User not found!`;
+  }
+}
+
+function clearLoginInputFields() {
+  loginUsernameField.value = "";
+  loginPasswordField.value = "";
+}
+
+function userSignup(usernameValue, passwordValue) {
+  console.log(`USERNAME VALUE: ${usernameValue}`);
+  console.log(`PASSWORD VALUE: ${passwordValue}`);
+
+  const userObject = playersObjectArr.find(
+    (current) => current.username === usernameValue
+  );
+  console.log(userObject);
+
+  if (userObject) {
+    console.log(`That username ${usernameValue} is already taken.`);
+    signupInfoDisplay.textContent = `That username '${usernameValue}' is already taken.`;
+    setTimeout(() => {
+      signupInfoDisplay.textContent = `Please enter both a username and password.`;
+      clearSignupInputFields();
+    }, 2000);
+  } else {
+    const newUserObject = {
+      username: usernameValue,
+      password: passwordValue,
+      displayName: usernameValue,
+      member: false,
+      languages: ["english"],
+      friends: userFriends,
+    };
+    playersObjectArr.push(newUserObject);
+    signupInfoDisplay.textContent = `Welcome ${newUserObject.displayName}!`;
+    setTimeout(() => {
+      clearSignupInputFields();
+      toggleClass(loginSection, "hidden");
+      toggleClass(signupSection, "hidden");
+      setTimeout(() => {
+        toggleClass(loginSection, "no_pointer_events");
+        toggleClass(signupSection, "no_pointer_events");
+        toggleClass(floatingButtonsRight, "no_pointer_events");
+        toggleClass(loginSection, "removed");
+        toggleClass(signupSection, "removed");
+      }, 60);
+    }, 1000);
+  }
+}
+
+function clearSignupInputFields() {
+  signupUsernameField.value = "";
+  signupPasswordField.value = "";
 }
