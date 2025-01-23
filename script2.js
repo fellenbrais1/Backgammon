@@ -100,6 +100,10 @@ const signupInfoDisplay = document.querySelector(
 );
 const backToLoginButton = document.querySelector(".back_to_login_button");
 
+// Settings section elements
+const settingsSection = document.querySelector(".settings_section");
+const settingsXButton = document.querySelector(".settings_x_button");
+
 // Other games section elements
 const otherGamesSection = document.querySelector(".other_games_section");
 const otherGamesDisplay = document.querySelector(".other_games_display");
@@ -352,6 +356,26 @@ backToLoginButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(signupSection, "hidden");
     toggleClass(signupSection, "no_pointer_events");
+  }, 60);
+});
+
+settingsButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(settingsSection, "removed");
+  setTimeout(() => {
+    toggleClass(settingsSection, "hidden");
+    toggleClass(settingsSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+  }, 60);
+});
+
+settingsXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(settingsSection, "hidden");
+  setTimeout(() => {
+    toggleClass(settingsSection, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(settingsSection, "removed");
   }, 60);
 });
 

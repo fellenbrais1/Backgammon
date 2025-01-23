@@ -231,6 +231,7 @@ html {
   margin-top: 24px;
   outline: solid 3px white;
   z-index: 3;
+  transition: filter 0.2s;
 }
 
 .button_cls {
@@ -664,7 +665,8 @@ html {
 
 .login_title,
 .signup_title,
-.back_to_login_title {
+.back_to_login_title,
+.settings_title {
   font-weight: bold;
   font-size: 20px;
   text-align: center;
@@ -736,7 +738,6 @@ html {
 .back_to_login_button {
   text-align: center;
   margin-left: 25%;
-  /* padding-bottom: 20px; */
   background-color: black;
   width: 200px;
   height: 30px;
@@ -746,6 +747,21 @@ html {
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
+}
+
+/* SETTINGS SECTION */
+.settings_section {
+  height: 300px;
+  width: 400px;
+  row-gap: 48px;
+  background-color: brown;
+  position: absolute;
+  top: 15.5%;
+  left: 75.5%;
+  border-radius: 25px;
+  border: 2px solid white;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
 
 /* OTHER GAMES SECTION */
@@ -845,4 +861,8 @@ html {
   position: absolute;
   top: 90%;
   cursor: pointer;
+}
+
+.no_pointer_events div {
+  filter: grayscale(0.5);
 }
