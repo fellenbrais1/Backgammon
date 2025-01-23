@@ -264,7 +264,7 @@ html {
 }
 
 /* /////////////////////////////DICE SECTION */
-.dice_roller {
+.dice_section {
   display: grid;
   height: 300px;
   width: 400px;
@@ -274,7 +274,7 @@ html {
   row-gap: 48px;
   background-color: var(--light_felt_green);
   position: absolute;
-  top: 15.5%;
+  top: 15%;
   left: 3.6%;
   border-radius: 25px;
   border: 2px solid white;
@@ -378,7 +378,7 @@ html {
   border: 2px solid white;
   top: 15%;
   left: 1%;
-  z-index: 9;
+  /* z-index: 9; */
   border-radius: 25px;
   opacity: 1;
   transition: opacity 1s ease-in-out;
@@ -650,7 +650,7 @@ html {
   row-gap: 48px;
   background-color: var(--active_button_gold);
   position: absolute;
-  top: 15.5%;
+  top: 15%;
   left: 75.5%;
   border-radius: 25px;
   border: 2px solid white;
@@ -756,7 +756,7 @@ html {
   row-gap: 48px;
   background-color: brown;
   position: absolute;
-  top: 15.5%;
+  top: 15%;
   left: 75.5%;
   border-radius: 25px;
   border: 2px solid white;
@@ -830,6 +830,83 @@ html {
 .game_button_current {
   background-color: var(--active_button_gold);
   pointer-events: none;
+}
+
+/* NAME SECTIONS */
+.name_section {
+  position: absolute;
+  top: 8%;
+  left: 25%;
+  height: 60px;
+  width: 400px;
+  background-color: blue;
+  border-radius: 9999px;
+  border: solid 2px white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+  opacity: 0;
+  z-index: 0;
+  transform: translateY(-200%);
+  transition: transform ease-in-out 2s, opacity ease-in-out 3s;
+}
+
+.player2 {
+  left: 54%;
+  background-color: var(--youtube_red);
+}
+
+.player_portrait1,
+.player_portrait2 {
+  height: 54px;
+  width: 54px;
+  background-color: white;
+  border: solid 2px black;
+  border-radius: 5px;
+  z-index: 1;
+  margin-left: 20px;
+}
+
+.name_player1,
+.name_player2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.versus_section {
+  position: absolute;
+  top: 8%;
+  left: 48.5%;
+  height: 60px;
+  width: 60px;
+  background-color: pink;
+  border-radius: 5px;
+  border: solid 2px white;
+}
+
+.versus_section img {
+  height: 56px;
+  width: 56px;
+}
+
+.player_level {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+}
+
+.name_player1,
+.name_player2 {
+  flex-grow: 1;
+}
+
+.player_rating1,
+.player_rating2 {
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-left: 4px;
 }
 
 /* HELPER CLASSES */

@@ -37,12 +37,13 @@ const otherGamesButton = document.querySelector(".button_other_games");
 const clsButton = document.querySelector(".button_cls");
 
 // Dice section elements
-const diceDisplay = document.querySelector(".dice_roller");
+const diceSection = document.querySelector(".dice_section");
 const buttonRoll1 = document.querySelector(".dice_button_roll1");
 const buttonRoll2 = document.querySelector(".dice_button_roll2");
 const diceFace1 = document.querySelector(".dice_img1");
 const diceFace2 = document.querySelector(".dice_img2");
 const diceRollResult = document.querySelector(".dice_result_display");
+const diceXButton = document.querySelector(".dice_x_button");
 
 // Chatbox section elements
 const chatboxSection = document.querySelector(".chatbox_section");
@@ -109,6 +110,19 @@ const otherGamesSection = document.querySelector(".other_games_section");
 const otherGamesDisplay = document.querySelector(".other_games_display");
 const otherGamesXButton = document.querySelector(".other_games_x_button");
 
+// Player names section elements
+const player1NameSection = document.querySelector(".name_section.player1");
+const player1Name = document.querySelector(".name_player1");
+const player1Portait = document.querySelector(".player_portrait1");
+const player1Rating = document.querySelector(".player_rating1");
+
+const versusSection = document.querySelector(".versus_section");
+
+const player2NameSection = document.querySelector(".name_section.player2");
+const player2Name = document.querySelector(".name_player2");
+const player2Portait = document.querySelector(".player_portrait2");
+const player2Rating = document.querySelector(".player_rating2");
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // MEDIA: SOUNDS
 
@@ -145,25 +159,32 @@ window.addEventListener("load", () => {
 
 diceButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(diceDisplay, "removed");
+  toggleClass(diceSection, "removed");
   setTimeout(() => {
-    toggleClass(diceDisplay, "hidden");
-    toggleClass(buttonRoll1, "no_pointer_events");
-    toggleClass(buttonRoll2, "no_pointer_events");
-    toggleClass(diceButton, "no_pointer_events");
+    toggleClass(diceSection, "hidden");
+    toggleClass(diceSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
   }, 60);
 });
 
 buttonRoll1.addEventListener("click", () => {
   rollOneDie();
-  toggleClass(buttonRoll1, "no_pointer_events");
-  toggleClass(buttonRoll2, "no_pointer_events");
 });
 
 buttonRoll2.addEventListener("click", () => {
   rollTwoDice();
-  toggleClass(buttonRoll1, "no_pointer_events");
-  toggleClass(buttonRoll2, "no_pointer_events");
+});
+
+diceXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(diceSection, "hidden");
+  setTimeout(() => {
+    toggleClass(diceSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(diceSection, "removed");
+  }, 60);
 });
 
 chatButton.addEventListener("click", () => {
@@ -203,15 +224,17 @@ chatboxInput.addEventListener("keydown", (event) => {
 playersButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(playersSection, "removed");
-  toggleClass(playersSection, "hidden");
-  toggleClass(playersSection, "no_pointer_events");
-  toggleClass(floatingButtonsLeft, "no_pointer_events");
-  if (playersPopulatedFlag === false) {
-    populatePlayers(experimentalFriends, playersFriends);
-    populatePlayers(experimentalFriends, playersPlayedBefore);
-    populatePlayers(experimentalFriends, playersCurrentlyActive);
-    playersPopulatedFlag = true;
-  }
+  setTimeout(() => {
+    toggleClass(playersSection, "hidden");
+    toggleClass(playersSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    if (playersPopulatedFlag === false) {
+      populatePlayers(experimentalFriends, playersFriends);
+      populatePlayers(experimentalFriends, playersPlayedBefore);
+      populatePlayers(experimentalFriends, playersCurrentlyActive);
+      playersPopulatedFlag = true;
+    }
+  }, 60);
 });
 
 playersXButton.addEventListener("click", () => {
@@ -265,6 +288,7 @@ loginButton.addEventListener("click", () => {
     toggleClass(loginSection, "hidden");
     toggleClass(loginSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
   }, 60);
 });
 
@@ -276,6 +300,7 @@ loginXButton.addEventListener("click", () => {
     clearSignupInputFields();
     toggleClass(loginSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(loginSection, "removed");
   }, 60);
 });
@@ -322,6 +347,7 @@ signupXButton.addEventListener("click", () => {
     toggleClass(loginSection, "no_pointer_events");
     toggleClass(signupSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(loginSection, "removed");
     toggleClass(signupSection, "removed");
   }, 60);
@@ -529,6 +555,9 @@ const playersObjectArr = [
     username: "fellenbrais",
     password: "sorenson1",
     displayName: "Michael",
+    playerPortrait: "img/portrait_male.png",
+    portraitColour: "#A020F0",
+    playerRating: 63,
     member: true,
     languages: ["english"],
     friends: userFriends,
@@ -537,6 +566,9 @@ const playersObjectArr = [
     username: "ayachan",
     password: "cutie1",
     displayName: "Ayako",
+    playerPortrait: "img/portrait_female.png",
+    portraitColour: "#FFD700",
+    playerRating: 205,
     member: false,
     languages: ["english", "japanese"],
     friends: userFriends,
@@ -545,20 +577,14 @@ const playersObjectArr = [
     username: "lastenvoy",
     password: "falconer1",
     displayName: "Takeshi",
+    playerPortrait: "img/portrait_male.png",
+    portraitColour: "#FF0000",
+    playerRating: 142,
     member: true,
     languages: ["japanese"],
     friends: userFriends,
   },
 ];
-
-// const player_object_1 = {
-//   username: "fellenbrais",
-//   password: "Sorenson1",
-//   displayName: "Michael",
-//   member: true,
-//   languages: ["english"],
-//   friends: userFriends
-// };
 
 let toggleOnlineOnlyFlag = false;
 let toggleFreeOnlyFlag = false;
@@ -594,6 +620,10 @@ function showMain() {
     floatingButtonsLeft.classList.add("scroll_on_top");
     floatingButtonsRight.classList.add("scroll_on_top");
   }, 10);
+  setTimeout(() => {
+    player1NameSection.classList.add("show");
+    player1NameSection.classList.add("scroll_on_top");
+  }, 2000);
 }
 
 function toggleClass(pageElement, property) {
@@ -872,11 +902,13 @@ function cycleDieFaces(result = null, flag = "random", target) {
 }
 
 function hideDiceRoller() {
-  toggleClass(diceDisplay, "removed");
+  toggleClass(diceSection, "removed");
   setTimeout(() => {
-    toggleClass(diceDisplay, "hidden");
+    toggleClass(diceSection, "hidden");
+    toggleClass(diceSection, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(diceRollResult, "dice_result_display_final");
-    toggleClass(diceButton, "no_pointer_events");
   }, 60);
 }
 
@@ -976,6 +1008,8 @@ function createOpponentMessage(opponentName, message) {
   return messageHTML;
 }
 
+// Plays the set click sound for the webpage
+// Called by
 function playClickSound() {
   buttonClickSound.play();
 }
@@ -988,8 +1022,6 @@ function startGameMessages(mode, userDisplayName, opponentName) {
   let chatHTML, chatHTML2;
   if (mode === "fun") {
     chatHTML = `<p class='chatbox_entry_c'>Starting a fun mode game.</p>`;
-  } else if (mode === "debug") {
-    chatHTML = `<p class='chatbox_entry_c'>Starting a debug mode game.</p>`;
   } else if (mode === "pro") {
     chatHTML = `<p class='chatbox_entry_c'>Starting a professional mode game.</p>`;
   }
@@ -1268,7 +1300,9 @@ function userLogin(usernameValue, passwordValue) {
         setTimeout(() => {
           toggleClass(loginSection, "no_pointer_events");
           toggleClass(floatingButtonsRight, "no_pointer_events");
+          toggleClass(floatingButtonsLeft, "no_pointer_events");
           toggleClass(loginSection, "removed");
+          addPlayerDetails(1, userObject);
         }, 60);
       }, 1000);
     } else {
@@ -1282,6 +1316,15 @@ function userLogin(usernameValue, passwordValue) {
   } else {
     console.log(`User not found!`);
     loginInfoDisplay.textContent = `User not found!`;
+  }
+}
+
+function addPlayerDetails(player, userObject) {
+  if (player === 1) {
+    player1Name.textContent = userObject.displayName;
+    player1Portait.src = userObject.playerPortrait;
+    player1Portait.style.backgroundColor = userObject.portraitColour;
+    player1Rating.textContent = userObject.playerRating;
   }
 }
 
@@ -1311,6 +1354,9 @@ function userSignup(usernameValue, passwordValue) {
       username: usernameValue,
       password: passwordValue,
       displayName: usernameValue,
+      playerPortrait: "img/portrait_male.png",
+      portraitColour: "#FFFFFF",
+      playerRating: 0,
       member: false,
       languages: ["english"],
       friends: userFriends,
@@ -1325,8 +1371,10 @@ function userSignup(usernameValue, passwordValue) {
         toggleClass(loginSection, "no_pointer_events");
         toggleClass(signupSection, "no_pointer_events");
         toggleClass(floatingButtonsRight, "no_pointer_events");
+        toggleClass(floatingButtonsLeft, "no_pointer_events");
         toggleClass(loginSection, "removed");
         toggleClass(signupSection, "removed");
+        addPlayerDetails(1, newUserObject);
       }, 60);
     }, 1000);
   }
