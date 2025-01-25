@@ -461,6 +461,7 @@ buttonGamestartPro.addEventListener("click", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
+  loginSection.style.display = "hidden";
   cookieCheck("userDetails");
 });
 
@@ -513,6 +514,8 @@ let playedGames = 0;
 // EXPERIMENTAL
 
 let userIP;
+let userUsername;
+let userPassword;
 let userDisplayName;
 
 let nameIsGuest = false;
@@ -588,6 +591,17 @@ const playersInGame = ["Michael", "Ayako", "Zeratul", "Squiglogs"];
 
 // To be used to store test playerObjects to use
 const playersObjectArr = [
+  {
+    username: "Guest",
+    password: "Guest",
+    displayName: "Guest",
+    playerPortrait: "img/portrait_male.png",
+    portraitColour: "#FFFFFF",
+    playerRating: 0,
+    member: false,
+    languages: ["english"],
+    friends: [],
+  },
   {
     username: "fellenbrais",
     password: "sorenson1",
@@ -1249,13 +1263,20 @@ function userLogin(usernameValue, passwordValue) {
       loginInfoDisplay.textContent = `Welcome ${userObject.displayName}!`;
       setTimeout(() => {
         clearLoginInputFields();
-        toggleClass(loginSection, "hidden");
+        // toggleClass(loginSection, "hidden");
+        loginSection.classList.add("hidden");
         setTimeout(() => {
-          toggleClass(loginSection, "no_pointer_events");
-          toggleClass(floatingButtonsRight, "no_pointer_events");
-          toggleClass(floatingButtonsLeft, "no_pointer_events");
-          toggleClass(loginSection, "removed");
+          // toggleClass(loginSection, "no_pointer_events");
+          // toggleClass(floatingButtonsRight, "no_pointer_events");
+          // toggleClass(floatingButtonsLeft, "no_pointer_events");
+          // toggleClass(loginSection, "removed");
+          loginSection.classList.add("no_pointer_events");
+          floatingButtonsRight.classList.remove("no_pointer_events");
+          floatingButtonsLeft.classList.remove("no_pointer_events");
+          loginSection.classList.add("removed");
           addPlayerDetails(1, userObject);
+          const data = setNewCookieData(userObject);
+          updateCookie(data);
         }, 60);
       }, 1000);
     } else {
@@ -1270,6 +1291,16 @@ function userLogin(usernameValue, passwordValue) {
     console.log(`User not found!`);
     loginInfoDisplay.textContent = `User not found!`;
   }
+}
+
+function setNewCookieData(userObject) {
+  const newData = {
+    userIP: userIP,
+    userUsername: userObject.username,
+    userPassword: userObject.password,
+    userDisplayName: userObject.displayName,
+  };
+  return newData;
 }
 
 function addPlayerDetails(player, userObject) {
@@ -1349,10 +1380,23 @@ function cookieCheck(cookieName) {
     .find((row) => row.startsWith(`${cookieName}=`));
   if (cookie) {
     console.log(`COOKIE - RUNNING`);
-    [userIP, userDisplayName] = readCookie(cookieName);
+    [userIP, userUsername, userPassword, userDisplayName] =
+      readCookie(cookieName);
     console.log(`COOKIE - ${userIP}`);
+    console.log(`COOKIE - ${userUsername}`);
+    console.log(`COOKIE - ${userPassword}`);
     console.log(`COOKIE - ${userDisplayName}`);
     console.log(`User has previously enabled cookies!`);
+    if (userUsername !== "Guest" && userPassword !== "") {
+      userLogin(userUsername, userPassword);
+      // toggleClass(loginSection, "hidden");
+      // setTimeout(() => {
+      //   toggleClass(loginSection, "no_pointer_events");
+      //   toggleClass(floatingButtonsRight, "no_pointer_events");
+      //   toggleClass(floatingButtonsLeft, "no_pointer_events");
+      //   toggleClass(loginSection, "removed");
+      // }, 60);
+    }
   } else {
     showCookieBar();
     const displayName = getUserDisplayName();
@@ -1423,9 +1467,9 @@ function setUserIP() {
 // Allows a user to choose a display name via prompt
 // Called initializeCookie()
 function addDisplayName() {
-  userObject.displayName = prompt(
-    `What would you like your display name to be?`
-  );
+  // userObject.displayName = prompt(
+  //   `What would you like your display name to be?`
+  // );
   if (!userObject.displayName) {
     window.alert(`No display name given, defaulting to 'Guest'`);
     userObject.displayName = "Guest";
@@ -1446,10 +1490,12 @@ function setCookieUserDetails() {
 // Called by setCookieUserDetails()
 function acceptCookies() {
   console.log(`Cookies enabled!`);
-  const cookieValues = createCookieValuesUserDetails();
+  const cookieValues = createCookieDefaultValues();
   createCookie("userDetails", cookieValues, 1);
-  [userIP, userDisplayName] = readCookie("userDetails");
+  [userIP, userUsername, userPassword, userDisplayName] =
+    readCookie("userDetails");
   console.log(`COOKIE - ${userIP}`);
+  console.log(`COOKIE - ${userUsername}`);
   console.log(`COOKIE - ${userDisplayName}`);
   ipTest(); // TEST FUNCTION - COULD BE REMOVED
   hideCookieBar();
@@ -1457,10 +1503,43 @@ function acceptCookies() {
 
 // Assigns values from the userObject to the cookie 'userDetails'
 // Called by acceptCookies()
-function createCookieValuesUserDetails() {
+function createCookieDefaultValues() {
   const cookieValues = {
     userIP: userObject.ip,
+    userUsername: "Guest",
+    userPassword: "Guest",
     userDisplayName: userObject.displayName,
+  };
+
+  const cookieString = JSON.stringify(cookieValues);
+  return cookieString;
+}
+
+function updateCookie(data) {
+  const cookieValues = {
+    userIP: data.userIP,
+    userUsername: data.userUsername,
+    userPassword: data.userPassword,
+    userDisplayName: data.userDisplayName,
+  };
+  const cookieString = JSON.stringify(cookieValues);
+  createCookie("userDetails", cookieString, 1);
+  [userIP, userUsername, userPassword, userDisplayName] =
+    readCookie("userDetails");
+  console.log(`COOKIE - ${userIP}`);
+  console.log(`COOKIE - ${userUsername}`);
+  console.log(`COOKIE - ${userPassword}`);
+  console.log(`COOKIE - ${userDisplayName}`);
+  ipTest(); // TEST FUNCTION - COULD BE REMOVED
+  // return [userUsername, userPassword];
+}
+
+function createCookieUpdatedValues(ip, username, password, displayName) {
+  const cookieValues = {
+    userIP: ip,
+    userUsername: username,
+    userPassword: password,
+    userDisplayName: displayName,
   };
 
   const cookieString = JSON.stringify(cookieValues);
@@ -1484,11 +1563,15 @@ function createCookie(name, values, lifespan) {
 // Finds if a cookie exists based on the supplied name then retrieves
 function readCookie(cookieName) {
   let userIP,
+    userUsername,
+    userPassword,
     userDisplayName = "";
   console.log(`Cookie string: ${JSON.stringify(document.cookie)}`);
   const retrievedValues = retrieveCookieValues(cookieName);
   if (retrievedValues) {
     userIP = retrievedValues.userIP;
+    userUsername = retrievedValues.userUsername;
+    userPassword = retrievedValues.userPassword;
     userDisplayName = retrievedValues.userDisplayName;
     deleteGuestMessage();
     const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
@@ -1498,11 +1581,13 @@ function readCookie(cookieName) {
       nameIsGuest = false;
     }
     console.log(`FROM COOKIE: User IP: ${userIP}`);
+    console.log(`FROM COOKIE: User Username: ${userUsername}`);
+    console.log(`FROM COOKIE: User Password: ${userPassword}`);
     console.log(`FROM COOKIE: User Display Name: ${userDisplayName}`);
   } else {
     console.log(`FROM COOKIE: Cookie not found or invalid.`);
   }
-  return [userIP, userDisplayName];
+  return [userIP, userUsername, userPassword, userDisplayName];
 }
 
 function deleteGuestMessage() {
