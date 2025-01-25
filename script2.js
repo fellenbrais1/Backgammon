@@ -123,6 +123,18 @@ const player2Name = document.querySelector(".name_player2");
 const player2Portait = document.querySelector(".player_portrait2");
 const player2Rating = document.querySelector(".player_rating2");
 
+/* Cookie bar section elements */
+const cookieBar = document.querySelector(".cookie_permission");
+const cookieAgreeButton = document.querySelector(".cookie_accept_button");
+const cookieDisagreeButton = document.querySelector(".cookie_reject_button");
+
+/* Debug elements */
+// TESTING OTHER USER MESSAGES
+const adDisabler = document.querySelector(".toggle_ads_button");
+const gameToggler = document.querySelector(".toggle_game_button");
+const cookieClearer = document.querySelector(".clear_cookie_button");
+const askJack = document.querySelector(".ask_jack_button");
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // MEDIA: SOUNDS
 
@@ -448,6 +460,31 @@ buttonGamestartPro.addEventListener("click", () => {
   displayProBoard();
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+  cookieCheck("userDetails");
+});
+
+cookieAgreeButton.addEventListener("click", setCookieUserDetails);
+cookieDisagreeButton.addEventListener("click", rejectCookies);
+
+askJack.addEventListener("click", () => {
+  pretendOpponentMessage();
+  if (chatNotification.textContent == 0) {
+    toggleClass(chatNotification, "hidden");
+  }
+  addChatNotification();
+});
+
+gameToggler.addEventListener("click", resetGame);
+
+// Test function call to delete the cookie and reload the page
+// Called by an eventHandler on the 'Clear Cookie - TEST' button
+cookieClearer.addEventListener("click", () => {
+  const cookieName = "userDetails";
+  clearCookie(cookieName);
+  location.reload();
+});
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
 
@@ -641,7 +678,7 @@ function displayFunBoard() {
   gameBoard.src = "img/backgammon.jpg";
   gamestartBox.style.display = "none";
   greyOverlay.style.display = "none";
-  autoRun("guest");
+  initializeCookie("guest");
   const opponentName = getOpponentName();
   console.log(userDisplayName);
   startGameMessages("fun", userDisplayName, opponentName);
@@ -653,81 +690,10 @@ function displayProBoard() {
   gameBoard.src = "img/backgammonHard.jpg";
   gamestartBox.style.display = "none";
   greyOverlay.style.display = "none";
-  autoRun("guest");
+  initializeCookie("guest");
   const opponentName = getOpponentName();
   console.log(userDisplayName);
   startGameMessages("pro", userDisplayName, opponentName);
-}
-
-function autoRun(tag = "") {
-  setUpUserData();
-  setTimeout(() => {
-    if (tag !== "guest") {
-      addDisplayName();
-    }
-    console.log(`userObject: `, userObject);
-  }, 1000);
-}
-
-// Fetches the user's IP address and assigns it to the userObject object for use in the rest of the program
-// Called by autoRun()
-function setUpUserData() {
-  console.log(`Set up running...`);
-  fetchData(); // Calls the async function
-  setUserIP(); // Assigns the fetched value to the userObject
-
-  // Gets the user's IP address using the async/await syntax
-  // Called by setUpUserData()
-  async function fetchData() {
-    userIPAddress = await getUserIP();
-    return userIPAddress;
-  }
-}
-
-// Fetches the user's IP address from an API and returns it
-// Called by fetchData() inside setUpUserData()
-async function getUserIP() {
-  try {
-    const response = await fetch("https://api.ipify.org?format=json");
-    const data = await response.json();
-    userIPAddress = data.ip;
-    console.log(`Success fetching IP Address of User`);
-    return userIPAddress;
-  } catch (error) {
-    console.error("Error fetching IP:", error);
-    return "Unknown";
-  }
-}
-
-// TODO - NEEDS TESTING WITH DIFFERENT TIMINGS AND A MORE COMPLEX ENVIRONMENT, SLOWER OVER REAL INTERNET?
-// Assigns the value of the user's IP address in steps long enough for the async function to properly return a result
-// Called by setUpUserData()
-function setUserIP() {
-  setTimeout(() => {
-    console.log(`userIPAddress: `, userIPAddress);
-  }, 300);
-  setTimeout(() => {
-    userObject.ip = userIPAddress;
-    console.log(`userObject:`, userObject);
-  }, 350);
-  setTimeout(() => {
-    console.log(`Set up complete!`);
-    return;
-  }, 400);
-}
-
-// TODO - NEEDS TO BE OPTIONAL FOR THE USER IN FUTURE
-// Allows a user to choose a display name via prompt
-// Called by autoRun()
-function addDisplayName() {
-  userObject.displayName = prompt(
-    `What would you like your display name to be?`
-  );
-  if (!userObject.displayName) {
-    window.alert(`No display name given, defaulting to 'Guest'`);
-    userObject.displayName = "Guest";
-  }
-  return;
 }
 
 // TODO - TO BE REPLACED WITH REAL LOGIC CAPTURING THE OTHER PLAYER'S IP ADDRESS LATER - ALSO NEEDS TO BE IMPLEMENTED INTO DISPLAYING THE OTHER USERS CHAT MESSAGES
@@ -738,10 +704,6 @@ function getOpponentName() {
   const opponentName = "PLAYER 2";
   return opponentName;
 }
-
-// Attaching resetGame() to the 'Toggle Game - TEST' button
-const gameToggler = document.querySelector(".toggle_game_button");
-gameToggler.addEventListener("click", resetGame);
 
 // Experimental function to reset the gamestart_block element and the image displayed in the gamebox, will later be assimilated into the page as a game reset type button
 // Called by an eventHandler on the 'Toggle Game - TEST' button
@@ -934,6 +896,7 @@ function createChatMessage(message) {
     ? "chatbox_entry_a"
     : "chatbox_entry_b";
   const displayName = getUserDisplayName();
+  console.log(displayName);
   const messageHTML = `<p class='${messageClass}'><strong class='player_name'>${displayName}:</strong> ${message} - ${timeStamp}</p>`;
   userMessageStyleToggle = userMessageStyleToggle ? false : true;
   console.log(messageHTML);
@@ -972,16 +935,6 @@ function getUserDisplayName() {
       : userDisplayName;
   return displayName;
 }
-
-// TESTING OTHER USER MESSAGES
-const askJack = document.querySelector(".ask_jack_button");
-askJack.addEventListener("click", () => {
-  pretendOpponentMessage();
-  if (chatNotification.textContent == 0) {
-    toggleClass(chatNotification, "hidden");
-  }
-  addChatNotification();
-});
 
 // Generates and posts a chatbox message from a pretend opponent
 // Called by an eventHandler on the 'Ask Jack - TEST' button
@@ -1383,4 +1336,254 @@ function userSignup(usernameValue, passwordValue) {
 function clearSignupInputFields() {
   signupUsernameField.value = "";
   signupPasswordField.value = "";
+}
+
+// COOKIE FUNCTIONS
+
+// Checks if a particular cookie already exists and either parses its values if existing, or shows the cookies permission bar if it does not yet exist
+// Called by an eventHandler linked to the loading of the window
+function cookieCheck(cookieName) {
+  console.log(`Cookie check is running!`);
+  const cookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith(`${cookieName}=`));
+  if (cookie) {
+    console.log(`COOKIE - RUNNING`);
+    [userIP, userDisplayName] = readCookie(cookieName);
+    console.log(`COOKIE - ${userIP}`);
+    console.log(`COOKIE - ${userDisplayName}`);
+    console.log(`User has previously enabled cookies!`);
+  } else {
+    showCookieBar();
+    const displayName = getUserDisplayName();
+    const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
+    postChatMessage(chatHTML, "afterbegin");
+    nameIsGuest = true;
+  }
+}
+
+function initializeCookie(tag = "") {
+  setUpUserData();
+  setTimeout(() => {
+    if (tag !== "guest") {
+      addDisplayName();
+    }
+    console.log(`userObject: `, userObject);
+  }, 1000);
+}
+
+// Fetches the user's IP address and assigns it to the userObject object for use in the rest of the program
+// Called by initializeCookie()
+function setUpUserData() {
+  console.log(`Set up running...`);
+  fetchData(); // Calls the async function
+  setUserIP(); // Assigns the fetched value to the userObject
+
+  // Gets the user's IP address using the async/await syntax
+  // Called by setUpUserData()
+  async function fetchData() {
+    userIPAddress = await getUserIP();
+    return userIPAddress;
+  }
+}
+
+// Fetches the user's IP address from an API and returns it
+// Called by fetchData() inside setUpUserData()
+async function getUserIP() {
+  try {
+    const response = await fetch("https://api.ipify.org?format=json");
+    const data = await response.json();
+    userIPAddress = data.ip;
+    console.log(`Success fetching IP Address of User`);
+    return userIPAddress;
+  } catch (error) {
+    console.error("Error fetching IP:", error);
+    return "Unknown";
+  }
+}
+
+// TODO - NEEDS TESTING WITH DIFFERENT TIMINGS AND A MORE COMPLEX ENVIRONMENT, SLOWER OVER REAL INTERNET?
+// Assigns the value of the user's IP address in steps long enough for the async function to properly return a result
+// Called by setUpUserData()
+function setUserIP() {
+  setTimeout(() => {
+    console.log(`userIPAddress: `, userIPAddress);
+  }, 300);
+  setTimeout(() => {
+    userObject.ip = userIPAddress;
+    console.log(`userObject:`, userObject);
+  }, 350);
+  setTimeout(() => {
+    console.log(`Set up complete!`);
+    return;
+  }, 400);
+}
+
+// TODO - NEEDS TO BE OPTIONAL FOR THE USER IN FUTURE
+// Allows a user to choose a display name via prompt
+// Called initializeCookie()
+function addDisplayName() {
+  userObject.displayName = prompt(
+    `What would you like your display name to be?`
+  );
+  if (!userObject.displayName) {
+    window.alert(`No display name given, defaulting to 'Guest'`);
+    userObject.displayName = "Guest";
+  }
+  return;
+}
+
+// Allows the 'userDetails' cookie to be created and then read all at once by introducing a time delay, this happens the first time the cookie is created so its values are instantly available to the program
+// Called by an eventHandler on the 'Accept Cookies' button
+function setCookieUserDetails() {
+  initializeCookie();
+  setTimeout(() => {
+    acceptCookies();
+  }, 1100);
+}
+
+// Facilitates the creation of the 'userDetails' cookie and assigns its data to variables
+// Called by setCookieUserDetails()
+function acceptCookies() {
+  console.log(`Cookies enabled!`);
+  const cookieValues = createCookieValuesUserDetails();
+  createCookie("userDetails", cookieValues, 1);
+  [userIP, userDisplayName] = readCookie("userDetails");
+  console.log(`COOKIE - ${userIP}`);
+  console.log(`COOKIE - ${userDisplayName}`);
+  ipTest(); // TEST FUNCTION - COULD BE REMOVED
+  hideCookieBar();
+}
+
+// Assigns values from the userObject to the cookie 'userDetails'
+// Called by acceptCookies()
+function createCookieValuesUserDetails() {
+  const cookieValues = {
+    userIP: userObject.ip,
+    userDisplayName: userObject.displayName,
+  };
+
+  const cookieString = JSON.stringify(cookieValues);
+  return cookieString;
+}
+
+// Creates a cookie from a supplied name, data, and lifespan in days - should be fully configurable for other usecases
+// Called by acceptCookies()
+function createCookie(name, values, lifespan) {
+  let expires = "";
+  if (lifespan) {
+    let date = new Date();
+    date.setTime(date.getTime() + lifespan * 1000 * 60 * 60 * 24);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + values + expires + "; path=/";
+}
+
+// Cookie creation etc. has to run after the user object has been successfully created with the initializeCookie processes
+
+// Finds if a cookie exists based on the supplied name then retrieves
+function readCookie(cookieName) {
+  let userIP,
+    userDisplayName = "";
+  console.log(`Cookie string: ${JSON.stringify(document.cookie)}`);
+  const retrievedValues = retrieveCookieValues(cookieName);
+  if (retrievedValues) {
+    userIP = retrievedValues.userIP;
+    userDisplayName = retrievedValues.userDisplayName;
+    deleteGuestMessage();
+    const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
+    postChatMessage(chatHTML);
+    if (nameIsGuest) {
+      nameChangeCheck("Guest", userDisplayName);
+      nameIsGuest = false;
+    }
+    console.log(`FROM COOKIE: User IP: ${userIP}`);
+    console.log(`FROM COOKIE: User Display Name: ${userDisplayName}`);
+  } else {
+    console.log(`FROM COOKIE: Cookie not found or invalid.`);
+  }
+  return [userIP, userDisplayName];
+}
+
+function deleteGuestMessage() {
+  const firstMessage = document.querySelector(".disposable_message");
+
+  if (firstMessage) {
+    firstMessage.remove();
+  }
+}
+
+// Parses the values from inside a particular cookie based on the supplied name
+// Called by readCookie()
+function retrieveCookieValues(cookieName) {
+  const cookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith(`${cookieName}=`));
+
+  if (cookie) {
+    const cookieValueString = cookie.split("=")[1];
+    try {
+      const parsedValues = JSON.parse(cookieValueString);
+      return parsedValues;
+    } catch (error) {
+      console.error(`Error parsing cookie values: ${error}`);
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+// Causes the cookies permission bar to be displayed on the webpage
+// Called by cookieCheck()
+function showCookieBar() {
+  cookieBar.classList.add("show_cookie_permission_bar");
+}
+
+// Causes the cookies permission bar to be removed from the webpage
+// Called by acceptCookies(), rejectCookies()
+function hideCookieBar() {
+  cookieBar.classList.remove("show_cookie_permission_bar");
+}
+
+// Deletes the cookie by setting its expiry date to UTC time 0
+// Called by an eventHandler on the 'Clear Cookie - TEST' button
+function clearCookie(cookieName) {
+  document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  console.log(`Cookie: ${cookieName} deleted!`);
+}
+
+// Hides the cookie permission bar in the case of a useer clicking the 'Reject Cookies' button
+// Called by an eventHandler on the 'Reject Cookies' button
+function rejectCookies() {
+  console.log("Cookies disabled!");
+  hideCookieBar();
+}
+
+function nameChangeCheck(oldName, newName) {
+  if (newName !== oldName) {
+    const message = `<strong>${oldName}</strong> changed their name to <strong>${newName}</strong></>`;
+    const changeNameHTML = createChatMessage(message);
+    postChatMessage(changeNameHTML);
+    return;
+  } else {
+    return;
+  }
+}
+
+// Tests to see if the userObject properties are available after assignment during set up - PASS
+// Called automatically
+function ipTest() {
+  setTimeout(() => {
+    console.log(`userObject.displayName: `, userObject.displayName);
+    console.log(`userObject.ip: `, userObject.ip);
+  }, 5000);
+}
+
+// Experimental function to reset the gamestart_block element and the image displayed in the gamebox, will later be assimilated into the page as a game reset type button
+// Called by an eventHandler on the 'Toggle Game - TEST' button
+function resetGame() {
+  gamestartBox.style.display = "grid";
+  greyOverlay.style.display = "block";
+  gameBoard.src = "img/backgammon.jpg";
 }
