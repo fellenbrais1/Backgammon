@@ -884,6 +884,8 @@ html {
   background-color: pink;
   border-radius: 5px;
   border: solid 2px white;
+  opacity: 0;
+  transition: opacity ease-in-out 3s;
 }
 
 .versus_section img {

@@ -474,6 +474,17 @@ askJack.addEventListener("click", () => {
     toggleClass(chatNotification, "hidden");
   }
   addChatNotification();
+  const jackObject = playersObjectArr.find(
+    (current) => current.displayName === "Jack"
+  );
+  addPlayerDetails(2, jackObject);
+  setTimeout(() => {
+    player2NameSection.classList.add("show");
+    player2NameSection.classList.add("scroll_on_top");
+    versusSection.style.opacity = 1;
+  }, 2000);
+  toggleClass(player2NameSection, "hidden");
+  toggleClass(player2NameSection, "removed");
 });
 
 gameToggler.addEventListener("click", resetGame);
@@ -519,6 +530,8 @@ let userPassword;
 let userDisplayName;
 
 let nameIsGuest = false;
+
+let lastUsedDisplayName = "Guest";
 
 const experimentalFriends = [
   "Bob",
@@ -633,6 +646,17 @@ const playersObjectArr = [
     playerRating: 142,
     member: true,
     languages: ["japanese"],
+    friends: userFriends,
+  },
+  {
+    username: "frhackett",
+    password: "drink1",
+    displayName: "Jack",
+    playerPortrait: "img/portrait_male.png",
+    portraitColour: "#FF6788",
+    playerRating: 666,
+    member: true,
+    languages: ["english", "japanese"],
     friends: userFriends,
   },
 ];
@@ -993,7 +1017,7 @@ function startGameMessages(mode, userDisplayName, opponentName) {
     chatHTML = `<p class='chatbox_entry_c'>Starting a professional mode game.</p>`;
   }
   const displayName = getUserDisplayName();
-  chatHTML2 = `<p class='chatbox_entry_d'><strong>${displayName}</strong> playing against <strong>${opponentName}!</strong></p>`;
+  chatHTML2 = `<p class='chatbox_entry_d'><strong>${displayName}</strong> is playing against <strong>${opponentName}!</strong></p>`;
   addGameNotification(chatHTML);
   addGameNotification(chatHTML2);
 }
@@ -1263,13 +1287,8 @@ function userLogin(usernameValue, passwordValue) {
       loginInfoDisplay.textContent = `Welcome ${userObject.displayName}!`;
       setTimeout(() => {
         clearLoginInputFields();
-        // toggleClass(loginSection, "hidden");
         loginSection.classList.add("hidden");
         setTimeout(() => {
-          // toggleClass(loginSection, "no_pointer_events");
-          // toggleClass(floatingButtonsRight, "no_pointer_events");
-          // toggleClass(floatingButtonsLeft, "no_pointer_events");
-          // toggleClass(loginSection, "removed");
           loginSection.classList.add("no_pointer_events");
           floatingButtonsRight.classList.remove("no_pointer_events");
           floatingButtonsLeft.classList.remove("no_pointer_events");
@@ -1277,6 +1296,7 @@ function userLogin(usernameValue, passwordValue) {
           addPlayerDetails(1, userObject);
           const data = setNewCookieData(userObject);
           updateCookie(data);
+          nameChangeCheck(lastUsedDisplayName, userDisplayName);
         }, 60);
       }, 1000);
     } else {
@@ -1309,6 +1329,11 @@ function addPlayerDetails(player, userObject) {
     player1Portait.src = userObject.playerPortrait;
     player1Portait.style.backgroundColor = userObject.portraitColour;
     player1Rating.textContent = userObject.playerRating;
+  } else {
+    player2Name.textContent = userObject.displayName;
+    player2Portait.src = userObject.playerPortrait;
+    player2Portait.style.backgroundColor = userObject.portraitColour;
+    player2Rating.textContent = userObject.playerRating;
   }
 }
 
@@ -1345,7 +1370,9 @@ function userSignup(usernameValue, passwordValue) {
       languages: ["english"],
       friends: userFriends,
     };
-    playersObjectArr.push(newUserObject);
+    // TODO - Re-enable later as in the note above
+    // playersObjectArr.push(newUserObject);
+    console.log(playersObjectArr);
     signupInfoDisplay.textContent = `Welcome ${newUserObject.displayName}!`;
     setTimeout(() => {
       clearSignupInputFields();
@@ -1359,6 +1386,14 @@ function userSignup(usernameValue, passwordValue) {
         toggleClass(loginSection, "removed");
         toggleClass(signupSection, "removed");
         addPlayerDetails(1, newUserObject);
+        // TODO - Re-enable later as in the note above
+        // const data = setNewCookieData(newUserObject);
+        // updateCookie(data);
+        deleteGuestMessage();
+        const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${newUserObject.displayName}!</strong></p>`;
+        postChatMessage(chatHTML);
+        nameChangeCheck(lastUsedDisplayName, newUserObject.displayName);
+        userLogin(newUserObject.username, newUserObject.password);
       }, 60);
     }, 1000);
   }
@@ -1389,20 +1424,15 @@ function cookieCheck(cookieName) {
     console.log(`User has previously enabled cookies!`);
     if (userUsername !== "Guest" && userPassword !== "") {
       userLogin(userUsername, userPassword);
-      // toggleClass(loginSection, "hidden");
-      // setTimeout(() => {
-      //   toggleClass(loginSection, "no_pointer_events");
-      //   toggleClass(floatingButtonsRight, "no_pointer_events");
-      //   toggleClass(floatingButtonsLeft, "no_pointer_events");
-      //   toggleClass(loginSection, "removed");
-      // }, 60);
+      lastUsedDisplayName = userDisplayName;
     }
   } else {
     showCookieBar();
     const displayName = getUserDisplayName();
     const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
     postChatMessage(chatHTML, "afterbegin");
-    nameIsGuest = true;
+    // nameIsGuest = true;
+    lastUsedDisplayName = "Guest";
   }
 }
 
@@ -1534,18 +1564,6 @@ function updateCookie(data) {
   // return [userUsername, userPassword];
 }
 
-function createCookieUpdatedValues(ip, username, password, displayName) {
-  const cookieValues = {
-    userIP: ip,
-    userUsername: username,
-    userPassword: password,
-    userDisplayName: displayName,
-  };
-
-  const cookieString = JSON.stringify(cookieValues);
-  return cookieString;
-}
-
 // Creates a cookie from a supplied name, data, and lifespan in days - should be fully configurable for other usecases
 // Called by acceptCookies()
 function createCookie(name, values, lifespan) {
@@ -1576,10 +1594,10 @@ function readCookie(cookieName) {
     deleteGuestMessage();
     const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
     postChatMessage(chatHTML);
-    if (nameIsGuest) {
-      nameChangeCheck("Guest", userDisplayName);
-      nameIsGuest = false;
-    }
+    // if (nameIsGuest) {
+    //   nameChangeCheck(lastUsedDisplayName, userDisplayName);
+    //   nameIsGuest = false;
+    // }
     console.log(`FROM COOKIE: User IP: ${userIP}`);
     console.log(`FROM COOKIE: User Username: ${userUsername}`);
     console.log(`FROM COOKIE: User Password: ${userPassword}`);
@@ -1650,6 +1668,7 @@ function nameChangeCheck(oldName, newName) {
     const message = `<strong>${oldName}</strong> changed their name to <strong>${newName}</strong></>`;
     const changeNameHTML = createChatMessage(message);
     postChatMessage(changeNameHTML);
+    lastUsedDisplayName = newName;
     return;
   } else {
     return;
