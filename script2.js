@@ -529,7 +529,7 @@ let userUsername;
 let userPassword;
 let userDisplayName;
 
-let nameIsGuest = false;
+let cookiesAcceptedFlag = false;
 
 let lastUsedDisplayName = "Guest";
 
@@ -1294,9 +1294,11 @@ function userLogin(usernameValue, passwordValue) {
           floatingButtonsLeft.classList.remove("no_pointer_events");
           loginSection.classList.add("removed");
           addPlayerDetails(1, userObject);
-          const data = setNewCookieData(userObject);
-          updateCookie(data);
-          nameChangeCheck(lastUsedDisplayName, userDisplayName);
+          if (cookiesAcceptedFlag === true) {
+            const data = setNewCookieData(userObject);
+            updateCookie(data);
+          }
+          nameChangeCheck(lastUsedDisplayName, userObject.displayName);
         }, 60);
       }, 1000);
     } else {
@@ -1387,8 +1389,10 @@ function userSignup(usernameValue, passwordValue) {
         toggleClass(signupSection, "removed");
         addPlayerDetails(1, newUserObject);
         // TODO - Re-enable later as in the note above
+        // if (cookiesAcceptedFlag === true) {
         // const data = setNewCookieData(newUserObject);
         // updateCookie(data);
+        // }
         deleteGuestMessage();
         const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${newUserObject.displayName}!</strong></p>`;
         postChatMessage(chatHTML);
@@ -1413,7 +1417,9 @@ function cookieCheck(cookieName) {
   const cookie = document.cookie
     .split(";")
     .find((row) => row.startsWith(`${cookieName}=`));
+  console.log(cookie);
   if (cookie) {
+    cookiesAcceptedFlag = true;
     console.log(`COOKIE - RUNNING`);
     [userIP, userUsername, userPassword, userDisplayName] =
       readCookie(cookieName);
@@ -1528,6 +1534,7 @@ function acceptCookies() {
   console.log(`COOKIE - ${userUsername}`);
   console.log(`COOKIE - ${userDisplayName}`);
   ipTest(); // TEST FUNCTION - COULD BE REMOVED
+  cookiesAcceptedFlag = true;
   hideCookieBar();
 }
 
@@ -1594,10 +1601,6 @@ function readCookie(cookieName) {
     deleteGuestMessage();
     const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
     postChatMessage(chatHTML);
-    // if (nameIsGuest) {
-    //   nameChangeCheck(lastUsedDisplayName, userDisplayName);
-    //   nameIsGuest = false;
-    // }
     console.log(`FROM COOKIE: User IP: ${userIP}`);
     console.log(`FROM COOKIE: User Username: ${userUsername}`);
     console.log(`FROM COOKIE: User Password: ${userPassword}`);
@@ -1665,7 +1668,7 @@ function rejectCookies() {
 
 function nameChangeCheck(oldName, newName) {
   if (newName !== oldName) {
-    const message = `<strong>${oldName}</strong> changed their name to <strong>${newName}</strong></>`;
+    const message = `Name changed to <strong>${newName}</strong></>`;
     const changeNameHTML = createChatMessage(message);
     postChatMessage(changeNameHTML);
     lastUsedDisplayName = newName;
