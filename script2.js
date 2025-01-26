@@ -38,8 +38,7 @@ const clsButton = document.querySelector(".button_cls");
 
 // Dice section elements
 const diceSection = document.querySelector(".dice_section");
-const buttonRoll1 = document.querySelector(".dice_button_roll1");
-const buttonRoll2 = document.querySelector(".dice_button_roll2");
+const buttonRoll = document.querySelector(".dice_button_roll");
 const diceFace1 = document.querySelector(".dice_img1");
 const diceFace2 = document.querySelector(".dice_img2");
 const diceRollResult = document.querySelector(".dice_result_display");
@@ -180,12 +179,12 @@ diceButton.addEventListener("click", () => {
   }, 60);
 });
 
-buttonRoll1.addEventListener("click", () => {
-  rollOneDie();
-});
-
-buttonRoll2.addEventListener("click", () => {
-  rollTwoDice();
+buttonRoll.addEventListener("click", () => {
+  if (firstTurn) {
+    rollOneDie();
+  } else {
+    rollTwoDice();
+  }
 });
 
 diceXButton.addEventListener("click", () => {
@@ -207,6 +206,7 @@ chatButton.addEventListener("click", () => {
     toggleClass(chatboxSection, "hidden");
     toggleClass(chatboxSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
   }, 60);
   setTimeout(() => {
     displayLatestMessage();
@@ -222,6 +222,7 @@ chatXButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(chatboxSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(chatboxSection, "removed");
   }, 60);
 });
@@ -240,6 +241,7 @@ playersButton.addEventListener("click", () => {
     toggleClass(playersSection, "hidden");
     toggleClass(playersSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
     if (playersPopulatedFlag === false) {
       populatePlayers(experimentalFriends, playersFriends);
       populatePlayers(experimentalFriends, playersPlayedBefore);
@@ -255,6 +257,7 @@ playersXButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(playersSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(playersSection, "removed");
   }, 60);
 });
@@ -280,6 +283,7 @@ rulesButton.addEventListener("click", () => {
     toggleClass(rulesSection, "hidden");
     toggleClass(rulesSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
   }, 60);
 });
 
@@ -289,6 +293,7 @@ rulesXButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(rulesSection, "no_pointer_events");
     toggleClass(floatingButtonsLeft, "no_pointer_events");
+    toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(rulesSection, "removed");
   }, 60);
 });
@@ -326,18 +331,28 @@ loginUsernameField.addEventListener("keydown", (event) => {
 loginPasswordField.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
+    if (loginUsernameField.value !== "" && loginPasswordField.value !== "") {
+      userLogin(loginUsernameField.value, loginPasswordField.value);
+    } else {
+      loginInfoDisplay.textContent = `Please enter both a username and password.`;
+      setTimeout(() => {
+        loginInfoDisplay.textContent = `Please enter your details to log in.`;
+        clearLoginInputFields();
+      }, 2000);
+    }
   }
 });
 
 loginSubmitButton.addEventListener("click", () => {
   if (loginUsernameField.value !== "" && loginPasswordField.value !== "") {
     userLogin(loginUsernameField.value, loginPasswordField.value);
-  } else
+  } else {
     loginInfoDisplay.textContent = `Please enter both a username and password.`;
-  setTimeout(() => {
-    loginInfoDisplay.textContent = `Please enter your details to log in.`;
-    clearLoginInputFields();
-  }, 2000);
+    setTimeout(() => {
+      loginInfoDisplay.textContent = `Please enter your details to log in.`;
+      clearLoginInputFields();
+    }, 1900);
+  }
 });
 
 signupButton.addEventListener("click", () => {
@@ -374,6 +389,15 @@ signupUsernameField.addEventListener("keydown", (event) => {
 signupPasswordField.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
+    if (signupUsernameField.value !== "" && signupPasswordField.value !== "") {
+      userSignup(signupUsernameField.value, signupPasswordField.value);
+    } else {
+      signupInfoDisplay.textContent = `Please choose both a username and a password.`;
+      setTimeout(() => {
+        signupInfoDisplay.textContent = `Please choose a username and password to sign up.`;
+        clearSignupInputFields();
+      }, 2000);
+    }
   }
 });
 
@@ -381,9 +405,10 @@ signupSubmitButton.addEventListener("click", () => {
   if (signupUsernameField.value !== "" && signupPasswordField.value !== "") {
     userSignup(signupUsernameField.value, signupPasswordField.value);
   } else {
-    signupInfoDisplay.textContent = `Please enter both a username and a password.`;
+    signupInfoDisplay.textContent = `Please choose both a username and a password.`;
     setTimeout(() => {
-      signupInfoDisplay.textContent = `Please enter your details to log in.`;
+      signupInfoDisplay.textContent = `Please choose a username and password to sign up.`;
+      clearSignupInputFields();
     }, 2000);
   }
 });
@@ -404,6 +429,7 @@ settingsButton.addEventListener("click", () => {
     toggleClass(settingsSection, "hidden");
     toggleClass(settingsSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
   }, 60);
 });
 
@@ -413,6 +439,7 @@ settingsXButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(settingsSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(settingsSection, "removed");
   }, 60);
 });
@@ -424,6 +451,7 @@ otherGamesButton.addEventListener("click", () => {
     toggleClass(otherGamesSection, "hidden");
     toggleClass(otherGamesSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
     populateOtherGames(otherGamesHTML);
     addCurrentGameClass(currentGameFlag);
     otherGamesPopulatedFlag = true;
@@ -436,6 +464,7 @@ otherGamesXButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(otherGamesSection, "no_pointer_events");
     toggleClass(floatingButtonsRight, "no_pointer_events");
+    toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(otherGamesSection, "removed");
   }, 60);
 });
@@ -683,6 +712,8 @@ const otherGamesHTML = [
 
 const currentGameFlag = "Backgammon";
 
+let firstTurn = true;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
@@ -739,7 +770,7 @@ function displayProBoard() {
 // Called by displayFunBoard(), displayProBoard()
 function getOpponentName() {
   console.log(`This code is running - getOpponentName()`);
-  const opponentName = "PLAYER 2";
+  const opponentName = "Jack";
   return opponentName;
 }
 
@@ -780,6 +811,7 @@ function rollOneDie() {
   }, 1110);
   setTimeout(() => {
     hideDiceRoller();
+    turnOneEnd();
   }, 2500);
 }
 
@@ -787,7 +819,7 @@ function rollOneDie() {
 // Called by an eventHandler on the 'Two dice roll' button
 function rollTwoDice() {
   let diceResult = 0;
-  diceFace2.style.opacity = 1;
+  // diceFace2.style.opacity = 1;
   diceRollSound.play();
   const target1 = diceFace1;
   const target2 = diceFace2;
@@ -1299,19 +1331,24 @@ function userLogin(usernameValue, passwordValue) {
             updateCookie(data);
           }
           nameChangeCheck(lastUsedDisplayName, userObject.displayName);
+          loginInfoDisplay.textContent = `Please enter your details to log in.`;
         }, 60);
       }, 1000);
     } else {
       console.log(`Password is not correct!`);
       loginInfoDisplay.textContent = `That password is not correct.`;
       setTimeout(() => {
-        clearLoginInputFields();
+        clearPasswordField();
         loginInfoDisplay.textContent = `Please enter your details to log in.`;
-      }, 2000);
+      }, 1000);
     }
   } else {
     console.log(`User not found!`);
-    loginInfoDisplay.textContent = `User not found!`;
+    loginInfoDisplay.textContent = `User not found, please try again.`;
+    setTimeout(() => {
+      loginInfoDisplay.textContent = `Please enter your details to log in.`;
+      clearLoginInputFields();
+    }, 2000);
   }
 }
 
@@ -1339,6 +1376,10 @@ function addPlayerDetails(player, userObject) {
   }
 }
 
+function clearPasswordField() {
+  loginPasswordField.value = "";
+}
+
 function clearLoginInputFields() {
   loginUsernameField.value = "";
   loginPasswordField.value = "";
@@ -1354,10 +1395,10 @@ function userSignup(usernameValue, passwordValue) {
   console.log(userObject);
 
   if (userObject) {
-    console.log(`That username ${usernameValue} is already taken.`);
-    signupInfoDisplay.textContent = `That username '${usernameValue}' is already taken.`;
+    console.log(`The username ${usernameValue} is already taken.`);
+    signupInfoDisplay.textContent = `The username '${usernameValue}' is already taken.`;
     setTimeout(() => {
-      signupInfoDisplay.textContent = `Please enter both a username and password.`;
+      signupInfoDisplay.textContent = `Please choose both a username and password.`;
       clearSignupInputFields();
     }, 2000);
   } else {
@@ -1398,6 +1439,8 @@ function userSignup(usernameValue, passwordValue) {
         postChatMessage(chatHTML);
         nameChangeCheck(lastUsedDisplayName, newUserObject.displayName);
         userLogin(newUserObject.username, newUserObject.password);
+        signupInfoDisplay.textContent = `Please choose a username and password to sign up.`;
+        // clearSignupInputFields();
       }, 60);
     }, 1000);
   }
@@ -1442,12 +1485,9 @@ function cookieCheck(cookieName) {
   }
 }
 
-function initializeCookie(tag = "") {
+function initializeCookie() {
   setUpUserData();
   setTimeout(() => {
-    if (tag !== "guest") {
-      addDisplayName();
-    }
     console.log(`userObject: `, userObject);
   }, 1000);
 }
@@ -1497,20 +1537,6 @@ function setUserIP() {
     console.log(`Set up complete!`);
     return;
   }, 400);
-}
-
-// TODO - NEEDS TO BE OPTIONAL FOR THE USER IN FUTURE
-// Allows a user to choose a display name via prompt
-// Called initializeCookie()
-function addDisplayName() {
-  // userObject.displayName = prompt(
-  //   `What would you like your display name to be?`
-  // );
-  if (!userObject.displayName) {
-    window.alert(`No display name given, defaulting to 'Guest'`);
-    userObject.displayName = "Guest";
-  }
-  return;
 }
 
 // Allows the 'userDetails' cookie to be created and then read all at once by introducing a time delay, this happens the first time the cookie is created so its values are instantly available to the program
@@ -1693,4 +1719,10 @@ function resetGame() {
   gamestartBox.style.display = "grid";
   greyOverlay.style.display = "block";
   gameBoard.src = "img/backgammon.jpg";
+}
+
+function turnOneEnd() {
+  buttonRoll.textContent = "Roll two dice";
+  diceFace2.style.opacity = 1;
+  firstTurn = false;
 }

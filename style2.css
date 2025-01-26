@@ -283,26 +283,27 @@ html {
 }
 
 .dice_button_block {
-  align-self: center;
-  justify-self: center;
+  align-self: left;
+  justify-self: left;
   width: 100%;
   margin-top: 5%;
   height: 2rem;
+  grid-column: 1/3;
 }
 
-.dice_button_roll1,
-.dice_button_roll2 {
+.dice_button_roll {
   display: block;
   background-color: var(--dark_felt_green);
-  width: 70%;
+  width: 75%;
   height: 60px;
   border: solid 2px white;
   border-radius: 5%;
-  margin: 0 16%;
+  margin-left: 12.5%;
   font-size: 18px;
   font-weight: bold;
   color: white;
   cursor: pointer;
+  grid-column: 1 / 3;
 }
 
 .dice_img_block {
@@ -318,6 +319,10 @@ html {
   width: 160px;
   border-radius: 10%;
   margin: 0 auto;
+}
+
+.dice_img2 {
+  opacity: 0;
 }
 
 .dice_result_display {
