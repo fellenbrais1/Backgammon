@@ -70,6 +70,7 @@ html {
   border: 2px solid white;
   border-radius: 15px;
   /* transform: rotate(180deg); */
+  border: 4px solid var(--button_dark_teal);
 }
 
 .intro_play_div {
