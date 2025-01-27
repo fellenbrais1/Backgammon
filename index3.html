@@ -1,0 +1,641 @@
+<! CODE START -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <! META -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <! TITLE -->
+    <title>Fresh Version</title>
+    <! STYLESHEETS -->
+    <link rel="stylesheet" href="style3.css" />
+    <! FAVICON -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="img/favicon/site.webmanifest" />
+  </head>
+  <body>
+    <! MAIN PAGE ELEMENTS -->
+    <div class="pagebox">
+      <! MAIN GAMEBXOX -->
+      <div class="main_display">
+        <div class="intro_display">
+          <img class="intro_image" src="img/MOMABackgammon.png" />
+          <div class="intro_play_div">
+            <p>Backgammon</p>
+            <p class="play_button">Play</p>
+          </div>
+        </div>
+        <! GAMESTART BLOCK -->
+        <div class="gamestart_block">
+          <p class="gamestart_text">Choose a game type</p>
+          <p class="gamestart_button_fun">Fun Game</p>
+          <p class="gamestart_button_pro">Professional Game</p>
+        </div>
+        <div class="grey_overlay"></div>
+        <img class="game_board" src="img/backgammon.jpg" />
+      </div>
+      <! FLOATING BUTTONS -->
+      <div class="floating_buttons_main">
+        <!-- <div class="round_button button_dice" title="Dice Roller">
+          <svg
+            height="60px"
+            width="60px"
+            version="1.1"
+            id="_x32_"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512 512"
+            xml:space="preserve"
+          >
+            <style type="text/css">
+              .st0 {
+                fill: #fff;
+              }
+            </style>
+            <g>
+              <path
+                class="st0"
+                d="M34.209,152.142v208.084c0,16.773,8.802,32.311,23.186,40.947l174.048,104.392
+		c5.832,3.496,12.207,5.628,18.717,6.434V260.777L38.007,133.524C35.543,139.325,34.209,145.64,34.209,152.142z M197.716,270.634
+		c12.056,6.57,21.829,21.671,21.829,33.727c0,12.056-9.773,16.502-21.829,9.932c-12.056-6.571-21.822-21.671-21.822-33.728
+		S185.659,264.062,197.716,270.634z M136.786,298.356c12.048,6.57,21.822,21.671,21.822,33.728c0,12.048-9.773,16.501-21.822,9.931
+		c-12.064-6.571-21.837-21.671-21.837-33.728S124.722,291.785,136.786,298.356z M75.841,326.077
+		c12.056,6.571,21.83,21.671,21.83,33.728c0,12.056-9.773,16.502-21.83,9.931c-12.048-6.57-21.822-21.671-21.822-33.727
+		C54.019,323.952,63.793,319.507,75.841,326.077z"
+              />
+              <path
+                class="st0"
+                d="M473.993,133.524L265.864,258.366c-2.494,1.492-4.024,4.19-4.024,7.099V512
+		c6.511-0.806,12.893-2.938,18.718-6.434l174.047-104.392c14.385-8.636,23.186-24.174,23.186-40.947V152.142
+		C477.791,145.64,476.457,139.325,473.993,133.524z M309.545,436.158c-12.056,6.571-21.83,2.125-21.83-9.931
+		c0-12.049,9.773-27.149,21.83-33.72c12.056-6.571,21.829-2.125,21.829,9.924C331.374,414.487,321.601,429.588,309.545,436.158z
+		 M309.545,314.292c-12.056,6.571-21.83,2.125-21.83-9.932c0-12.056,9.773-27.157,21.83-33.727
+		c12.056-6.571,21.829-2.125,21.829,9.931S321.601,307.721,309.545,314.292z M431.412,369.736
+		c-12.056,6.571-21.822,2.125-21.822-9.931c0-12.056,9.765-27.156,21.822-33.728c12.056-6.57,21.837-2.125,21.837,9.932
+		C453.249,348.064,443.468,363.166,431.412,369.736z M431.412,247.87c-12.056,6.571-21.822,2.117-21.822-9.931
+		c0-12.056,9.765-27.157,21.822-33.728s21.837-2.125,21.837,9.931C453.249,226.191,443.468,241.292,431.412,247.87z"
+              />
+              <path
+                class="st0"
+                d="M454.605,111.204L280.557,6.804C272.992,2.268,264.507,0,256.001,0c-8.508,0-16.992,2.268-24.557,6.796
+		L57.395,111.204c-5.35,3.202-9.916,7.37-13.556,12.192l207.903,124.707c2.623,1.575,5.893,1.575,8.515,0l207.904-124.707
+		C464.521,118.574,459.955,114.406,454.605,111.204z M286.352,140.049c-17.542,12.192-45.536,11.868-62.535-0.716
+		c-16.992-12.576-16.548-32.665,0.995-44.857c17.542-12.184,45.528-11.876,62.519,0.716
+		C304.331,107.768,303.886,127.857,286.352,140.049z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div class="round_button button_chat" title="Chat">
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 10.5H16"
+              stroke="#fff"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <path
+              d="M8 14H13.5"
+              stroke="#fff"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <path
+              d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
+              stroke="#fff"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div> -->
+        <div class="round_button button_login" title="Log In">
+            <svg
+              width="60px"
+              height="60px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 20H19C20.1046 20 21 19.1046 21 18V6C21 4.89543 20.1046 4 19 4H11M3 12H14M14 12L11 15M14 12L11 9"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="round_button button_settings" title="Settings">
+            <svg
+              width="60px"
+              height="60px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="Interface / Settings">
+                <g id="Vector">
+                  <path
+                    d="M20.3499 8.92293L19.9837 8.7192C19.9269 8.68756 19.8989 8.67169 19.8714 8.65524C19.5983 8.49165 19.3682 8.26564 19.2002 7.99523C19.1833 7.96802 19.1674 7.93949 19.1348 7.8831C19.1023 7.82677 19.0858 7.79823 19.0706 7.76998C18.92 7.48866 18.8385 7.17515 18.8336 6.85606C18.8331 6.82398 18.8332 6.79121 18.8343 6.72604L18.8415 6.30078C18.8529 5.62025 18.8587 5.27894 18.763 4.97262C18.6781 4.70053 18.536 4.44993 18.3462 4.23725C18.1317 3.99685 17.8347 3.82534 17.2402 3.48276L16.7464 3.1982C16.1536 2.85658 15.8571 2.68571 15.5423 2.62057C15.2639 2.56294 14.9765 2.56561 14.6991 2.62789C14.3859 2.69819 14.0931 2.87351 13.5079 3.22396L13.5045 3.22555L13.1507 3.43741C13.0948 3.47091 13.0665 3.48779 13.0384 3.50338C12.7601 3.6581 12.4495 3.74365 12.1312 3.75387C12.0992 3.7549 12.0665 3.7549 12.0013 3.7549C11.9365 3.7549 11.9024 3.7549 11.8704 3.75387C11.5515 3.74361 11.2402 3.65759 10.9615 3.50224C10.9334 3.48658 10.9056 3.46956 10.8496 3.4359L10.4935 3.22213C9.90422 2.86836 9.60915 2.69121 9.29427 2.62057C9.0157 2.55807 8.72737 2.55634 8.44791 2.61471C8.13236 2.68062 7.83577 2.85276 7.24258 3.19703L7.23994 3.1982L6.75228 3.48124L6.74688 3.48454C6.15904 3.82572 5.86441 3.99672 5.6517 4.23614C5.46294 4.4486 5.32185 4.69881 5.2374 4.97018C5.14194 5.27691 5.14703 5.61896 5.15853 6.3027L5.16568 6.72736C5.16676 6.79166 5.16864 6.82362 5.16817 6.85525C5.16343 7.17499 5.08086 7.48914 4.92974 7.77096C4.9148 7.79883 4.8987 7.8267 4.86654 7.88237C4.83436 7.93809 4.81877 7.96579 4.80209 7.99268C4.63336 8.26452 4.40214 8.49186 4.12733 8.65572C4.10015 8.67193 4.0715 8.68752 4.01521 8.71871L3.65365 8.91908C3.05208 9.25245 2.75137 9.41928 2.53256 9.65669C2.33898 9.86672 2.19275 10.1158 2.10349 10.3872C2.00259 10.6939 2.00267 11.0378 2.00424 11.7255L2.00551 12.2877C2.00706 12.9708 2.00919 13.3122 2.11032 13.6168C2.19979 13.8863 2.34495 14.134 2.53744 14.3427C2.75502 14.5787 3.05274 14.7445 3.64974 15.0766L4.00808 15.276C4.06907 15.3099 4.09976 15.3266 4.12917 15.3444C4.40148 15.5083 4.63089 15.735 4.79818 16.0053C4.81625 16.0345 4.8336 16.0648 4.8683 16.1255C4.90256 16.1853 4.92009 16.2152 4.93594 16.2452C5.08261 16.5229 5.16114 16.8315 5.16649 17.1455C5.16707 17.1794 5.16658 17.2137 5.16541 17.2827L5.15853 17.6902C5.14695 18.3763 5.1419 18.7197 5.23792 19.0273C5.32287 19.2994 5.46484 19.55 5.65463 19.7627C5.86915 20.0031 6.16655 20.1745 6.76107 20.5171L7.25478 20.8015C7.84763 21.1432 8.14395 21.3138 8.45869 21.379C8.73714 21.4366 9.02464 21.4344 9.30209 21.3721C9.61567 21.3017 9.90948 21.1258 10.4964 20.7743L10.8502 20.5625C10.9062 20.5289 10.9346 20.5121 10.9626 20.4965C11.2409 20.3418 11.5512 20.2558 11.8695 20.2456C11.9015 20.2446 11.9342 20.2446 11.9994 20.2446C12.0648 20.2446 12.0974 20.2446 12.1295 20.2456C12.4484 20.2559 12.7607 20.3422 13.0394 20.4975C13.0639 20.5112 13.0885 20.526 13.1316 20.5519L13.5078 20.7777C14.0971 21.1315 14.3916 21.3081 14.7065 21.3788C14.985 21.4413 15.2736 21.4438 15.5531 21.3855C15.8685 21.3196 16.1657 21.1471 16.7586 20.803L17.2536 20.5157C17.8418 20.1743 18.1367 20.0031 18.3495 19.7636C18.5383 19.5512 18.6796 19.3011 18.764 19.0297C18.8588 18.7252 18.8531 18.3858 18.8417 17.7119L18.8343 17.2724C18.8332 17.2081 18.8331 17.1761 18.8336 17.1445C18.8383 16.8247 18.9195 16.5104 19.0706 16.2286C19.0856 16.2007 19.1018 16.1726 19.1338 16.1171C19.166 16.0615 19.1827 16.0337 19.1994 16.0068C19.3681 15.7349 19.5995 15.5074 19.8744 15.3435C19.9012 15.3275 19.9289 15.3122 19.9838 15.2818L19.9857 15.2809L20.3472 15.0805C20.9488 14.7472 21.2501 14.5801 21.4689 14.3427C21.6625 14.1327 21.8085 13.8839 21.8978 13.6126C21.9981 13.3077 21.9973 12.9658 21.9958 12.2861L21.9945 11.7119C21.9929 11.0287 21.9921 10.6874 21.891 10.3828C21.8015 10.1133 21.6555 9.86561 21.463 9.65685C21.2457 9.42111 20.9475 9.25526 20.3517 8.92378L20.3499 8.92293Z"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M8.00033 12C8.00033 14.2091 9.79119 16 12.0003 16C14.2095 16 16.0003 14.2091 16.0003 12C16.0003 9.79082 14.2095 7.99996 12.0003 7.99996C9.79119 7.99996 8.00033 9.79082 8.00033 12Z"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        <div class="round_button button_players" title="Players">
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 16 16"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            fill="none"
+            stroke="#fff"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.3"
+          >
+            <circle cx="5" cy="9" r="2.25" />
+            <circle cx="11" cy="4" r="2.25" />
+            <path
+              d="m7.75 9.25c0-1 .75-3 3.25-3s3.25 2 3.25 3m-12.5 5c0-1 .75-3 3.25-3s3.25 2 3.25 3"
+            />
+          </svg>
+        </div>
+        <div class="round_button button_rules" title="Rules">
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            id="Layer_1"
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke: #fff;
+                  stroke-miterlimit: 10;
+                  stroke-width: 1.8px;
+                }
+              </style>
+            </defs>
+            <path
+              class="cls-1"
+              d="M20.59,22.5H5.32A1.91,1.91,0,0,1,4,19.24a1.89,1.89,0,0,1,1.35-.56H20.59"
+            />
+            <line class="cls-1" x1="19.64" y1="18.68" x2="19.64" y2="22.5" />
+            <path
+              class="cls-1"
+              d="M20.59,1.5V18.68H5.32a1.91,1.91,0,0,0-1.91,1.91V3.41A1.92,1.92,0,0,1,5.32,1.5Z"
+            />
+            <polygon
+              class="cls-1"
+              points="12 13.91 10.07 12.96 8.18 13.91 8.18 1.5 12 1.5 12 13.91"
+            />
+          </svg>
+        </div>
+        <div class="chat_notifications hidden">0</div>
+        <div class="round_button button_other_games" title="Other Games">
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M40 44H8V40L14 37H34L40 40V44Z"
+              stroke="#fff"
+              stroke-width="4"
+              stroke-miterlimit="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M14 19H34"
+              stroke="#fff"
+              stroke-width="4"
+              stroke-miterlimit="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M27.74 19L33 37H15L20.26 19"
+              stroke="#fff"
+              stroke-width="4"
+              stroke-miterlimit="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M24 4C19.5817 4 16 7.58172 16 12C16 15.012 17.6646 17.6353 20.124 19H27.876C30.3354 17.6353 32 15.012 32 12C32 7.58172 28.4183 4 24 4Z"
+              stroke="#fff"
+              stroke-width="4"
+            />
+          </svg>
+        </div>
+        <div
+          class="round_button button_cls"
+          title="The Clever Litle Software Company"
+        >
+          <a href="https://www.infoprove.com/" target="_blank">
+            <img
+              class="cls_logo"
+              src="img/cls_logo.png"
+              height="70px"
+              width="70px"
+            />
+          </a>
+        </div>
+      </div>
+      
+      
+      <! DICE SECTION -->
+      <section class="dice_section">
+        <p class="dice_result_display">6</p>
+        <div class="dice_button_block">
+          <!-- <button class="dice_button_roll">
+            One dice roll
+          </button>
+        </div> -->
+        <div class="dice_img_block">
+          <img class="dice_img1" src="img/dice-six.png" />
+        </div>
+        <div class="dice_img_block">
+          <img class="dice_img2" src="img/dice-six.png" />
+        </div>
+        <!-- <div class="dice_x_button x_button">X</div> -->
+      </section>
+      <! CHAT SECTION -->
+      <section class="chatbox_section hidden removed no_pointer_events">
+        <div class="chatbox_display">
+          <p class="chatbox_entry_d">Start chatting!</p>
+        </div>
+        <form class="chatbox_form">
+          <input
+            type="text"
+            id="chatbox_input"
+            placeholder="Enter your message..."
+            aria-label="Chatbox Message Input"
+            autocomplete="off"
+          />
+        </form>
+        <div class="chat_x_button x_button">X</div>
+      </section>
+      <! PLAYERS SECTION -->
+      <section class="players_section">
+        <div class="player_filters">
+          <strong>FILTERS</strong>
+          <div class="filter_div">
+            <div class="toggle_online">
+              <p>HIDE OFFLINE</p>
+              <div class="toggle_online_graphic">
+                <p class="slider_button"></p>
+              </div>
+            </div>
+            <div class="toggle_free">
+              <p>HIDE INGAME</p>
+              <div class="toggle_free_graphic">
+                <p class="slider_button"></p>
+              </div>
+            </div>
+            <div class="toggle_language">
+              <p>LANGUAGE</p>
+              <div class="toggle_language_box">
+                <p>ENGLISH</p>
+                <svg
+                  class="language_selector_button"
+                  width="18px"
+                  height="18px"
+                  viewBox="0 0 48 48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Select Language</title>
+                  <g id="Layer_2" data-name="Layer 2">
+                    <g id="invisible_box" data-name="invisible box">
+                      <rect width="48" height="48" fill="none" />
+                    </g>
+                    <g id="icons_Q2" data-name="icons Q2">
+                      <path
+                        d="M24,46A22,22,0,1,0,2,24,21.9,21.9,0,0,0,24,46ZM14.3,19.8A2.5,2.5,0,0,1,16,19H32a2.5,2.5,0,0,1,1.7.8,2.1,2.1,0,0,1-.4,2.7l-7.9,7.9a1.9,1.9,0,0,1-2.8,0l-7.9-7.9A2.1,2.1,0,0,1,14.3,19.8Z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="active_friends">
+          <strong>FRIENDS</strong>
+          <div class="players_display players_friends"></div>
+        </div>
+        <div class="active_played_before">
+          <strong>PLAYED BEFORE</strong>
+          <div class="players_display players_played_before"></div>
+        </div>
+        <div class="active_players">
+          <strong>CURRENTLY ACTIVE</strong>
+          <div class="players_display players_currently_active"></div>
+        </div>
+        <div class="players_x_button x_button">X</div>
+      </section>
+      <! RULES SECTION -->
+      <section class="rules_section hidden removed no_pointer_events">
+        <div class="rules_info">
+          <p><strong>RULES OF BACKGAMMON</strong></p>
+          <p><strong>ORIGIN</strong></p>
+          <p>
+            Backgammon evolved from ancient games such as Rome’s
+            <a
+              href="https://www.britannica.com/sports/backgammon"
+              target="_blank"
+              title="History of backgammon"
+              rel="noopener noreferrer"
+              >Ludus Duodecim Scriptorum</a
+            >, making it over 5,000 years old. Thanks to such popularity, it’s
+            become the national game for eight countries, including Egypt,
+            Turkey, and Greece. What makes backgammon so compelling (and worthy
+            of worldwide tournaments) is its balance of chance by incorporating
+            dice rolls, and strategy. It’s also very easy to learn and can scale
+            in difficulty depending on who you’re playing; so, finding the right
+            backgammon opponent can be its own fun challenge.
+          </p>
+          <p><strong>HOW TO PLAY</strong></p>
+          <p>
+            Backgammon is a two-player game where each player controls 15
+            pieces, aka “men” or checkers, one black and one white. The first
+            player to remove their pieces from the board wins.
+          </p>
+          <p>
+            A board consists of 24 arrow-shaped spaces, the colors split into
+            alternating rows. Six spaces, or “points,” take up each quadrant.
+            The home board for the white checkers is on a player’s right, while
+            the home board for the black checkers is on a player’s left. The
+            white checkers only move counterclockwise, and the black checkers
+            move clockwise.
+          </p>
+          <p>
+            Each player tries to move their 15 pieces around the board until
+            they can remove them from play by getting them to the edge of the
+            home board. Removing a piece is known as “bearing off.” The starting
+            position for all the pieces are as follows:
+          </p>
+          <div class="rules_image_box">
+            <img class="rules_backgammon" src="img/rules_backgammon.webp" />
+          </div>
+          <p>
+            Players move their checkers to their home quadrant to remove them
+            from play. The player’s home quadrant contains the six rows in the
+            quadrant originally occupied by their opponent’s two checkers
+            (opposite left for player one and opposite right for player two).
+          </p>
+          <p><strong>MOVES AND RULES</strong></p>
+          <p>
+            Players each roll one die to see who goes first. The first player
+            moves spaces equal to the total of that first roll (their die and
+            their opponent’s). After that, players roll both their own dice.
+            Gamers move up to two pieces equal to the total of the dice roll. If
+            moving two pieces, each piece moves the same as a number on a die.
+            For example, if you roll a 2 and a 6, one piece must move 2 and the
+            other 6 (or 6 and then 2).
+          </p>
+          <ul>
+            <li>If you roll doubles, you can move that number four times.</li>
+            <li>
+              You <strong>can</strong> move to a space with only one of the
+              opponent’s checkers. Your opponent’s piece is then bumped to the
+              middle of the board, aka “jail” (which divides the four
+              quadrants). In order to remove the piece from jail, they have to
+              try to get the piece into their home quadrant on their next turn.
+            </li>
+            <li>
+              To escape jail, the roll must include a die with the number of
+              moves to a free space, following rules about blocked spaces, to
+              return a checker to play. Otherwise, that player passes their
+              turn.
+            </li>
+            <li>
+              You <strong>cannot</strong> move a piece to a point where your
+              opponent has at least two checkers.
+            </li>
+            <li>
+              You <strong>cannot</strong> move the same piece twice if it would
+              land on a blocked space at the end of a single die’s count. For
+              example, if you roll a 3 and a 4 and both the third and fourth
+              space are blocked, you cannot move your checker to the seventh
+              space, even if it’s free.
+            </li>
+          </ul>
+          <p><strong>WINNING THE GAME</strong></p>
+          <p>
+            Once all 15 pieces are in your home quadrant, you can begin to roll
+            dice to move them off the board and onto the side of the home board.
+            You must roll at least the number of spaces plus one to bear off.
+            Remove all your pieces to win!
+          </p>
+        </div>
+        <div class="rules_x_button x_button">X</div>
+      </section>
+      <! LOGIN SECTION -->
+      <section class="login_section hidden removed no_pointer_events">
+        <div class="login_info_div">
+          <p class="login_title">LOG IN</p>
+          <form class="login_form">
+            <input
+              type="text"
+              id="login_username_input"
+              placeholder="Username"
+              aria-label="Login Username Input"
+              autocomplete="off"
+            />
+          </form>
+          <form class="login_form">
+            <input
+              type="password"
+              id="login_password_input"
+              placeholder="Password"
+              aria-label="Login Password Input"
+              autocomplete="off"
+            />
+          </form>
+          <p class="login_section_info_display">
+            Please enter your details to log in.
+          </p>
+          <p class="signup_title">Not already a member?</p>
+          <p class="signup_button">SIGN UP</p>
+          <div class="login_section_submit_button">GO</div>
+          <div class="login_x_button x_button">X</div>
+        </div>
+      </section>
+      <! SIGNUP SECTION -->
+      <section class="signup_section hidden removed no_pointer_events">
+        <div class="signup_info_div">
+          <p class="signup_title">SIGN UP</p>
+          <form class="signup_form">
+            <input
+              type="text"
+              id="signup_username_input"
+              placeholder="Username"
+              aria-label="Signup Username Input"
+              autocomplete="off"
+            />
+          </form>
+          <form class="signup_form">
+            <input
+              type="password"
+              id="signup_password_input"
+              placeholder="Password"
+              aria-label="Signup Password Input"
+              autocomplete="off"
+            />
+          </form>
+          <p class="signup_section_info_display">
+            Please choose a username and password to sign up.
+          </p>
+          <p class="back_to_login_title">Already a member?</p>
+          <p class="back_to_login_button">LOG IN</p>
+        </div>
+        <div class="signup_x_button x_button">X</div>
+        <div class="signup_section_submit_button">GO</div>
+      </section>
+      <! SETTINGS SECTION -->
+      <section class="settings_section hidden removed no_pointer_events">
+        <div class="settings_info_div">
+          <p class="settings_title">SETTINGS</p>
+        <div class="settings_x_button x_button">X</div>
+      </section>
+      <! OTHER GAMES SECTION -->
+      <section class="other_games_section hidden removed no_pointer_events">
+        <div class="other_games_info">
+          <p>TRY SOME OF OUR OTHER GREAT GAMES</p>
+          <div class="other_games_display"></div>
+        </div>
+        <div class="other_games_x_button x_button">X</div>
+      </section>
+      <! NAME PLAYER 1 SECTION -->
+      <section class='name_section player1'>
+        <img class="player_portrait1" src='img/portrait_male.png' alt="Player Portrait" />
+        <p class="name_player1">Guest</p>
+        <div class="player_level">
+          <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.5" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" fill="#FFD700"/>
+            <path d="M10.4127 8.49812L10.5766 8.20419C11.2099 7.06807 11.5266 6.5 12 6.5C12.4734 6.5 12.7901 7.06806 13.4234 8.20419L13.5873 8.49813C13.7672 8.82097 13.8572 8.98239 13.9975 9.0889C14.1378 9.19541 14.3126 9.23495 14.6621 9.31402L14.9802 9.38601C16.2101 9.66428 16.825 9.80341 16.9713 10.2739C17.1176 10.7443 16.6984 11.2345 15.86 12.215L15.643 12.4686C15.4048 12.7472 15.2857 12.8865 15.2321 13.0589C15.1785 13.2312 15.1965 13.4171 15.2325 13.7888L15.2653 14.1272C15.3921 15.4353 15.4554 16.0894 15.0724 16.3801C14.6894 16.6709 14.1137 16.4058 12.9622 15.8756L12.6643 15.7384C12.337 15.5878 12.1734 15.5124 12 15.5124C11.8266 15.5124 11.663 15.5878 11.3357 15.7384L11.0378 15.8756C9.88633 16.4058 9.31059 16.6709 8.92757 16.3801C8.54456 16.0894 8.60794 15.4353 8.7347 14.1272L8.76749 13.7888C8.80351 13.4171 8.82152 13.2312 8.76793 13.0589C8.71434 12.8865 8.59521 12.7472 8.35696 12.4686L8.14005 12.215C7.30162 11.2345 6.88241 10.7443 7.02871 10.2739C7.17501 9.80341 7.78994 9.66427 9.01977 9.38601L9.33794 9.31402C9.68743 9.23495 9.86217 9.19541 10.0025 9.0889C10.1428 8.98239 10.2328 8.82097 10.4127 8.49812Z" fill="#FFD700"/>
+            </svg>
+          <p class="player_rating1">0</p>
+        </div>
+      </section>
+      <! VERSUS BOX SECTION -->
+      <section class='versus_section'><img src="img/versus.png" alt="Versus image"/></section>
+      <! NAME PLAYER 2 SECTION -->
+      <section class='name_section player2 hidden removed'>
+        <img class="player_portrait2" src='img/portrait_male.png' alt="Player Portrait" />
+        <p class="name_player2">Guest</p>
+        <div class="player_level">
+          <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.5" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" fill="#FFD700"/>
+            <path d="M10.4127 8.49812L10.5766 8.20419C11.2099 7.06807 11.5266 6.5 12 6.5C12.4734 6.5 12.7901 7.06806 13.4234 8.20419L13.5873 8.49813C13.7672 8.82097 13.8572 8.98239 13.9975 9.0889C14.1378 9.19541 14.3126 9.23495 14.6621 9.31402L14.9802 9.38601C16.2101 9.66428 16.825 9.80341 16.9713 10.2739C17.1176 10.7443 16.6984 11.2345 15.86 12.215L15.643 12.4686C15.4048 12.7472 15.2857 12.8865 15.2321 13.0589C15.1785 13.2312 15.1965 13.4171 15.2325 13.7888L15.2653 14.1272C15.3921 15.4353 15.4554 16.0894 15.0724 16.3801C14.6894 16.6709 14.1137 16.4058 12.9622 15.8756L12.6643 15.7384C12.337 15.5878 12.1734 15.5124 12 15.5124C11.8266 15.5124 11.663 15.5878 11.3357 15.7384L11.0378 15.8756C9.88633 16.4058 9.31059 16.6709 8.92757 16.3801C8.54456 16.0894 8.60794 15.4353 8.7347 14.1272L8.76749 13.7888C8.80351 13.4171 8.82152 13.2312 8.76793 13.0589C8.71434 12.8865 8.59521 12.7472 8.35696 12.4686L8.14005 12.215C7.30162 11.2345 6.88241 10.7443 7.02871 10.2739C7.17501 9.80341 7.78994 9.66427 9.01977 9.38601L9.33794 9.31402C9.68743 9.23495 9.86217 9.19541 10.0025 9.0889C10.1428 8.98239 10.2328 8.82097 10.4127 8.49812Z" fill="#FFD700"/>
+            </svg>
+          <p class="player_rating2">0</p>
+        </div>
+      </section>
+      <aside class="cookie_permission">
+        <div>
+          <p class="cookie_permission_text">
+            This site uses cookies to remember your login details, do you agree to
+            their use?
+          </p>
+        </div>
+        <div class="cookie_permission_button_grid">
+          <div>
+            <p
+              class="cookie_permission_button cookie_accept_button"
+              title="Accept Cookies"
+            >
+              Accept Cookies
+            </p>
+          </div>
+          <div>
+            <p
+              class="cookie_permission_button cookie_reject_button"
+              title="Reject Cookies"
+            >
+              Reject Cookies
+            </p>
+          </div>
+          <div></div>
+          <div>
+            <a
+              class="cookie_permission_button cookie_information_button"
+              href="https://en.wikipedia.org/wiki/HTTP_cookie"
+              target="_blank"
+              title="More Information"
+            >
+              <p>More information</p>
+            </a>
+          </div>
+        </div>
+      </aside>
+      <! DEBUG BUTTONS -->
+      <aside class="testing_buttons">
+        <button class="toggle_ads_button">Toggle Ads - TEST</button>
+        <button class="toggle_game_button">Toggle Game - TEST</button>
+        <button class="clear_cookie_button">Clear Cookie - TEST</button>
+        <button class="ask_jack_button">Ask Jack - TEST</button>
+      </aside>
+    </div>
+  </body>
+  <! SOUNDS -->
+  <audio id="button_click_sound" src="sound/mouse_click.wav"></audio>
+  <audio id="opening_jingle" src="sound/jingle.wav"></audio>
+  <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
+  <audio id="number1" src="sound/number1.wav"></audio>
+  <audio id="number2" src="sound/number2.wav"></audio>
+  <audio id="number3" src="sound/number3.wav"></audio>
+  <audio id="number4" src="sound/number4.wav"></audio>
+  <audio id="number5" src="sound/number5.wav"></audio>
+  <audio id="number6" src="sound/number6.wav"></audio>
+  <audio id="number7" src="sound/number7.wav"></audio>
+  <audio id="number8" src="sound/number8.wav"></audio>
+  <audio id="number9" src="sound/number9.wav"></audio>
+  <audio id="number10" src="sound/number10.wav"></audio>
+  <audio id="number11" src="sound/number11.wav"></audio>
+  <audio id="number12" src="sound/number12.wav"></audio>
+  <audio id="chat_sound" src="sound/chat_notification.wav"></audio>
+  <script src="script3.js"></script>
+</html>
