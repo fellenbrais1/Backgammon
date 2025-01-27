@@ -123,10 +123,15 @@ const player2Name = document.querySelector(".name_player2");
 const player2Portait = document.querySelector(".player_portrait2");
 const player2Rating = document.querySelector(".player_rating2");
 
-/* Cookie bar section elements */
+// Cookie bar section elements
 const cookieBar = document.querySelector(".cookie_permission");
 const cookieAgreeButton = document.querySelector(".cookie_accept_button");
 const cookieDisagreeButton = document.querySelector(".cookie_reject_button");
+
+// Ad section elements
+const currentAdLink = document.querySelector(".ad_link");
+const currentAdPicture = document.querySelector(".ad_picture");
+const adSection = document.querySelector(".adbox");
 
 /* Debug elements */
 // TESTING OTHER USER MESSAGES
@@ -167,6 +172,7 @@ const chatPop = document.getElementById("chat_sound");
 
 window.addEventListener("load", () => {
   showMain();
+  setInterval(imgAdCycler, 10000);
 });
 
 // diceButton.addEventListener("click", () => {
@@ -510,7 +516,7 @@ askJack.addEventListener("click", () => {
   addPlayerDetails(2, jackObject);
   setTimeout(() => {
     player2NameSection.classList.add("show");
-    player2NameSection.classList.add("scroll_on_top");
+    player2NameSection.classList.add("scroll_on_vertical");
     versusSection.style.opacity = 1;
   }, 2000);
   toggleClass(player2NameSection, "hidden");
@@ -720,17 +726,19 @@ let firstTurn = true;
 
 function showMain() {
   mainDisplay.classList.add("show");
-  mainDisplay.classList.add("scroll_on_left");
-  //   floatingButtonsLeft.classList.add("show");
-  //   floatingButtonsRight.classList.add("show");
+  adSection.classList.add("show");
   floatingButtonsMain.classList.add("show");
+  playersSection.classList.add("show");
+  diceSection.classList.add("show");
   setTimeout(() => {
-    floatingButtonsMain.classList.add("scroll_on_top");
-    // floatingButtonsRight.classList.add("scroll_on_top");
+    floatingButtonsMain.classList.add("scroll_on_vertical");
+    diceSection.classList.add("scroll_on_vertical");
+    playersSection.classList.add("scroll_on_horizontal");
+    adSection.classList.add("scroll_on_horizontal");
   }, 10);
   setTimeout(() => {
     player1NameSection.classList.add("show");
-    player1NameSection.classList.add("scroll_on_top");
+    player1NameSection.classList.add("scroll_on_vertical");
     populatePlayers(experimentalFriends, playersFriends);
     populatePlayers(experimentalFriends, playersPlayedBefore);
     populatePlayers(experimentalFriends, playersCurrentlyActive);
@@ -1483,12 +1491,14 @@ function cookieCheck(cookieName) {
       lastUsedDisplayName = userDisplayName;
     }
   } else {
-    showCookieBar();
-    const displayName = getUserDisplayName();
-    const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
-    postChatMessage(chatHTML, "afterbegin");
-    // nameIsGuest = true;
-    lastUsedDisplayName = "Guest";
+    setTimeout(() => {
+      showCookieBar();
+      const displayName = getUserDisplayName();
+      const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
+      postChatMessage(chatHTML, "afterbegin");
+      // nameIsGuest = true;
+      lastUsedDisplayName = "Guest";
+    }, 3000);
   }
 }
 
@@ -1736,4 +1746,71 @@ function turnOneEnd() {
 
 function shrinkDiceResult() {
   diceRollResult.classList.remove("dice_result_display_final");
+}
+
+///////////////////////////////
+// CYCLING THROUGH PICTURE ADS
+
+// Consts to define details of image adverts - details could be populated from Google Ad Sense later?
+const ad1 = {
+  source: "img/cash4gold.jpg",
+  altText: "Cash 4 Gold Advertisement",
+  href: "https://www.cash4goldonline.co.uk/",
+  title: "Cash 4 Gold Online",
+};
+
+const ad2 = {
+  source: "img/kier.avif",
+  altText: "Kier Starmer Advertismeent",
+  href: "https://en.wikipedia.org/wiki/Keir_Starmer",
+  title: "Kier Starmer Action Figures",
+};
+
+const ad3 = {
+  source: "img/chocowhopper.webp",
+  altText: "Burger King Advertisment",
+  href: "https://youtube.com/watch?v=2JaCzLZTYAE",
+  title: "The NEW Chocolate Whopper",
+};
+
+const ad4 = {
+  source: "img/vizswan.jpg",
+  altText: "Viz Swan Advertisment",
+  href: "https://www.amazon.co.uk/Brainbox-Candy-Official-Advert-Birthday/dp/B0BMGXMB61",
+  title: "Retrain as a Swan Today",
+};
+
+const ad5 = {
+  source: "img/hokusaiNuke.jpeg",
+  altText: "Japanese Nuclear Waste Advertisment",
+  href: "https://www.globaltimes.cn/page/202104/1221726.shtml",
+  title: "Japanese Nuclear Waste Near You!",
+};
+
+const ad6 = {
+  source: "img/gizmo.jpg",
+  altText: "Baby Gizmo Advertismement",
+  href: "https://fastshow.fandom.com/wiki/Chanel_9_Neus",
+  title: "Baby Gizmo Action Pumpo",
+};
+
+// Array to hold all of the image ads for cycling through
+const adList = [ad1, ad2, ad3, ad4, ad5, ad6];
+
+// Counter showing index of the currently displayed ad
+let currentAdNumber = 0;
+
+// Experimental function to cycle through the available ads using random numbers, changes properties of image ad elements on the page
+// Called automatically on a 10 second interval
+function imgAdCycler() {
+  setTimeout(() => {
+    const oldAdNumber = currentAdNumber;
+    while (oldAdNumber === currentAdNumber) {
+      currentAdNumber = Math.round(Math.random() * (adList.length - 1));
+    }
+    currentAdPicture.src = adList[currentAdNumber].source;
+    currentAdPicture.title = adList[currentAdNumber].title;
+    currentAdPicture.alt = adList[currentAdNumber].altText;
+    currentAdLink.href = adList[currentAdNumber].href;
+  }, 0);
 }

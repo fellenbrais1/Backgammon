@@ -41,14 +41,14 @@ html {
   position: relative;
   opacity: 0;
   z-index: 0;
-  transform: translateX(-200%);
-  transition: transform ease-in-out 2s, opacity ease-in-out 3s;
+  /* transform: translateX(-200%); */
+  transition: opacity ease-in-out 3s;
   overflow: hidden;
 }
 
 .intro_display {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 400px auto;
   height: 100%;
   width: 100%;
   background-color: var(--topbar_light_blue);
@@ -59,16 +59,17 @@ html {
   opacity: 1;
   z-index: 3;
   transition: opacity 1s ease-in-out;
+  padding-left: 60px;
 }
 
 .intro_image {
-  height: 20%;
+  height: 400px;
   width: auto;
   margin-left: 10%;
-  margin-top: 30%;
+  margin-top: 28%;
   border: 2px solid white;
   border-radius: 15px;
-  transform: rotate(180deg);
+  /* transform: rotate(180deg); */
 }
 
 .intro_play_div {
@@ -82,6 +83,7 @@ html {
 .intro_display p {
   font-size: 4rem;
   font-weight: bold;
+  margin-top: 2%;
 }
 
 .play_button {
@@ -202,11 +204,11 @@ html {
   display: grid;
   grid-template-columns: 120px 120px 120px 120px 120px 120px;
   position: absolute;
-  bottom: -48%;
+  bottom: -47%;
   left: 31%;
-  /* transform: translateY(-1000px); */
+  transform: translateY(1000px);
   opacity: 0;
-  transition: transform ease-in-out 2.5s, opacity ease-in-out 3.5s;
+  transition: transform ease-in-out 4.5s, opacity ease-in-out 4.5s;
 }
 
 .floating_buttons_left {
@@ -281,20 +283,20 @@ html {
 .dice_section {
   display: grid;
   height: 180px;
-  width: 400px;
+  width: 450px;
   z-index: 0;
+  text-align: center;
   grid-template-columns: auto auto;
   grid-template-rows: 1fr;
-  /* row-gap: 24px; */
   background-color: var(--light_felt_green);
   position: absolute;
-  /* top: 54%; */
   top: 590px;
-  right: 3.6%;
+  right: 1%;
   border-radius: 25px;
   border: 2px solid white;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  transform: translateY(1000px);
+  transition: opacity 1s ease-in-out, transform 4s ease-in-out;
 }
 
 .dice_button_block {
@@ -308,21 +310,6 @@ html {
   height: 2rem;
   grid-column: 1/3;
 }
-
-/* .dice_button_roll {
-  display: block;
-  background-color: var(--dark_felt_green);
-  width: 75%;
-  height: 60px;
-  border: solid 2px white;
-  border-radius: 25px;
-  margin-left: 12.5%;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  grid-column: 1 / 3;
-} */
 
 .dice_img_block {
   margin: 0 auto;
@@ -362,6 +349,12 @@ html {
   transform-origin: center;
   transition: background-color 1s ease-in-out, transform 1s ease-in-out,
     left 1s ease-in-out;
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.dice_result_display:hover {
+  box-shadow: 0px 0px 20px white;
 }
 
 .dice_result_display_final {
@@ -496,8 +489,10 @@ html {
   left: 1%;
   border-radius: 25px;
   border: solid 2px white;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  transform: translateX(-1000px);
+  transition: opacity 1s ease-in-out, transform 4s ease-in-out;
+  /* transition: opacity 1s ease-in-out; */
 }
 
 .players_display {
@@ -669,7 +664,7 @@ html {
 .login_section,
 .signup_section {
   height: 300px;
-  width: 400px;
+  width: 450px;
   row-gap: 48px;
   background-color: var(--active_button_gold);
   position: absolute;
@@ -679,6 +674,7 @@ html {
   border: 2px solid white;
   opacity: 1;
   transition: opacity 1s ease-in-out;
+  z-index: 2;
 }
 
 .signup_section {
@@ -702,7 +698,7 @@ html {
   background-color: aliceblue;
   height: 36px;
   width: 250px;
-  margin-left: 40px;
+  margin-left: 60px;
   margin-bottom: 10px;
   padding-left: 10px;
   padding-top: 5px;
@@ -738,12 +734,12 @@ html {
   border: solid 2px black;
   border-radius: 10px;
   top: 17%;
-  left: 75%;
+  left: 71%;
   cursor: pointer;
   font-size: 30px;
   font-weight: bold;
   padding-top: 18px;
-  padding-left: 5px;
+  padding-left: 10px;
 }
 
 .signup_section_submit_button {
@@ -760,7 +756,7 @@ html {
 .signup_button,
 .back_to_login_button {
   text-align: center;
-  margin-left: 25%;
+  margin-left: 28%;
   background-color: black;
   width: 200px;
   height: 30px;
@@ -775,7 +771,7 @@ html {
 /* SETTINGS SECTION */
 .settings_section {
   height: 300px;
-  width: 400px;
+  width: 450px;
   row-gap: 48px;
   background-color: brown;
   position: absolute;
@@ -785,6 +781,7 @@ html {
   border: 2px solid white;
   opacity: 1;
   transition: opacity 1s ease-in-out;
+  z-index: 2;
 }
 
 /* OTHER GAMES SECTION */
@@ -1008,16 +1005,44 @@ html {
   text-decoration: none;
 }
 
+/* AD SECTION */
+.adbox {
+  border: solid 4px black;
+  height: 440px;
+  width: 450px;
+  margin: auto;
+  position: absolute;
+  top: 15%;
+  right: 1%;
+  border: 2px solid white;
+  border-radius: 25px;
+  opacity: 0;
+  z-index: 1;
+  transform: translateX(1000px);
+  transition: opacity 1s ease-in-out, transform 4s ease-in-out;
+}
+
+.ad_link {
+  height: 100%;
+  width: 100%;
+}
+
+.ad_picture {
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+}
+
 /* HELPER CLASSES */
 .show {
   opacity: 1;
 }
 
-.scroll_on_left {
+.scroll_on_horizontal {
   transform: translateX(0);
 }
 
-.scroll_on_top {
+.scroll_on_vertical {
   transform: translateY(0);
 }
 
