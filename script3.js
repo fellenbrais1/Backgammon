@@ -17,7 +17,20 @@ const playButton = document.querySelector(".play_button");
 const gamestartBox = document.querySelector(".gamestart_block");
 const buttonGamestartFun = document.querySelector(".gamestart_button_fun");
 const buttonGamestartPro = document.querySelector(".gamestart_button_pro");
+const buttonGamestartOpponent = document.querySelector(
+  ".gamestart_opponent_name"
+);
+const gameStartButtonLogin = document.querySelector(".gamestart_button_login");
+const gameStartButtonChallenge = document.querySelector(
+  ".gamestart_button_challenge"
+);
 const greyOverlay = document.querySelector(".grey_overlay");
+const step1Elements = document.querySelectorAll(".step1");
+const step2Elements = document.querySelectorAll(".step2");
+const step3Elements = document.querySelectorAll(".step3");
+const playerNameElement = document.querySelector(".gamestart_player_name");
+const playerNameForm = document.getElementById("gamestart_name_input");
+// const introImage = document.querySelector(".intro_image");
 
 // Game board elements
 const gameBoard = document.querySelector(".game_board");
@@ -478,22 +491,26 @@ otherGamesXButton.addEventListener("click", () => {
 
 clsButton.addEventListener("click", playClickSound);
 
-playButton.addEventListener("click", () => {
-  toggleClass(introDisplay, "hidden");
-  openingJingle.play();
-  setTimeout(() => {
-    toggleClass(introDisplay, "removed");
-  }, 1000);
-});
+// playButton.addEventListener("click", () => {
+//   toggleClass(introDisplay, "hidden");
+//   openingJingle.play();
+//   setTimeout(() => {
+//     toggleClass(introDisplay, "removed");
+//   }, 1000);
+// });
 
 buttonGamestartFun.addEventListener("click", () => {
   playClickSound();
-  displayFunBoard();
+  buttonGamestartFun.classList.add("focus_button");
+  buttonGamestartPro.classList.remove("focus_button");
+  step1Process();
 });
 
 buttonGamestartPro.addEventListener("click", () => {
   playClickSound();
-  displayProBoard();
+  buttonGamestartPro.classList.add("focus_button");
+  buttonGamestartFun.classList.remove("focus_button");
+  step1Process();
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -531,6 +548,19 @@ cookieClearer.addEventListener("click", () => {
   const cookieName = "userDetails";
   clearCookie(cookieName);
   location.reload();
+});
+
+playerNameForm.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    step2Process();
+  }
+});
+
+gameStartButtonChallenge.addEventListener("click", () => {
+  buttonGamestartOpponent.classList.remove("focus_element");
+  gameStartButtonChallenge.classList.remove("focus_element");
+  step3Process();
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -724,25 +754,59 @@ let firstTurn = true;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
+// function showMain() {
+//   mainDisplay.classList.add("show");
+//   adSection.classList.add("show");
+//   floatingButtonsMain.classList.add("show");
+//   playersSection.classList.add("show");
+//   diceSection.classList.add("show");
+//   setTimeout(() => {
+//     floatingButtonsMain.classList.add("scroll_on_vertical");
+//     diceSection.classList.add("scroll_on_vertical");
+//     playersSection.classList.add("scroll_on_horizontal");
+//     adSection.classList.add("scroll_on_horizontal");
+//   }, 10);
+//   setTimeout(() => {
+//     player1NameSection.classList.add("show");
+//     player1NameSection.classList.add("scroll_on_vertical");
+//     populatePlayers(experimentalFriends, playersFriends);
+//     populatePlayers(experimentalFriends, playersPlayedBefore);
+//     populatePlayers(experimentalFriends, playersCurrentlyActive);
+//   }, 2000);
+// }
+
 function showMain() {
-  mainDisplay.classList.add("show");
-  adSection.classList.add("show");
-  floatingButtonsMain.classList.add("show");
-  playersSection.classList.add("show");
-  diceSection.classList.add("show");
   setTimeout(() => {
-    floatingButtonsMain.classList.add("scroll_on_vertical");
-    diceSection.classList.add("scroll_on_vertical");
-    playersSection.classList.add("scroll_on_horizontal");
-    adSection.classList.add("scroll_on_horizontal");
+    gameBoard.classList.add("show");
+  }, 1000);
+  setTimeout(() => {
+    gamestartBox.classList.add("show");
+    buttonGamestartFun.classList.add("focus_element");
+    buttonGamestartPro.classList.add("focus_element");
+  }, 3000);
+  // gamestartBox.classList.add("show");
+  // adSection.classList.add("show");
+  // floatingButtonsMain.classList.add("show");
+  // playersSection.classList.add("show");
+  // diceSection.classList.add("show");
+  setTimeout(() => {
+    // floatingButtonsMain.classList.add("scroll_on_vertical");
+    // diceSection.classList.add("scroll_on_vertical");
+    // playersSection.classList.add("scroll_on_horizontal");
+    // adSection.classList.add("scroll_on_horizontal");
   }, 10);
   setTimeout(() => {
-    player1NameSection.classList.add("show");
-    player1NameSection.classList.add("scroll_on_vertical");
+    // player1NameSection.classList.add("show");
+    // player1NameSection.classList.add("scroll_on_vertical");
     populatePlayers(experimentalFriends, playersFriends);
     populatePlayers(experimentalFriends, playersPlayedBefore);
     populatePlayers(experimentalFriends, playersCurrentlyActive);
   }, 2000);
+  setTimeout(() => {
+    playersSection.classList.add("focus_element_thick");
+    floatingButtonsMain.classList.add("show");
+    floatingButtonsMain.classList.add("scroll_on_vertical");
+  }, 4000);
 }
 
 function toggleClass(pageElement, property) {
@@ -1205,7 +1269,7 @@ function addPlayerEventListeners(playerList) {
 // TODO
 // MAKE THIS FUNCTION CHANGE THE PLAYER SELECTION DIALOGUE BOX WHEN READY
 function displayPlayerName(playerName) {
-  playButton.textContent = playerName;
+  buttonGamestartOpponent.textContent = playerName;
 }
 
 function toggleOnlinePlayersOnly() {
@@ -1813,4 +1877,63 @@ function imgAdCycler() {
     currentAdPicture.alt = adList[currentAdNumber].altText;
     currentAdLink.href = adList[currentAdNumber].href;
   }, 0);
+}
+
+function step1Process() {
+  console.log(`RUNNING`);
+  if (
+    buttonGamestartFun.classList.contains("focus_button") ||
+    buttonGamestartPro.classList.contains("focus_button")
+  ) {
+    step2Elements.forEach((element) => {
+      console.log(`Did it work?`);
+      element.classList.add("show");
+    });
+    playerNameElement.classList.add("focus_element");
+    gameStartButtonLogin.classList.add("focus_element");
+    buttonGamestartFun.classList.remove("focus_element");
+    buttonGamestartPro.classList.remove("focus_element");
+  }
+}
+
+function step2Process() {
+  console.log(`RUNNING`);
+  if (playerNameForm.value != "") {
+    step3Elements.forEach((element) => {
+      element.classList.add("show");
+    });
+    playersSection.classList.add("show");
+    playersSection.classList.add("scroll_on_horizontal");
+    console.log(gameStartButtonLogin);
+    gameStartButtonLogin.classList.add("button_greenify");
+    // buttonGamestartPro.classList.remove("focus_element");
+    playerNameElement.classList.remove("focus_element");
+    gameStartButtonLogin.classList.remove("focus_element");
+    buttonGamestartOpponent.classList.add("focus_element");
+    gameStartButtonChallenge.classList.add("focus_element");
+  } else {
+    playerNameForm.value = "";
+    prompt(`Please enter a displayname or log in.`);
+  }
+}
+
+function step3Process() {
+  console.log(`RUNNING`);
+  if (buttonGamestartOpponent.textContent != "") {
+    chatboxSection.classList.add("show");
+    chatboxSection.classList.add("scroll_on_horizontal");
+    playersSection.classList.remove("show");
+    playersSection.classList.remove("scroll_on_horizontal");
+    player1NameSection.classList.add("show");
+    player1NameSection.classList.add("scroll_on_vertical");
+    player2NameSection.classList.add("show");
+    player2NameSection.classList.add("scroll_on_vertical");
+    gamestartBox.classList.remove("show");
+    introDisplay.classList.add("hidden");
+    diceSection.classList.add("show");
+    diceSection.classList.add("scroll_on_vertical");
+    adSection.classList.add("show");
+    adSection.classList.add("scroll_on_horizontal");
+    diceSection.classList.add("focus_element_thick");
+  }
 }

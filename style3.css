@@ -39,38 +39,29 @@ html {
   height: 630px;
   margin: auto;
   position: relative;
-  opacity: 0;
-  z-index: 0;
+  /* opacity: 0; */
+  z-index: 1;
   /* transform: translateX(-200%); */
-  transition: opacity ease-in-out 3s;
+  /* transition: opacity ease-in-out 3s; */
   overflow: hidden;
 }
 
 .intro_display {
-  display: grid;
-  grid-template-columns: 400px auto;
   height: 100%;
   width: 100%;
-  background-color: var(--topbar_light_blue);
-  border-radius: 25px;
   position: relative;
-  top: 0;
-  left: 0;
-  opacity: 1;
-  z-index: 3;
-  transition: opacity 1s ease-in-out;
+  z-index: 1;
   padding-left: 60px;
 }
 
 .intro_image {
   height: 400px;
   width: auto;
-  margin-left: 10%;
-  margin-top: 28%;
+  margin-left: 260px;
+  margin-top: 119px;
   border: 2px solid white;
   border-radius: 15px;
-  /* transform: rotate(180deg); */
-  border: 4px solid var(--button_dark_teal);
+  z-index: 1;
 }
 
 .intro_play_div {
@@ -82,9 +73,17 @@ html {
 }
 
 .intro_display p {
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-top: 2%;
+  background-color: red;
+  width: 220px;
+  padding-left: 6px;
+  border-radius: 5px;
+  padding-bottom: 4px;
+  position: absolute;
+  top: 120px;
+  left: 366px;
 }
 
 .play_button {
@@ -108,22 +107,39 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 1;
+  opacity: 0;
   border: solid 2px white;
+  transition: opacity 2s ease-in-out;
 }
 
 .gamestart_block {
   display: grid;
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: 50px 64px 50px 40px 64px 60px auto;
   position: absolute;
   width: 400px;
+  height: 420px;
   background-color: var(--felt_green);
-  top: 45%;
+  top: 310px;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5%;
   border: solid 4px white;
   z-index: 2;
+  opacity: 0;
+}
+
+.gamestart_text {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding-top: 10px;
+}
+
+.gamestart_buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: 24px;
 }
 
 .grey_overlay {
@@ -136,6 +152,7 @@ html {
   background-color: rgba(0, 0, 0, 0.5);
   mix-blend-mode: multiply;
   border-radius: 25px;
+  opacity: 0;
 }
 
 .grey_overlay {
@@ -150,21 +167,16 @@ html {
   z-index: 1;
 }
 
-.gamestart_text {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .gamestart_button_fun,
-.gamestart_button_pro {
+.gamestart_button_pro,
+.gamestart_button_opponent,
+.gamestart_button_challenge,
+.gamestart_button_login,
+.gamestart_player_name,
+.gamestart_opponent_name {
   color: white;
   height: 40px;
-  width: 50%;
-  margin-left: 25%;
+  width: 160px;
   text-align: center;
   padding-top: 10px;
   font-size: 18px;
@@ -174,6 +186,7 @@ html {
   outline: 2px solid white;
   cursor: pointer;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .gamestart_button_fun {
@@ -183,6 +196,56 @@ html {
 .gamestart_button_pro {
   background-color: var(--button_dark_teal);
   margin-bottom: 20px;
+}
+
+.gamestart_opponent_div,
+.gamestart_identity_div {
+  display: grid;
+  grid-template-columns: 260px auto;
+  column-gap: 16px;
+  margin-left: -32px;
+}
+
+.gamestart_player_name,
+.gamestart_opponent_name {
+  background-color: white;
+  outline: 2px solid black;
+  width: 260px;
+  margin-left: 70px;
+  color: black;
+}
+
+.gamestart_opponent_name {
+  font-weight: normal;
+  font-size: 24px;
+  padding-top: 4px;
+  /* margin-bottom: 14px; */
+  /* transform: translateY(-60px); */
+}
+
+#gamestart_name_input {
+  color: black;
+  cursor: text;
+  font-size: 24px;
+  transform: translateY(-6px);
+  text-align: center;
+}
+
+.gamestart_button_challenge,
+.gamestart_button_login {
+  background-color: var(--youtube_red);
+  outline: 2px solid white;
+  width: 40px;
+  margin-left: 70px;
+  color: white;
+}
+
+.gamestart_button_challenge svg {
+  transform: translateY(-4px);
+}
+
+.gamestart_button_login svg {
+  transform: translateY(-8px) translateX(-2px);
 }
 
 .play_button:hover,
@@ -197,6 +260,12 @@ html {
 .gamestart_button_fun:active,
 .gamestart_button_pro:active {
   background-color: var(--active_button_gold);
+}
+
+.step2,
+.step3 {
+  opacity: 0;
+  transition: opacity ease-in-out 1s;
 }
 
 .floating_buttons_main {
@@ -379,7 +448,7 @@ html {
   position: absolute;
   top: 26%;
   right: 0;
-  opacity: 1;
+  opacity: 0;
   z-index: 9;
 }
 
@@ -395,9 +464,8 @@ html {
   border: 2px solid white;
   top: 15%;
   left: 1%;
-  /* z-index: 9; */
   border-radius: 25px;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 1s ease-in-out;
 }
 
@@ -492,7 +560,7 @@ html {
   border: solid 2px white;
   opacity: 0;
   transform: translateX(-1000px);
-  transition: opacity 1s ease-in-out, transform 4s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 2s ease-in-out;
   /* transition: opacity 1s ease-in-out; */
 }
 
@@ -1083,4 +1151,27 @@ html {
 
 .no_pointer_events div {
   filter: grayscale(0.5);
+}
+
+.focus_element {
+  /* box-shadow: 0px 4px 8px var(--active_button_gold); */
+  outline: 2px solid var(--active_button_gold);
+}
+
+.focus_element_thick {
+  border: 2px solid var(--active_button_gold);
+  outline: 2px solid var(--active_button_gold);
+}
+
+.focus_button {
+  background-color: var(--active_button_gold);
+  box-shadow: 0px 0px 20px var(--active_button_gold);
+}
+
+.button_yellowify {
+  background-color: var(--active_button_gold);
+}
+
+.button_greenify {
+  background-color: rgb(91, 218, 91);
 }
