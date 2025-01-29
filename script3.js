@@ -151,6 +151,7 @@ const cookieDisagreeButton = document.querySelector(".cookie_reject_button");
 const currentAdLink = document.querySelector(".ad_link");
 const currentAdPicture = document.querySelector(".ad_picture");
 const adSection = document.querySelector(".adbox");
+const adNotification = document.querySelector(".ad_notification");
 
 /* Debug elements */
 // TESTING OTHER USER MESSAGES
@@ -469,21 +470,21 @@ cookieDisagreeButton.addEventListener("click", rejectCookies);
 
 askJack.addEventListener("click", () => {
   pretendOpponentMessage();
-  if (chatNotification.textContent == 0) {
-    toggleClass(chatNotification, "hidden");
-  }
+  // if (chatNotification.textContent == 0) {
+  //   toggleClass(chatNotification, "hidden");
+  // }
   addChatNotification();
-  const jackObject = playersObjectArr.find(
-    (current) => current.displayName === "Jack"
-  );
-  addPlayerDetails(2, jackObject);
-  setTimeout(() => {
-    player2NameSection.classList.add("show");
-    player2NameSection.classList.add("scroll_on_vertical");
-    versusSection.style.opacity = 1;
-  }, 2000);
-  toggleClass(player2NameSection, "hidden");
-  toggleClass(player2NameSection, "removed");
+  // const jackObject = playersObjectArr.find(
+  //   (current) => current.displayName === "Jack"
+  // );
+  // addPlayerDetails(2, jackObject);
+  // setTimeout(() => {
+  //   player2NameSection.classList.add("show");
+  //   player2NameSection.classList.add("scroll_on_vertical");
+  //   versusSection.style.opacity = 1;
+  // }, 2000);
+  // toggleClass(player2NameSection, "hidden");
+  // toggleClass(player2NameSection, "removed");
 });
 
 gameToggler.addEventListener("click", resetGame);
@@ -1060,17 +1061,18 @@ function addGameNotification(HTML) {
 function addChatNotification() {
   console.log("This code is running - ADD CHAT NOTIFICATION");
   console.log(chatNotification);
-  if (chatNotification.classList.contains("hidden")) {
-    return;
-  } else {
-    let chatNumber = Number(chatNotification.textContent);
-    console.log(chatNumber);
-    chatNumber++;
-    chatNotification.textContent = String(chatNumber);
-    console.log(chatNotification.textContent);
-    chatPop.play();
-    return;
-  }
+  chatPop.play();
+  // if (chatNotification.classList.contains("hidden")) {
+  //   return;
+  // } else {
+  //   let chatNumber = Number(chatNotification.textContent);
+  //   console.log(chatNumber);
+  //   chatNumber++;
+  //   chatNotification.textContent = String(chatNumber);
+  //   console.log(chatNotification.textContent);
+  //   chatPop.play();
+  //   return;
+  // }
 }
 
 // function clearChatNotification() {
@@ -1177,7 +1179,6 @@ function addPlayerEventListeners(playerList) {
     console.log(DOMElement);
     DOMElement.forEach((current) => {
       current.addEventListener("click", () => {
-        displayPlayerName(player);
         displayPlayer2Name(current.textContent);
       });
     });
@@ -1186,12 +1187,12 @@ function addPlayerEventListeners(playerList) {
 
 // TODO
 // MAKE THIS FUNCTION CHANGE THE PLAYER SELECTION DIALOGUE BOX WHEN READY
-function displayPlayerName(playerName) {
-  buttonGamestartOpponent.textContent = playerName;
-}
+// function displayPlayerName(playerName) {
+//   playerNameForm.value = playerName;
+// }
 
 function displayPlayer2Name(playerName) {
-  playerNameForm.value = playerName;
+  buttonGamestartOpponent.textContent = playerName;
 }
 
 function toggleOnlinePlayersOnly() {
@@ -1871,6 +1872,7 @@ function step3Process() {
     openingJingle.play();
     setTimeout(() => {
       chatboxSection.classList.add("scroll_on_horizontal");
+      adNotification.classList.add("show");
     }, 1000);
   }
 }

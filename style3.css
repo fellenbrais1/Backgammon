@@ -492,7 +492,7 @@ html {
   border-radius: 25px;
   opacity: 0;
   transform: translateX(-800px);
-  transition: opacity 1s ease-in-out translate 2s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
 .chatbox_display {
@@ -716,8 +716,8 @@ html {
   position: absolute;
   height: 630px;
   width: 450px;
-  top: 15%;
-  left: 1%;
+  top: 17%;
+  left: 0%;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
@@ -865,13 +865,13 @@ html {
 
 /* SETTINGS SECTION */
 .settings_section {
-  height: 300px;
+  height: 630px;
   width: 450px;
   row-gap: 48px;
   background-color: brown;
   position: absolute;
-  top: 15%;
-  left: 75.5%;
+  top: 16.5%;
+  left: 76.5%;
   border-radius: 25px;
   border: 2px solid white;
   opacity: 1;
@@ -888,12 +888,13 @@ html {
   position: absolute;
   height: 630px;
   width: 450px;
-  top: 15%;
-  left: 75.5%;
+  top: 16.5%;
+  left: 76.5%;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
   transition: opacity 1s ease-in-out;
+  z-index: 3;
 }
 
 .other_games_section p {
@@ -1115,6 +1116,16 @@ html {
   z-index: 1;
   transform: translateX(1000px);
   transition: opacity 1s ease-in-out, transform 4s ease-in-out;
+}
+
+.ad_notification {
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  top: 12.5%;
+  right: 10%;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
 }
 
 .ad_link {
