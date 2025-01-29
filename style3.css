@@ -32,6 +32,8 @@ html {
   background-image: url(img/background_huge2.webp);
   background-size: cover;
   display: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: multiply;
 }
 
 .main_display {
@@ -39,10 +41,7 @@ html {
   height: 630px;
   margin: auto;
   position: relative;
-  /* opacity: 0; */
   z-index: 1;
-  /* transform: translateX(-200%); */
-  /* transition: opacity ease-in-out 3s; */
   overflow: hidden;
 }
 
@@ -274,14 +273,14 @@ html {
   display: grid;
   grid-template-columns: 120px 120px 120px 120px 120px 120px;
   position: absolute;
-  bottom: -47%;
+  bottom: -47.5%;
   left: 31%;
-  transform: translateY(1000px);
+  transform: translateY(300px);
   opacity: 0;
-  transition: transform ease-in-out 4.5s, opacity ease-in-out 4.5s;
+  transition: transform ease-in-out 1s, opacity ease-in-out 1s;
 }
 
-.floating_buttons_left {
+/* .floating_buttons_left {
   height: 630px;
   width: 100px;
   display: grid;
@@ -305,6 +304,32 @@ html {
   transform: translateY(1000px);
   opacity: 0;
   transition: transform ease-in-out 2.5s, opacity ease-in-out 3.5s;
+} */
+
+.floating_buttons_toggle {
+  position: absolute;
+  bottom: 0%;
+  left: 43.5%;
+  width: 250px;
+  height: 40px;
+  background-color: red;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  cursor: pointer;
+  border: 2px solid white;
+  border-bottom: none;
+}
+
+/* .floating_buttons_toggler {
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+} */
+
+.floating_buttons_toggler_arrow {
+  color: white;
+  margin-left: 44%;
 }
 
 .round_button {
@@ -466,7 +491,8 @@ html {
   left: 1%;
   border-radius: 25px;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transform: translateX(-800px);
+  transition: opacity 1s ease-in-out translate 2s ease-in-out;
 }
 
 .chatbox_display {

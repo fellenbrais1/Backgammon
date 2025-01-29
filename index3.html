@@ -22,7 +22,7 @@
       <div class="main_display">
         <div class="intro_display">
           <p class="intro_text">Backgammon</p>
-          <img class="intro_image" src="img/bagammnon.png" />
+          <img class="intro_image focus_element_thick" src="img/bagammnon.png" />
         </div>
         <! GAMESTART BLOCK -->
         <div class="gamestart_block">
@@ -78,21 +78,9 @@
       </div>
       <! FLOATING BUTTONS -->
       <div class="floating_buttons_main">
-        <div class="round_button button_login" title="Log In">
-            <svg
-              width="60px"
-              height="60px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11 20H19C20.1046 20 21 19.1046 21 18V6C21 4.89543 20.1046 4 19 4H11M3 12H14M14 12L11 15M14 12L11 9"
-                stroke="#fff"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+        <div class="round_button button_forfeit" title="Forfeit Game">
+          <svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 21.1111V16.1111M4 16.1111V4.11109C4 4.11109 7 1.61112 12 4.11112C17 6.61112 20 4.11112 20 4.11112V16.1111C20 16.1111 17 18.6111 12 16.1111C7 13.6111 4 16.1111 4 16.1111Z" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="round_button button_settings" title="Settings">
@@ -230,6 +218,10 @@
             />
           </a>
         </div>
+      </div>
+      <div class="floating_buttons_toggle" title="Show Menu Buttons">
+        <!-- <p class="floating_buttons_toggler">== MENU ==</p> -->
+        <p class="floating_buttons_toggler_arrow"><svg width="40px" height="40px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M903.232 768l56.768-50.432L512 256l-448 461.568 56.768 50.432L512 364.928z" fill="#FFFFFF" /></svg></p>
       </div>
       <! DICE SECTION -->
       <section class="dice_section">

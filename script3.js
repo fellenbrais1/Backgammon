@@ -9,9 +9,9 @@ console.log(`Backgammon page script V2`);
 // DOM ELEMENT SELECTION
 
 // Main overlay elements
-const mainDisplay = document.querySelector(".main_display");
+// const mainDisplay = document.querySelector(".main_display");
 const introDisplay = document.querySelector(".intro_display");
-const playButton = document.querySelector(".play_button");
+// const playButton = document.querySelector(".play_button");
 
 // Game start elements
 const gamestartBox = document.querySelector(".gamestart_block");
@@ -25,7 +25,7 @@ const gameStartButtonChallenge = document.querySelector(
   ".gamestart_button_challenge"
 );
 const greyOverlay = document.querySelector(".grey_overlay");
-const step1Elements = document.querySelectorAll(".step1");
+// const step1Elements = document.querySelectorAll(".step1");
 const step2Elements = document.querySelectorAll(".step2");
 const step3Elements = document.querySelectorAll(".step3");
 const playerNameElement = document.querySelector(".gamestart_player_name");
@@ -39,13 +39,19 @@ const gameBoard = document.querySelector(".game_board");
 // const floatingButtonsLeft = document.querySelector(".floating_buttons_left");
 // const floatingButtonsRight = document.querySelector(".floating_buttons_right");
 const floatingButtonsMain = document.querySelector(".floating_buttons_main");
+const floatingButtonsToggle = document.querySelector(
+  ".floating_buttons_toggle"
+);
+const floatingButtonsArrow = document.querySelector(
+  ".floating_buttons_toggler_arrow"
+);
 
 // Sidebar button elements
-const diceButton = document.querySelector(".button_dice");
-const chatButton = document.querySelector(".button_chat");
+// const diceButton = document.querySelector(".button_dice");
+// const chatButton = document.querySelector(".button_chat");
 const playersButton = document.querySelector(".button_players");
 const rulesButton = document.querySelector(".button_rules");
-const loginButton = document.querySelector(".button_login");
+const loginButton = document.querySelector(".gamestart_button_login");
 const settingsButton = document.querySelector(".button_settings");
 const otherGamesButton = document.querySelector(".button_other_games");
 const clsButton = document.querySelector(".button_cls");
@@ -148,7 +154,7 @@ const adSection = document.querySelector(".adbox");
 
 /* Debug elements */
 // TESTING OTHER USER MESSAGES
-const adDisabler = document.querySelector(".toggle_ads_button");
+// const adDisabler = document.querySelector(".toggle_ads_button");
 const gameToggler = document.querySelector(".toggle_game_button");
 const cookieClearer = document.querySelector(".clear_cookie_button");
 const askJack = document.querySelector(".ask_jack_button");
@@ -188,17 +194,6 @@ window.addEventListener("load", () => {
   setInterval(imgAdCycler, 10000);
 });
 
-// diceButton.addEventListener("click", () => {
-//   playClickSound();
-//   toggleClass(diceSection, "removed");
-//   setTimeout(() => {
-//     toggleClass(diceSection, "hidden");
-//     toggleClass(diceSection, "no_pointer_events");
-//     toggleClass(floatingButtonsLeft, "no_pointer_events");
-//     toggleClass(floatingButtonsRight, "no_pointer_events");
-//   }, 60);
-// });
-
 diceRollResult.addEventListener("click", () => {
   if (firstTurn) {
     rollOneDie();
@@ -207,45 +202,20 @@ diceRollResult.addEventListener("click", () => {
   }
 });
 
-// diceXButton.addEventListener("click", () => {
-//   playClickSound();
-//   toggleClass(diceSection, "hidden");
-//   setTimeout(() => {
-//     toggleClass(diceSection, "no_pointer_events");
-//     toggleClass(floatingButtonsLeft, "no_pointer_events");
-//     toggleClass(floatingButtonsRight, "no_pointer_events");
-//     toggleClass(diceSection, "removed");
-//   }, 60);
-// });
-
-// chatButton.addEventListener("click", () => {
-//   playClickSound();
-//   clearChatNotification();
-//   toggleClass(chatboxSection, "removed");
-//   setTimeout(() => {
-//     toggleClass(chatboxSection, "hidden");
-//     toggleClass(chatboxSection, "no_pointer_events");
-//     toggleClass(floatingButtonsLeft, "no_pointer_events");
-//     toggleClass(floatingButtonsRight, "no_pointer_events");
-//   }, 60);
-//   setTimeout(() => {
-//     displayLatestMessage();
-//   }, 1000);
-// });
-
-// chatXButton.addEventListener("click", () => {
-//   playClickSound();
-//   toggleClass(chatboxSection, "hidden");
-//   if (chatNotification.textContent != 0) {
-//     toggleClass(chatNotification, "hidden");
-//   }
-//   setTimeout(() => {
-//     toggleClass(chatboxSection, "no_pointer_events");
-//     toggleClass(floatingButtonsLeft, "no_pointer_events");
-//     toggleClass(floatingButtonsRight, "no_pointer_events");
-//     toggleClass(chatboxSection, "removed");
-//   }, 60);
-// });
+floatingButtonsToggle.addEventListener("click", () => {
+  console.log(`RUNNING`);
+  if (floatingButtonsMain.classList.contains("show")) {
+    floatingButtonsArrow.innerHTML = togglerUpArrow;
+    floatingButtonsToggle.title = `Show Menu Buttons`;
+  } else {
+    floatingButtonsArrow.innerHTML = togglerDownArrow;
+    floatingButtonsToggle.title = `Hide Menu Buttons`;
+  }
+  setTimeout(() => {
+    toggleClass(floatingButtonsMain, "show");
+    toggleClass(floatingButtonsMain, "scroll_on_vertical");
+  }, 10);
+});
 
 chatboxInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -260,8 +230,6 @@ playersButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(playersSection, "hidden");
     toggleClass(playersSection, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
     if (playersPopulatedFlag === false) {
       populatePlayers(experimentalFriends, playersFriends);
       populatePlayers(experimentalFriends, playersPlayedBefore);
@@ -276,8 +244,6 @@ playersXButton.addEventListener("click", () => {
   toggleClass(playersSection, "hidden");
   setTimeout(() => {
     toggleClass(playersSection, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(playersSection, "removed");
   }, 60);
 });
@@ -302,8 +268,6 @@ rulesButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(rulesSection, "hidden");
     toggleClass(rulesSection, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
   }, 60);
 });
 
@@ -312,8 +276,6 @@ rulesXButton.addEventListener("click", () => {
   toggleClass(rulesSection, "hidden");
   setTimeout(() => {
     toggleClass(rulesSection, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
     toggleClass(rulesSection, "removed");
   }, 60);
 });
@@ -324,8 +286,6 @@ loginButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(loginSection, "hidden");
     toggleClass(loginSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
   }, 60);
 });
 
@@ -336,8 +296,6 @@ loginXButton.addEventListener("click", () => {
     clearLoginInputFields();
     clearSignupInputFields();
     toggleClass(loginSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(loginSection, "removed");
   }, 60);
 });
@@ -353,6 +311,9 @@ loginPasswordField.addEventListener("keydown", (event) => {
     event.preventDefault();
     if (loginUsernameField.value !== "" && loginPasswordField.value !== "") {
       userLogin(loginUsernameField.value, loginPasswordField.value);
+      setTimeout(() => {
+        step2Process();
+      }, 600);
     } else {
       loginInfoDisplay.textContent = `Please enter both a username and password.`;
       setTimeout(() => {
@@ -366,6 +327,9 @@ loginPasswordField.addEventListener("keydown", (event) => {
 loginSubmitButton.addEventListener("click", () => {
   if (loginUsernameField.value !== "" && loginPasswordField.value !== "") {
     userLogin(loginUsernameField.value, loginPasswordField.value);
+    setTimeout(() => {
+      step2Process();
+    }, 600);
   } else {
     loginInfoDisplay.textContent = `Please enter both a username and password.`;
     setTimeout(() => {
@@ -393,8 +357,6 @@ signupXButton.addEventListener("click", () => {
     clearSignupInputFields();
     toggleClass(loginSection, "no_pointer_events");
     toggleClass(signupSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(loginSection, "removed");
     toggleClass(signupSection, "removed");
   }, 60);
@@ -448,8 +410,6 @@ settingsButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(settingsSection, "hidden");
     toggleClass(settingsSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
   }, 60);
 });
 
@@ -458,8 +418,6 @@ settingsXButton.addEventListener("click", () => {
   toggleClass(settingsSection, "hidden");
   setTimeout(() => {
     toggleClass(settingsSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(settingsSection, "removed");
   }, 60);
 });
@@ -470,8 +428,6 @@ otherGamesButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(otherGamesSection, "hidden");
     toggleClass(otherGamesSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
     populateOtherGames(otherGamesHTML);
     addCurrentGameClass(currentGameFlag);
     otherGamesPopulatedFlag = true;
@@ -483,21 +439,11 @@ otherGamesXButton.addEventListener("click", () => {
   toggleClass(otherGamesSection, "hidden");
   setTimeout(() => {
     toggleClass(otherGamesSection, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
     toggleClass(otherGamesSection, "removed");
   }, 60);
 });
 
 clsButton.addEventListener("click", playClickSound);
-
-// playButton.addEventListener("click", () => {
-//   toggleClass(introDisplay, "hidden");
-//   openingJingle.play();
-//   setTimeout(() => {
-//     toggleClass(introDisplay, "removed");
-//   }, 1000);
-// });
 
 buttonGamestartFun.addEventListener("click", () => {
   playClickSound();
@@ -583,10 +529,10 @@ let userMessageStyleToggle = false;
 let opponentMessageStyleToggle = false;
 
 // Allows video ads to be disabled, for example in premium mode
-let videoAdsDisabled = true;
+// let videoAdsDisabled = true;
 
 // Counts the number of played games in order to display ads
-let playedGames = 0;
+// let playedGames = 0;
 
 // EXPERIMENTAL
 
@@ -751,29 +697,14 @@ const currentGameFlag = "Backgammon";
 
 let firstTurn = true;
 
+// UP ARROW
+const togglerUpArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M903.232 768l56.768-50.432L512 256l-448 461.568 56.768 50.432L512 364.928z" fill="#FFFFFF" /></svg>`;
+
+// DOWN ARROW
+const togglerDownArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#FFFFFF" /></svg>`;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
-
-// function showMain() {
-//   mainDisplay.classList.add("show");
-//   adSection.classList.add("show");
-//   floatingButtonsMain.classList.add("show");
-//   playersSection.classList.add("show");
-//   diceSection.classList.add("show");
-//   setTimeout(() => {
-//     floatingButtonsMain.classList.add("scroll_on_vertical");
-//     diceSection.classList.add("scroll_on_vertical");
-//     playersSection.classList.add("scroll_on_horizontal");
-//     adSection.classList.add("scroll_on_horizontal");
-//   }, 10);
-//   setTimeout(() => {
-//     player1NameSection.classList.add("show");
-//     player1NameSection.classList.add("scroll_on_vertical");
-//     populatePlayers(experimentalFriends, playersFriends);
-//     populatePlayers(experimentalFriends, playersPlayedBefore);
-//     populatePlayers(experimentalFriends, playersCurrentlyActive);
-//   }, 2000);
-// }
 
 function showMain() {
   setTimeout(() => {
@@ -781,31 +712,17 @@ function showMain() {
   }, 1000);
   setTimeout(() => {
     gamestartBox.classList.add("show");
+    gamestartBox.classList.add("focus_element_thick");
     buttonGamestartFun.classList.add("focus_element");
     buttonGamestartPro.classList.add("focus_element");
   }, 3000);
-  // gamestartBox.classList.add("show");
-  // adSection.classList.add("show");
-  // floatingButtonsMain.classList.add("show");
-  // playersSection.classList.add("show");
-  // diceSection.classList.add("show");
   setTimeout(() => {
-    // floatingButtonsMain.classList.add("scroll_on_vertical");
-    // diceSection.classList.add("scroll_on_vertical");
-    // playersSection.classList.add("scroll_on_horizontal");
-    // adSection.classList.add("scroll_on_horizontal");
-  }, 10);
-  setTimeout(() => {
-    // player1NameSection.classList.add("show");
-    // player1NameSection.classList.add("scroll_on_vertical");
     populatePlayers(experimentalFriends, playersFriends);
     populatePlayers(experimentalFriends, playersPlayedBefore);
     populatePlayers(experimentalFriends, playersCurrentlyActive);
   }, 2000);
   setTimeout(() => {
     playersSection.classList.add("focus_element_thick");
-    floatingButtonsMain.classList.add("show");
-    floatingButtonsMain.classList.add("scroll_on_vertical");
   }, 4000);
 }
 
@@ -820,27 +737,27 @@ function toggleClass(pageElement, property) {
 
 // Displays the fun game board - To be changed later to the fun game logic, can use the standard dice roller
 // Called by an eventHandler on the 'Fun Game' button
-function displayFunBoard() {
-  gameBoard.src = "img/backgammon.jpg";
-  gamestartBox.style.display = "none";
-  greyOverlay.style.display = "none";
-  initializeCookie("guest");
-  const opponentName = getOpponentName();
-  console.log(userDisplayName);
-  startGameMessages("fun", userDisplayName, opponentName);
-}
+// function displayFunBoard() {
+//   gameBoard.src = "img/backgammon.jpg";
+//   gamestartBox.style.display = "none";
+//   greyOverlay.style.display = "none";
+//   initializeCookie("guest");
+//   const opponentName = getOpponentName();
+//   console.log(userDisplayName);
+//   startGameMessages("fun", userDisplayName, opponentName);
+// }
 
 // Displays the professional game board - To be changed later to the professional game logic, also needs to change the dice roller elements to a professional version
 // Called by an eventHandler on the 'Professional Game' button
-function displayProBoard() {
-  gameBoard.src = "img/backgammonHard.jpg";
-  gamestartBox.style.display = "none";
-  greyOverlay.style.display = "none";
-  initializeCookie("guest");
-  const opponentName = getOpponentName();
-  console.log(userDisplayName);
-  startGameMessages("pro", userDisplayName, opponentName);
-}
+// function displayProBoard() {
+//   gameBoard.src = "img/backgammonHard.jpg";
+//   gamestartBox.style.display = "none";
+//   greyOverlay.style.display = "none";
+//   initializeCookie("guest");
+//   const opponentName = getOpponentName();
+//   console.log(userDisplayName);
+//   startGameMessages("pro", userDisplayName, opponentName);
+// }
 
 // TODO - TO BE REPLACED WITH REAL LOGIC CAPTURING THE OTHER PLAYER'S IP ADDRESS LATER - ALSO NEEDS TO BE IMPLEMENTED INTO DISPLAYING THE OTHER USERS CHAT MESSAGES
 // Gets the name of the other player for use in the chatbox display messages
@@ -1012,16 +929,16 @@ function cycleDieFaces(result = null, flag = "random", target) {
   }
 }
 
-function hideDiceRoller() {
-  toggleClass(diceSection, "removed");
-  setTimeout(() => {
-    toggleClass(diceSection, "hidden");
-    toggleClass(diceSection, "no_pointer_events");
-    // toggleClass(floatingButtonsLeft, "no_pointer_events");
-    // toggleClass(floatingButtonsRight, "no_pointer_events");
-    toggleClass(diceRollResult, "dice_result_display_final");
-  }, 60);
-}
+// function hideDiceRoller() {
+//   toggleClass(diceSection, "removed");
+//   setTimeout(() => {
+//     toggleClass(diceSection, "hidden");
+//     toggleClass(diceSection, "no_pointer_events");
+//     // toggleClass(floatingButtonsLeft, "no_pointer_events");
+//     // toggleClass(floatingButtonsRight, "no_pointer_events");
+//     toggleClass(diceRollResult, "dice_result_display_final");
+//   }, 60);
+// }
 
 ///////////////////////////////
 // CHAT BOX
@@ -1156,10 +1073,10 @@ function addChatNotification() {
   }
 }
 
-function clearChatNotification() {
-  chatNotification.textContent = 0;
-  chatNotification.classList.add("hidden");
-}
+// function clearChatNotification() {
+//   chatNotification.textContent = 0;
+//   chatNotification.classList.add("hidden");
+// }
 
 function populatePlayers(playerList, section) {
   const newPlayerList = playerList.toSorted().reverse();
@@ -1261,6 +1178,7 @@ function addPlayerEventListeners(playerList) {
     DOMElement.forEach((current) => {
       current.addEventListener("click", () => {
         displayPlayerName(player);
+        displayPlayer2Name(current.textContent);
       });
     });
   });
@@ -1270,6 +1188,10 @@ function addPlayerEventListeners(playerList) {
 // MAKE THIS FUNCTION CHANGE THE PLAYER SELECTION DIALOGUE BOX WHEN READY
 function displayPlayerName(playerName) {
   buttonGamestartOpponent.textContent = playerName;
+}
+
+function displayPlayer2Name(playerName) {
+  playerNameForm.value = playerName;
 }
 
 function toggleOnlinePlayersOnly() {
@@ -1400,7 +1322,7 @@ function userLogin(usernameValue, passwordValue) {
         clearLoginInputFields();
         loginSection.classList.add("hidden");
         setTimeout(() => {
-          loginSection.classList.add("no_pointer_events");
+          // loginSection.classList.add("no_pointer_events");
           //   floatingButtonsRight.classList.remove("no_pointer_events");
           //   floatingButtonsLeft.classList.remove("no_pointer_events");
           loginSection.classList.add("removed");
@@ -1408,6 +1330,11 @@ function userLogin(usernameValue, passwordValue) {
           if (cookiesAcceptedFlag === true) {
             const data = setNewCookieData(userObject);
             updateCookie(data);
+            if (playerNameForm.classList.contains("show")) {
+              step2Process();
+            }
+          } else {
+            // step2Process();
           }
           nameChangeCheck(lastUsedDisplayName, userObject.displayName);
           loginInfoDisplay.textContent = `Please enter your details to log in.`;
@@ -1447,6 +1374,7 @@ function addPlayerDetails(player, userObject) {
     player1Portait.src = userObject.playerPortrait;
     player1Portait.style.backgroundColor = userObject.portraitColour;
     player1Rating.textContent = userObject.playerRating;
+    playerNameForm.value = userObject.displayName;
   } else {
     player2Name.textContent = userObject.displayName;
     player2Portait.src = userObject.playerPortrait;
@@ -1796,11 +1724,11 @@ function ipTest() {
 
 // Experimental function to reset the gamestart_block element and the image displayed in the gamebox, will later be assimilated into the page as a game reset type button
 // Called by an eventHandler on the 'Toggle Game - TEST' button
-function resetGame() {
-  gamestartBox.style.display = "grid";
-  greyOverlay.style.display = "block";
-  gameBoard.src = "img/backgammon.jpg";
-}
+// function resetGame() {
+//   gamestartBox.style.display = "grid";
+//   greyOverlay.style.display = "block";
+//   gameBoard.src = "img/backgammon.jpg";
+// }
 
 function turnOneEnd() {
   //   buttonRoll.textContent = "Roll two dice";
@@ -1921,7 +1849,6 @@ function step3Process() {
   console.log(`RUNNING`);
   if (buttonGamestartOpponent.textContent != "") {
     chatboxSection.classList.add("show");
-    chatboxSection.classList.add("scroll_on_horizontal");
     playersSection.classList.remove("show");
     playersSection.classList.remove("scroll_on_horizontal");
     player1NameSection.classList.add("show");
@@ -1935,5 +1862,22 @@ function step3Process() {
     adSection.classList.add("show");
     adSection.classList.add("scroll_on_horizontal");
     diceSection.classList.add("focus_element_thick");
+    const jackObject = playersObjectArr.find(
+      (current) => current.displayName === "Jack"
+    );
+    addPlayerDetails(2, jackObject);
+    const opponentName = getOpponentName();
+    startGameMessages("fun", userDisplayName, opponentName);
+    openingJingle.play();
+    setTimeout(() => {
+      chatboxSection.classList.add("scroll_on_horizontal");
+    }, 1000);
   }
 }
+
+// function findOpponentIfExist() {
+//   const opponentObject = playersObjectArr.find((current) => {
+//     current.displayName === opponentName;
+//   });
+//   addPlayerDetails(2, opponentObject);
+// }
