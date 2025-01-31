@@ -25,12 +25,11 @@ const gameStartButtonChallenge = document.querySelector(
   ".gamestart_button_challenge"
 );
 const greyOverlay = document.querySelector(".grey_overlay");
-// const step1Elements = document.querySelectorAll(".step1");
 const step2Elements = document.querySelectorAll(".step2");
 const step3Elements = document.querySelectorAll(".step3");
 const playerNameElement = document.querySelector(".gamestart_player_name");
 const playerNameForm = document.getElementById("gamestart_name_input");
-// const introImage = document.querySelector(".intro_image");
+const pointerDiv = document.querySelector(".pointer_div");
 
 // Game board elements
 const gameBoard = document.querySelector(".game_board");
@@ -716,6 +715,7 @@ function showMain() {
     gamestartBox.classList.add("focus_element_thick");
     buttonGamestartFun.classList.add("focus_element");
     buttonGamestartPro.classList.add("focus_element");
+    pointerDiv.classList.add("show");
   }, 3000);
   setTimeout(() => {
     populatePlayers(experimentalFriends, playersFriends);
@@ -1059,26 +1059,9 @@ function addGameNotification(HTML) {
 }
 
 function addChatNotification() {
-  console.log("This code is running - ADD CHAT NOTIFICATION");
   console.log(chatNotification);
   chatPop.play();
-  // if (chatNotification.classList.contains("hidden")) {
-  //   return;
-  // } else {
-  //   let chatNumber = Number(chatNotification.textContent);
-  //   console.log(chatNumber);
-  //   chatNumber++;
-  //   chatNotification.textContent = String(chatNumber);
-  //   console.log(chatNotification.textContent);
-  //   chatPop.play();
-  //   return;
-  // }
 }
-
-// function clearChatNotification() {
-//   chatNotification.textContent = 0;
-//   chatNotification.classList.add("hidden");
-// }
 
 function populatePlayers(playerList, section) {
   const newPlayerList = playerList.toSorted().reverse();

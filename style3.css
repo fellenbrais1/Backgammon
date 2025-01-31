@@ -218,8 +218,6 @@ html {
   font-weight: normal;
   font-size: 24px;
   padding-top: 4px;
-  /* margin-bottom: 14px; */
-  /* transform: translateY(-60px); */
 }
 
 #gamestart_name_input {
@@ -280,32 +278,6 @@ html {
   transition: transform ease-in-out 1s, opacity ease-in-out 1s;
 }
 
-/* .floating_buttons_left {
-  height: 630px;
-  width: 100px;
-  display: grid;
-  grid-template-rows: 150px 150px 150px 150px;
-  position: absolute;
-  top: 17%;
-  left: 19%;
-  transform: translateY(-1000px);
-  opacity: 0;
-  transition: transform ease-in-out 2.5s, opacity ease-in-out 3.5s;
-}
-
-.floating_buttons_right {
-  height: 630px;
-  width: 100px;
-  display: grid;
-  grid-template-rows: 150px 150px 150px 150px;
-  position: absolute;
-  top: 17%;
-  left: 76%;
-  transform: translateY(1000px);
-  opacity: 0;
-  transition: transform ease-in-out 2.5s, opacity ease-in-out 3.5s;
-} */
-
 .floating_buttons_toggle {
   position: absolute;
   bottom: 0%;
@@ -320,12 +292,28 @@ html {
   border-bottom: none;
 }
 
-/* .floating_buttons_toggler {
-  color: white;
+.pointer_div {
+  display: grid;
+  grid-template-columns: auto 60px;
+  position: absolute;
+  top: 22.5%;
+  left: 13%;
+  z-index: 9;
+  background-color: var(--active_button_gold);
+  color: black;
+  font-size: 24px;
+  border-radius: 25px;
+  border: 2px solid white;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.pointer_div p {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 24px;
   font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-} */
+}
 
 .floating_buttons_toggler_arrow {
   color: white;
@@ -1191,7 +1179,6 @@ html {
 }
 
 .focus_element {
-  /* box-shadow: 0px 4px 8px var(--active_button_gold); */
   outline: 2px solid var(--active_button_gold);
 }
 
