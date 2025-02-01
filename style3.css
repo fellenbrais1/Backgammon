@@ -1192,6 +1192,6 @@ html {
   left: -6.5%;
   z-index: 9;
   font-size: 24px;
-  grid-template-columns: 60px auto 60px;
+  grid-template-columns: 50px auto 60px;
   height: 120px;
 }

@@ -1834,9 +1834,14 @@ const helperContent2 = `<p>Log in or type a temporary<br>name, then press enter<
             />
           </svg>`;
 
-const helperContent3 = `<svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.7071 4.29289C12.0976 4.68342 12.0976 5.31658 11.7071 5.70711L6.41421 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H6.41421L11.7071 18.2929C12.0976 18.6834 12.0976 19.3166 11.7071 19.7071C11.3166 20.0976 10.6834 20.0976 10.2929 19.7071L3.29289 12.7071C3.10536 12.5196 3 12.2652 3 12C3 11.7348 3.10536 11.4804 3.29289 11.2929L10.2929 4.29289C10.6834 3.90237 11.3166 3.90237 11.7071 4.29289Z" fill="#FFFFFF"/>
-</svg><p>Click on the name of<br>an opponent, then on<br>the challenge button</p>
+const helperContent3 = `<svg
+  fill="#FFFFFF"
+  width="60px"
+  height="60px"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M12.707 17.293l-1.414 1.414L4.586 12l6.707-6.707 1.414 1.414L8.414 11h9.586v2H8.414z" /> </svg><p>Click on the name of<br>an opponent, then on<br>the challenge button</p>
           <svg
             fill="#FFFFFF"
             width="60px"
