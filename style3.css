@@ -357,6 +357,14 @@ html {
   cursor: pointer;
 }
 
+.x_button:hover {
+  box-shadow: 0px 0px 20px white;
+}
+
+.x_button:active {
+  background-color: var(--active_button_gold);
+}
+
 /* /////////////////////////////DICE SECTION */
 .dice_section {
   display: grid;
@@ -374,7 +382,7 @@ html {
   border: 2px solid white;
   opacity: 0;
   transform: translateY(1000px);
-  transition: opacity 1s ease-in-out, transform 4s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 3s ease-in-out;
 }
 
 .dice_button_block {
@@ -928,7 +936,7 @@ html {
   column-gap: 20px;
   opacity: 0;
   z-index: 0;
-  transform: translateY(-200%);
+  transform: translateY(-300%);
   transition: transform ease-in-out 2s, opacity ease-in-out 3s;
 }
 
@@ -953,7 +961,7 @@ html {
   font-size: 32px;
   font-weight: bold;
   text-align: left;
-  cursor: default0;
+  cursor: default;
 }
 
 .versus_section {
@@ -1081,7 +1089,7 @@ html {
   opacity: 0;
   z-index: 1;
   transform: translateX(1000px);
-  transition: opacity 1s ease-in-out, transform 4s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
 .ad_notification {
@@ -1106,10 +1114,145 @@ html {
   border-radius: 25px;
 }
 
-/* HELPER CLASSES */
-.show {
-  opacity: 1;
+/* FORFEIT SECTION */
+.forfeit_section {
+  height: 300px;
+  width: 600px;
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  background-color: green;
+  z-index: 9;
+  border-radius: 25px;
+  border: solid 2px white;
+  padding-top: 24px;
+  text-align: center;
+  cursor: default;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
+
+.forfeit_block {
+  display: grid;
+  grid-template-rows: 50px 40px auto;
+  row-gap: 16px;
+}
+
+.forfeit_text {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+}
+
+.forfeit_text_big {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.forfeit_text_small {
+  font-size: 16px;
+}
+
+.forfeit_button_div {
+  display: grid;
+  width: 60%;
+  grid-template-columns: auto auto;
+  column-gap: 18px;
+  padding-top: 16px;
+  margin-left: 20%;
+}
+
+.forfeit_button_yes,
+.forfeit_button_no {
+  height: 60px;
+  width: 140px;
+  border-radius: 999px;
+  border: solid 2px white;
+  background-color: var(--youtube_red);
+  cursor: pointer;
+  padding-top: 10px;
+  font-size: 24px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+}
+
+.forfeit_button_no {
+  background-color: var(--button_dark_teal);
+}
+
+.forfeit_button_yes:hover,
+.forfeit_button_no:hover {
+  box-shadow: 0px 0px 20px white;
+}
+
+.forfeit_button_yes:active,
+.forfeit_button_no:active {
+  background-color: var(--active_button_gold);
+}
+
+/* CHALLENGE SECTION */
+.challenge_section {
+  height: 250px;
+  width: 600px;
+  position: absolute;
+  top: 28%;
+  left: 35%;
+  background-color: var(--youtube_red);
+  z-index: 9;
+  border-radius: 25px;
+  border: solid 2px white;
+  padding-top: 24px;
+  text-align: center;
+  cursor: default;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.challenge_block {
+  display: grid;
+  grid-template-rows: 50px 40px auto;
+  row-gap: 16px;
+}
+
+.challenge_text {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+}
+
+.challenge_text_big {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.challenge_text_small {
+  font-size: 16px;
+}
+
+.challenge_button_cancel {
+  height: 60px;
+  width: 140px;
+  border-radius: 999px;
+  border: solid 2px white;
+  background-color: var(--youtube_red);
+  cursor: pointer;
+  padding-top: 10px;
+  font-size: 24px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+}
+
+.challenge_button_cancel:hover {
+  box-shadow: 0px 0px 20px white;
+}
+
+.challenge_button_cancel:active {
+  background-color: var(--active_button_gold);
+}
+
+/* HELPER CLASSES */
 
 .scroll_on_horizontal {
   transform: translateX(0);
@@ -1125,6 +1268,10 @@ html {
 
 .removed {
   display: none;
+}
+
+.show {
+  opacity: 1;
 }
 
 .no_pointer_events {
@@ -1152,10 +1299,6 @@ html {
 
 .clear_cookie_button {
   top: 6%;
-}
-
-.no_pointer_events div {
-  filter: grayscale(0.5);
 }
 
 .focus_element {
@@ -1194,4 +1337,9 @@ html {
   font-size: 24px;
   grid-template-columns: 50px auto 60px;
   height: 120px;
+}
+
+.grey_button {
+  pointer-events: none;
+  filter: grayscale(50%);
 }

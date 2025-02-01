@@ -28,6 +28,8 @@ const step3Elements = document.querySelectorAll(".step3");
 const playerNameElement = document.querySelector(".gamestart_player_name");
 const playerNameForm = document.getElementById("gamestart_name_input");
 const helperBox = document.querySelector(".helper_div");
+const gameStartResetButton = document.querySelector(".gamestart_reset_button");
+const loginButton = document.querySelector(".gamestart_button_login");
 
 // Game board elements
 const gameBoard = document.querySelector(".game_board");
@@ -42,10 +44,10 @@ const floatingButtonsArrow = document.querySelector(
 );
 
 // Sidebar button elements
+const forfeitButton = document.querySelector(".button_forfeit");
+const settingsButton = document.querySelector(".button_settings");
 const playersButton = document.querySelector(".button_players");
 const rulesButton = document.querySelector(".button_rules");
-const loginButton = document.querySelector(".gamestart_button_login");
-const settingsButton = document.querySelector(".button_settings");
 const otherGamesButton = document.querySelector(".button_other_games");
 const clsButton = document.querySelector(".button_cls");
 
@@ -81,6 +83,20 @@ const freePlayersToggleGraphic = document.querySelector(".toggle_free_graphic");
 const freePlayersToggleButton = document.querySelector(
   ".toggle_free_graphic p"
 );
+
+// Forfeit section elements
+const forfeitSection = document.querySelector(".forfeit_section");
+const buttonForfeitYes = document.querySelector(".forfeit_button_yes");
+const buttonForfeitNo = document.querySelector(".forfeit_button_no");
+const forfeitXButton = document.querySelector(".forfeit_x_button");
+
+// Challenge section elements
+const challengeSection = document.querySelector(".challenge_section");
+const challengeInformation = document.querySelector(".challenge_text");
+const buttonChallengeCancel = document.querySelector(
+  ".challenge_button_cancel"
+);
+const challengeXButton = document.querySelector(".challenge_x_button");
 
 // Rules section elements
 const rulesSection = document.querySelector(".rules_section");
@@ -215,25 +231,30 @@ chatboxInput.addEventListener("keydown", (event) => {
 
 playersButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(playersSection, "removed");
+  toggleClass(playersSection, "show");
+  toggleClass(playersSection, "scroll_on_horizontal");
+  toggleClass(playersXButton, "hidden");
+  toggleClass(playersXButton, "no_pointer_events");
+  playersSection.classList.remove("focus_element_thick");
+  playersSection.style.top = "17%";
+  playersSection.style.left = "0%";
   setTimeout(() => {
-    toggleClass(playersSection, "hidden");
-    toggleClass(playersSection, "no_pointer_events");
-    if (playersPopulatedFlag === false) {
-      populatePlayers(experimentalFriends, playersFriends);
-      populatePlayers(experimentalFriends, playersPlayedBefore);
-      populatePlayers(experimentalFriends, playersCurrentlyActive);
-      playersPopulatedFlag = true;
-    }
+    playersFriends.innerHTML = "";
+    playersPlayedBefore.innerHTML = "";
+    playersCurrentlyActive.innerHTML = "";
+    populatePlayers(experimentalFriends, playersFriends);
+    populatePlayers(experimentalFriends, playersPlayedBefore);
+    populatePlayers(experimentalFriends, playersCurrentlyActive);
   }, 60);
 });
 
 playersXButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(playersSection, "hidden");
+  toggleClass(playersSection, "scroll_on_horizontal");
   setTimeout(() => {
-    toggleClass(playersSection, "no_pointer_events");
-    toggleClass(playersSection, "removed");
+    playersSection.classList.remove("show");
+    toggleClass(playersXButton, "hidden");
+    playersXButton.classList.add("no_pointer_events");
   }, 60);
 });
 
@@ -423,6 +444,12 @@ buttonGamestartPro.addEventListener("click", () => {
   step1Process();
 });
 
+gameStartResetButton.addEventListener("click", () => {
+  playClickSound();
+  resetSite();
+  showMain();
+});
+
 window.addEventListener("DOMContentLoaded", () => {
   loginSection.style.display = "hidden";
   cookieCheck("userDetails");
@@ -449,16 +476,91 @@ cookieClearer.addEventListener("click", () => {
 playerNameForm.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    playClickSound();
-    step2Process();
+    if (playerNameForm.value !== "") {
+      playClickSound();
+      step2Process();
+    } else {
+      window.alert(
+        `Please enter a display name to use temporarily or sign up or log in`
+      );
+    }
   }
 });
 
 gameStartButtonChallenge.addEventListener("click", () => {
   playClickSound();
-  buttonGamestartOpponent.classList.remove("focus_element");
-  gameStartButtonChallenge.classList.remove("focus_element");
-  step3Process();
+  if (buttonGamestartOpponent.textContent !== "") {
+    buttonGamestartOpponent.classList.remove("focus_element");
+    gameStartButtonChallenge.classList.remove("focus_element");
+    challengeInformation.textContent = "Waiting for a response...";
+    challengeSection.style.backgroundColor = "var(--youtube_red)";
+    challengeXButton.classList.remove("hidden");
+    buttonChallengeCancel.classList.remove("hidden");
+    challengeSection.classList.add("show");
+    challengeSection.classList.remove("no_pointer_events");
+    setTimeout(() => {
+      challengeInformation.textContent = "Challenge accepted, starting game...";
+      challengeSection.style.backgroundColor = "green";
+      challengeXButton.classList.add("hidden");
+      buttonChallengeCancel.classList.add("hidden");
+      setTimeout(() => {
+        challengeSection.classList.add("no_pointer_events");
+        challengeSection.classList.remove("show");
+      }, 2000);
+      step3Process();
+    }, 4000);
+  } else {
+    window.alert(
+      `Please select an opponent by clicking on their name on the left panel, then press the challenge button`
+    );
+  }
+});
+
+forfeitButton.addEventListener("click", () => {
+  playClickSound();
+  forfeitSection.classList.remove("no_pointer_events");
+  forfeitSection.classList.add("show");
+});
+
+forfeitXButton.addEventListener("click", () => {
+  playClickSound();
+  forfeitSection.classList.remove("show");
+  forfeitSection.classList.add("no_pointer_events");
+});
+
+buttonForfeitYes.addEventListener("click", () => {
+  playClickSound();
+  forfeitMessage();
+  setTimeout(() => {
+    resetSite();
+    setTimeout(() => {
+      showMain();
+    }, 1000);
+  }, 5000);
+});
+
+buttonForfeitNo.addEventListener("click", () => {
+  playClickSound();
+  forfeitSection.classList.remove("show");
+  forfeitSection.classList.add("no_pointer_events");
+});
+
+buttonChallengeCancel.addEventListener("click", () => {
+  playClickSound();
+  challengeInformation.textContent = "Cancelling challenge...";
+  setTimeout(() => {
+    challengeSection.classList.add("no_pointer_events");
+    challengeSection.classList.remove("show");
+  }, 2000);
+});
+
+challengeXButton.addEventListener("click", () => {
+  playClickSound();
+  challengeInformation.textContent = "Cancelling challenge...";
+  setTimeout(() => {
+    challengeSection.classList.add("no_pointer_events");
+    challengeSection.classList.remove("show");
+  }, 2000);
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -677,6 +779,9 @@ function showMain() {
     helperBox.classList.add("show");
   }, 3000);
   setTimeout(() => {
+    playersFriends.innerHTML = "";
+    playersPlayedBefore.innerHTML = "";
+    playersCurrentlyActive.innerHTML = "";
     populatePlayers(experimentalFriends, playersFriends);
     populatePlayers(experimentalFriends, playersPlayedBefore);
     populatePlayers(experimentalFriends, playersCurrentlyActive);
@@ -953,6 +1058,17 @@ function pretendOpponentMessage() {
   );
   postChatMessage(messageHTML);
   displayLatestMessage();
+}
+
+function forfeitMessage() {
+  console.log(`This code is running - forfeitMessage()`);
+  let chatHTML, chatHTML2;
+  const displayName = getUserDisplayName();
+  const opponentName = getOpponentName();
+  chatHTML = `<p class='chatbox_entry_c'><strong>${displayName}</strong> has decided to forfeit the game.</p>`;
+  chatHTML2 = `<p class='chatbox_entry_d'><strong>${opponentName}</strong> wins the game!</p>`;
+  addGameNotification(chatHTML);
+  addGameNotification(chatHTML2);
 }
 
 // TODO -
@@ -1729,7 +1845,6 @@ function step1Process() {
     buttonGamestartPro.classList.contains("focus_button")
   ) {
     step2Elements.forEach((element) => {
-      console.log(`Did it work?`);
       element.classList.add("show");
     });
     changeHelper(2);
@@ -1779,9 +1894,12 @@ function step3Process() {
     introDisplay.classList.add("hidden");
     diceSection.classList.add("show");
     diceSection.classList.add("scroll_on_vertical");
+    diceSection.classList.add("focus_element_thick");
     adSection.classList.add("show");
     adSection.classList.add("scroll_on_horizontal");
-    diceSection.classList.add("focus_element_thick");
+    forfeitButton.classList.remove("grey_button");
+    settingsButton.classList.remove("grey_button");
+    playersButton.classList.remove("grey_button");
     const jackObject = playersObjectArr.find(
       (current) => current.displayName === "Jack"
     );
@@ -1789,7 +1907,7 @@ function step3Process() {
     const opponentName = getOpponentName();
     startGameMessages("fun", userDisplayName, opponentName);
     openingJingle.play();
-    helperBox.classList.add("hidden");
+    helperBox.classList.remove("show");
     helperBox.classList.add("removed");
     setTimeout(() => {
       chatboxSection.classList.add("scroll_on_horizontal");
@@ -1820,6 +1938,60 @@ function changeHelper(step) {
     helperBox.classList.add("pointer_step3");
   }
 }
+
+function resetSite() {
+  diceSection.classList.remove("show");
+  diceSection.classList.add("no_pointer_events");
+  diceSection.classList.remove("scroll_on_vertical");
+  chatboxSection.classList.remove("show");
+  chatboxSection.classList.remove("no_pointer_events");
+  chatboxSection.classList.remove("scroll_on_horizontal");
+  chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
+  floatingButtonsMain.classList.remove("show");
+  floatingButtonsMain.classList.remove("scroll_on_vertical");
+  adSection.classList.remove("show");
+  adSection.classList.add("no_pointer_events");
+  adSection.classList.remove("scroll_on_horizontal");
+  playersSection.classList.remove("show");
+  playersSection.classList.remove("scroll_on_horizontal");
+  player1NameSection.classList.remove("show");
+  player1NameSection.classList.remove("scroll_on_vertical");
+  player2NameSection.classList.remove("show");
+  player2NameSection.classList.remove("scroll_on_vertical");
+  adNotification.classList.remove("show");
+  forfeitSection.classList.remove("show");
+  forfeitSection.classList.add("no_pointer_events");
+  changeHelper(1);
+  helperBox.classList.remove("removed");
+  helperBox.innerHTML = helperContent1;
+  buttonGamestartFun.classList.remove("focus_button");
+  buttonGamestartPro.classList.remove("focus_button");
+  buttonGamestartOpponent.textContent = "";
+  gameBoard.classList.remove("show");
+  introDisplay.classList.remove("hidden");
+  buttonGamestartOpponent.classList.remove("focus_element");
+  gameStartButtonChallenge.classList.remove("focus_element");
+  gameStartButtonLogin.classList.remove(".focus_element");
+  playerNameForm.classList.remove(".focus_element");
+  forfeitButton.classList.add("grey_button");
+  settingsButton.classList.add("grey_button");
+  playersButton.classList.add("grey_button");
+  playersSection.style.top = "15%";
+  playersSection.style.left = "1%";
+}
+
+const helperContent1 = `<p>Click one</p>
+          <svg
+            fill="#FFFFFF"
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+            />
+          </svg>`;
 
 const helperContent2 = `<p>Log in or type a temporary<br>name, then press enter</p>
           <svg
