@@ -31,7 +31,7 @@ html {
   padding-bottom: 15vh;
   background-image: url(img/background_huge2.webp);
   background-size: cover;
-  display: relative;
+  position: relative;
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
 }
@@ -42,14 +42,14 @@ html {
   margin: auto;
   position: relative;
   z-index: 1;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .intro_display {
   height: 100%;
   width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 7;
   padding-left: 60px;
 }
 
@@ -60,7 +60,7 @@ html {
   margin-top: 119px;
   border: 2px solid white;
   border-radius: 15px;
-  z-index: 1;
+  z-index: 7;
 }
 
 .intro_play_div {
@@ -90,7 +90,6 @@ html {
   height: 100px;
   background-color: var(--youtube_red);
   border-radius: 25px;
-  text-justify: center;
   text-align: center;
   cursor: pointer;
   z-index: 3;
@@ -113,7 +112,7 @@ html {
 
 .gamestart_block {
   display: grid;
-  grid-template-rows: 50px 64px 50px 40px 64px 60px auto;
+  grid-template-rows: 50px 72px 50px 72px 76px auto;
   position: absolute;
   width: 400px;
   height: 420px;
@@ -122,8 +121,9 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5%;
+  padding-top: 10px;
   border: solid 4px white;
-  z-index: 2;
+  z-index: 8;
   opacity: 0;
 }
 
@@ -133,6 +133,7 @@ html {
   font-weight: bold;
   color: white;
   padding-top: 10px;
+  cursor: default;
 }
 
 .gamestart_buttons {
@@ -152,18 +153,8 @@ html {
   mix-blend-mode: multiply;
   border-radius: 25px;
   opacity: 0;
-}
-
-.grey_overlay {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  mix-blend-mode: multiply;
-  z-index: 1;
+  z-index: 2;
+  transition: opacity 2s ease-in-out;
 }
 
 .gamestart_button_fun,
@@ -265,6 +256,10 @@ html {
   transition: opacity ease-in-out 1s;
 }
 
+.gamestart_text.step3 {
+  margin-top: 24px;
+}
+
 .floating_buttons_main {
   height: 630px;
   width: 100px;
@@ -292,27 +287,27 @@ html {
   border-bottom: none;
 }
 
-.pointer_div {
+.helper_div {
   display: grid;
   grid-template-columns: auto 60px;
   position: absolute;
-  top: 22.5%;
+  top: 23.5%;
   left: 13%;
   z-index: 9;
   background-color: var(--active_button_gold);
   color: black;
   font-size: 24px;
+  font-weight: bold;
   border-radius: 25px;
   border: 2px solid white;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out, top 1.5s ease;
 }
 
-.pointer_div p {
+.helper_div p {
   padding-top: 10px;
   padding-left: 10px;
-  font-size: 24px;
-  font-weight: bold;
+  cursor: default;
 }
 
 .floating_buttons_toggler_arrow {
@@ -384,7 +379,6 @@ html {
 
 .dice_button_block {
   align-self: left;
-  justify-self: left;
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
@@ -447,27 +441,8 @@ html {
 }
 
 /* //////////////////////////////////CHATBOX */
-.chat_notifications {
-  background-color: orange;
-  border: 2px solid white;
-  text-align: center;
-  padding: 5px;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  position: absolute;
-  top: 26%;
-  right: 0;
-  opacity: 0;
-  z-index: 9;
-}
-
 .chatbox_section {
   background-color: var(--active_button_gold);
-  width: auto;
   display: grid;
   grid-template-rows: 90% 10%;
   overflow: hidden;
@@ -508,6 +483,7 @@ html {
   white-space: wrap;
   word-wrap: break-word;
   color: black;
+  cursor: default;
 }
 
 .chatbox_entry_a {
@@ -858,8 +834,8 @@ html {
   row-gap: 48px;
   background-color: brown;
   position: absolute;
-  top: 16.5%;
-  left: 76.5%;
+  top: 17%;
+  left: 0%;
   border-radius: 25px;
   border: 2px solid white;
   opacity: 1;
@@ -876,8 +852,8 @@ html {
   position: absolute;
   height: 630px;
   width: 450px;
-  top: 16.5%;
-  left: 76.5%;
+  top: 17%;
+  left: 0%;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
@@ -977,6 +953,7 @@ html {
   font-size: 32px;
   font-weight: bold;
   text-align: left;
+  cursor: default0;
 }
 
 .versus_section {
@@ -1013,6 +990,7 @@ html {
   font-weight: bold;
   padding-top: 8px;
   padding-left: 4px;
+  cursor: default;
 }
 
 /* ///////////////////////////////////////////////////COOKIE BAR */
@@ -1114,6 +1092,7 @@ html {
   right: 10%;
   opacity: 0;
   transition: opacity 2s ease-in-out;
+  cursor: default;
 }
 
 .ad_link {
@@ -1150,6 +1129,7 @@ html {
 
 .no_pointer_events {
   pointer-events: none;
+  cursor: default;
 }
 
 .toggle_ads_button,
@@ -1198,4 +1178,20 @@ html {
 
 .button_greenify {
   background-color: rgb(91, 218, 91);
+}
+
+.pointer_step2 {
+  top: 43.5%;
+  left: -6.5%;
+  font-size: 24px;
+  height: 90px;
+}
+
+.pointer_step3 {
+  top: 67%;
+  left: -6.5%;
+  z-index: 9;
+  font-size: 24px;
+  grid-template-columns: 60px auto 60px;
+  height: 120px;
 }

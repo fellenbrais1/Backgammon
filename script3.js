@@ -9,9 +9,7 @@ console.log(`Backgammon page script V2`);
 // DOM ELEMENT SELECTION
 
 // Main overlay elements
-// const mainDisplay = document.querySelector(".main_display");
 const introDisplay = document.querySelector(".intro_display");
-// const playButton = document.querySelector(".play_button");
 
 // Game start elements
 const gamestartBox = document.querySelector(".gamestart_block");
@@ -29,14 +27,12 @@ const step2Elements = document.querySelectorAll(".step2");
 const step3Elements = document.querySelectorAll(".step3");
 const playerNameElement = document.querySelector(".gamestart_player_name");
 const playerNameForm = document.getElementById("gamestart_name_input");
-const pointerDiv = document.querySelector(".pointer_div");
+const helperBox = document.querySelector(".helper_div");
 
 // Game board elements
 const gameBoard = document.querySelector(".game_board");
 
 // Sidebar button sections
-// const floatingButtonsLeft = document.querySelector(".floating_buttons_left");
-// const floatingButtonsRight = document.querySelector(".floating_buttons_right");
 const floatingButtonsMain = document.querySelector(".floating_buttons_main");
 const floatingButtonsToggle = document.querySelector(
   ".floating_buttons_toggle"
@@ -46,8 +42,6 @@ const floatingButtonsArrow = document.querySelector(
 );
 
 // Sidebar button elements
-// const diceButton = document.querySelector(".button_dice");
-// const chatButton = document.querySelector(".button_chat");
 const playersButton = document.querySelector(".button_players");
 const rulesButton = document.querySelector(".button_rules");
 const loginButton = document.querySelector(".gamestart_button_login");
@@ -57,17 +51,14 @@ const clsButton = document.querySelector(".button_cls");
 
 // Dice section elements
 const diceSection = document.querySelector(".dice_section");
-// const buttonRoll = document.querySelector(".dice_button_roll");
 const diceFace1 = document.querySelector(".dice_img1");
 const diceFace2 = document.querySelector(".dice_img2");
 const diceRollResult = document.querySelector(".dice_result_display");
-// const diceXButton = document.querySelector(".dice_x_button");
 
 // Chatbox section elements
 const chatboxSection = document.querySelector(".chatbox_section");
 const chatBoxDisplay = document.querySelector(".chatbox_display");
 const chatboxInput = document.getElementById("chatbox_input");
-// const chatXButton = document.querySelector(".chat_x_button");
 const chatNotification = document.querySelector(".chat_notifications");
 
 // Players section elements
@@ -97,7 +88,6 @@ const rulesXButton = document.querySelector(".rules_x_button");
 
 // Login section elements
 const loginSection = document.querySelector(".login_section");
-const loginXButton = document.querySelector(".login_x_button");
 const loginUsernameField = document.getElementById("login_username_input");
 const loginPasswordField = document.getElementById("login_password_input");
 const loginSubmitButton = document.querySelector(
@@ -108,7 +98,6 @@ const signupButton = document.querySelector(".signup_button");
 
 // Signup section elements
 const signupSection = document.querySelector(".signup_section");
-const signupXButton = document.querySelector(".signup_x_button");
 const signupUsernameField = document.getElementById("signup_username_input");
 const signupPasswordField = document.getElementById("signup_password_input");
 const signupSubmitButton = document.querySelector(
@@ -134,7 +123,7 @@ const player1Name = document.querySelector(".name_player1");
 const player1Portait = document.querySelector(".player_portrait1");
 const player1Rating = document.querySelector(".player_rating1");
 
-const versusSection = document.querySelector(".versus_section");
+// const versusSection = document.querySelector(".versus_section");
 
 const player2NameSection = document.querySelector(".name_section.player2");
 const player2Name = document.querySelector(".name_player2");
@@ -154,7 +143,6 @@ const adNotification = document.querySelector(".ad_notification");
 
 /* Debug elements */
 // TESTING OTHER USER MESSAGES
-// const adDisabler = document.querySelector(".toggle_ads_button");
 const gameToggler = document.querySelector(".toggle_game_button");
 const cookieClearer = document.querySelector(".clear_cookie_button");
 const askJack = document.querySelector(".ask_jack_button");
@@ -203,6 +191,7 @@ diceRollResult.addEventListener("click", () => {
 });
 
 floatingButtonsToggle.addEventListener("click", () => {
+  playClickSound();
   console.log(`RUNNING`);
   if (floatingButtonsMain.classList.contains("show")) {
     floatingButtonsArrow.innerHTML = togglerUpArrow;
@@ -289,17 +278,6 @@ loginButton.addEventListener("click", () => {
   }, 60);
 });
 
-loginXButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(loginSection, "hidden");
-  setTimeout(() => {
-    clearLoginInputFields();
-    clearSignupInputFields();
-    toggleClass(loginSection, "no_pointer_events");
-    toggleClass(loginSection, "removed");
-  }, 60);
-});
-
 loginUsernameField.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -345,20 +323,6 @@ signupButton.addEventListener("click", () => {
   setTimeout(() => {
     toggleClass(signupSection, "hidden");
     toggleClass(signupSection, "no_pointer_events");
-  }, 60);
-});
-
-signupXButton.addEventListener("click", () => {
-  playClickSound();
-  toggleClass(loginSection, "hidden");
-  toggleClass(signupSection, "hidden");
-  setTimeout(() => {
-    clearLoginInputFields();
-    clearSignupInputFields();
-    toggleClass(loginSection, "no_pointer_events");
-    toggleClass(signupSection, "no_pointer_events");
-    toggleClass(loginSection, "removed");
-    toggleClass(signupSection, "removed");
   }, 60);
 });
 
@@ -469,21 +433,7 @@ cookieDisagreeButton.addEventListener("click", rejectCookies);
 
 askJack.addEventListener("click", () => {
   pretendOpponentMessage();
-  // if (chatNotification.textContent == 0) {
-  //   toggleClass(chatNotification, "hidden");
-  // }
   addChatNotification();
-  // const jackObject = playersObjectArr.find(
-  //   (current) => current.displayName === "Jack"
-  // );
-  // addPlayerDetails(2, jackObject);
-  // setTimeout(() => {
-  //   player2NameSection.classList.add("show");
-  //   player2NameSection.classList.add("scroll_on_vertical");
-  //   versusSection.style.opacity = 1;
-  // }, 2000);
-  // toggleClass(player2NameSection, "hidden");
-  // toggleClass(player2NameSection, "removed");
 });
 
 gameToggler.addEventListener("click", resetGame);
@@ -499,11 +449,13 @@ cookieClearer.addEventListener("click", () => {
 playerNameForm.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
+    playClickSound();
     step2Process();
   }
 });
 
 gameStartButtonChallenge.addEventListener("click", () => {
+  playClickSound();
   buttonGamestartOpponent.classList.remove("focus_element");
   gameStartButtonChallenge.classList.remove("focus_element");
   step3Process();
@@ -567,6 +519,7 @@ const experimentalFriends = [
   "Jason",
   "Jessica",
   "Takeshi",
+  "Jack",
 ];
 
 const playersOnline = [
@@ -582,6 +535,7 @@ const playersOnline = [
   "Roboute",
   "Jason",
   "Takeshi",
+  "Jack",
 ];
 
 const userFriends = [
@@ -594,6 +548,7 @@ const userFriends = [
   "Tommy",
   "Biblobba",
   "Takeshi",
+  "Jack",
 ];
 
 const userPlayedBefore = [
@@ -610,6 +565,7 @@ const userPlayedBefore = [
   "Jason",
   "Jessica",
   "Takeshi",
+  "Jack",
 ];
 
 const playersInGame = ["Michael", "Ayako", "Zeratul", "Squiglogs"];
@@ -709,13 +665,16 @@ const togglerDownArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024
 function showMain() {
   setTimeout(() => {
     gameBoard.classList.add("show");
+    greyOverlay.classList.add("show");
   }, 1000);
   setTimeout(() => {
     gamestartBox.classList.add("show");
     gamestartBox.classList.add("focus_element_thick");
     buttonGamestartFun.classList.add("focus_element");
+    buttonGamestartFun.classList.remove("no_pointer_events");
     buttonGamestartPro.classList.add("focus_element");
-    pointerDiv.classList.add("show");
+    buttonGamestartPro.classList.remove("no_pointer_events");
+    helperBox.classList.add("show");
   }, 3000);
   setTimeout(() => {
     populatePlayers(experimentalFriends, playersFriends);
@@ -740,8 +699,6 @@ function toggleClass(pageElement, property) {
 // Called by an eventHandler on the 'Fun Game' button
 // function displayFunBoard() {
 //   gameBoard.src = "img/backgammon.jpg";
-//   gamestartBox.style.display = "none";
-//   greyOverlay.style.display = "none";
 //   initializeCookie("guest");
 //   const opponentName = getOpponentName();
 //   console.log(userDisplayName);
@@ -752,8 +709,6 @@ function toggleClass(pageElement, property) {
 // Called by an eventHandler on the 'Professional Game' button
 // function displayProBoard() {
 //   gameBoard.src = "img/backgammonHard.jpg";
-//   gamestartBox.style.display = "none";
-//   greyOverlay.style.display = "none";
 //   initializeCookie("guest");
 //   const opponentName = getOpponentName();
 //   console.log(userDisplayName);
@@ -765,7 +720,7 @@ function toggleClass(pageElement, property) {
 // Called by displayFunBoard(), displayProBoard()
 function getOpponentName() {
   console.log(`This code is running - getOpponentName()`);
-  const opponentName = "Jack";
+  const opponentName = buttonGamestartOpponent.textContent;
   return opponentName;
 }
 
@@ -773,7 +728,7 @@ function getOpponentName() {
 // Called by an eventHandler on the 'Toggle Game - TEST' button
 function resetGame() {
   gamestartBox.style.display = "grid";
-  greyOverlay.style.display = "block";
+  greyOverlay.classList.add("show");
   gameBoard.src = "img/backgammon.jpg";
 }
 
@@ -805,7 +760,6 @@ function rollOneDie() {
     playDiceSound(diceResult);
   }, 1110);
   setTimeout(() => {
-    // hideDiceRoller();
     turnOneEnd();
     shrinkDiceResult();
   }, 2500);
@@ -815,7 +769,6 @@ function rollOneDie() {
 // Called by an eventHandler on the 'Two dice roll' button
 function rollTwoDice() {
   let diceResult = 0;
-  // diceFace2.style.opacity = 1;
   diceRollSound.play();
   const target1 = diceFace1;
   const target2 = diceFace2;
@@ -837,7 +790,6 @@ function rollTwoDice() {
     playDiceSound(diceResult);
   }, 1110);
   setTimeout(() => {
-    // hideDiceRoller();
     shrinkDiceResult();
   }, 2500);
 }
@@ -929,17 +881,6 @@ function cycleDieFaces(result = null, flag = "random", target) {
     }
   }
 }
-
-// function hideDiceRoller() {
-//   toggleClass(diceSection, "removed");
-//   setTimeout(() => {
-//     toggleClass(diceSection, "hidden");
-//     toggleClass(diceSection, "no_pointer_events");
-//     // toggleClass(floatingButtonsLeft, "no_pointer_events");
-//     // toggleClass(floatingButtonsRight, "no_pointer_events");
-//     toggleClass(diceRollResult, "dice_result_display_final");
-//   }, 60);
-// }
 
 ///////////////////////////////
 // CHAT BOX
@@ -1306,9 +1247,6 @@ function userLogin(usernameValue, passwordValue) {
         clearLoginInputFields();
         loginSection.classList.add("hidden");
         setTimeout(() => {
-          // loginSection.classList.add("no_pointer_events");
-          //   floatingButtonsRight.classList.remove("no_pointer_events");
-          //   floatingButtonsLeft.classList.remove("no_pointer_events");
           loginSection.classList.add("removed");
           addPlayerDetails(1, userObject);
           if (cookiesAcceptedFlag === true) {
@@ -1317,10 +1255,8 @@ function userLogin(usernameValue, passwordValue) {
             if (playerNameForm.classList.contains("show")) {
               step2Process();
             }
-          } else {
-            // step2Process();
           }
-          nameChangeCheck(lastUsedDisplayName, userObject.displayName);
+          // nameChangeCheck(lastUsedDisplayName, userObject.displayName);
           loginInfoDisplay.textContent = `Please enter your details to log in.`;
         }, 60);
       }, 1000);
@@ -1415,8 +1351,6 @@ function userSignup(usernameValue, passwordValue) {
       setTimeout(() => {
         toggleClass(loginSection, "no_pointer_events");
         toggleClass(signupSection, "no_pointer_events");
-        // toggleClass(floatingButtonsRight, "no_pointer_events");
-        // toggleClass(floatingButtonsLeft, "no_pointer_events");
         toggleClass(loginSection, "removed");
         toggleClass(signupSection, "removed");
         addPlayerDetails(1, newUserObject);
@@ -1428,7 +1362,7 @@ function userSignup(usernameValue, passwordValue) {
         deleteGuestMessage();
         const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${newUserObject.displayName}!</strong></p>`;
         postChatMessage(chatHTML);
-        nameChangeCheck(lastUsedDisplayName, newUserObject.displayName);
+        // nameChangeCheck(lastUsedDisplayName, newUserObject.displayName);
         userLogin(newUserObject.username, newUserObject.password);
         signupInfoDisplay.textContent = `Please choose a username and password to sign up.`;
         // clearSignupInputFields();
@@ -1472,7 +1406,6 @@ function cookieCheck(cookieName) {
       const displayName = getUserDisplayName();
       const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
       postChatMessage(chatHTML, "afterbegin");
-      // nameIsGuest = true;
       lastUsedDisplayName = "Guest";
     }, 3000);
   }
@@ -1601,8 +1534,6 @@ function createCookie(name, values, lifespan) {
   }
   document.cookie = name + "=" + values + expires + "; path=/";
 }
-
-// Cookie creation etc. has to run after the user object has been successfully created with the initializeCookie processes
 
 // Finds if a cookie exists based on the supplied name then retrieves
 function readCookie(cookieName) {
@@ -1801,8 +1732,12 @@ function step1Process() {
       console.log(`Did it work?`);
       element.classList.add("show");
     });
+    changeHelper(2);
     playerNameElement.classList.add("focus_element");
     gameStartButtonLogin.classList.add("focus_element");
+    gameStartButtonLogin.classList.remove("no_pointer_events");
+    playerNameElement.classList.remove("no_pointer_events");
+    playerNameForm.classList.remove("no_pointer_events");
     buttonGamestartFun.classList.remove("focus_element");
     buttonGamestartPro.classList.remove("focus_element");
   }
@@ -1814,15 +1749,16 @@ function step2Process() {
     step3Elements.forEach((element) => {
       element.classList.add("show");
     });
+    changeHelper(3);
     playersSection.classList.add("show");
     playersSection.classList.add("scroll_on_horizontal");
     console.log(gameStartButtonLogin);
     gameStartButtonLogin.classList.add("button_greenify");
-    // buttonGamestartPro.classList.remove("focus_element");
     playerNameElement.classList.remove("focus_element");
     gameStartButtonLogin.classList.remove("focus_element");
     buttonGamestartOpponent.classList.add("focus_element");
     gameStartButtonChallenge.classList.add("focus_element");
+    gameStartButtonChallenge.classList.remove("no_pointer_events");
   } else {
     playerNameForm.value = "";
     prompt(`Please enter a displayname or log in.`);
@@ -1853,9 +1789,12 @@ function step3Process() {
     const opponentName = getOpponentName();
     startGameMessages("fun", userDisplayName, opponentName);
     openingJingle.play();
+    helperBox.classList.add("hidden");
+    helperBox.classList.add("removed");
     setTimeout(() => {
       chatboxSection.classList.add("scroll_on_horizontal");
       adNotification.classList.add("show");
+      greyOverlay.classList.remove("show");
     }, 1000);
   }
 }
@@ -1866,3 +1805,46 @@ function step3Process() {
 //   });
 //   addPlayerDetails(2, opponentObject);
 // }
+
+function changeHelper(step) {
+  if (step === 1) {
+    helperBox.classList.remove("pointer_step2");
+    helperBox.classList.remove("pointer_step3");
+  } else if (step === 2) {
+    helperBox.innerHTML = helperContent2;
+    helperBox.classList.remove("pointer_step3");
+    helperBox.classList.add("pointer_step2");
+  } else if (step === 3) {
+    helperBox.innerHTML = helperContent3;
+    helperBox.classList.remove("pointer_step2");
+    helperBox.classList.add("pointer_step3");
+  }
+}
+
+const helperContent2 = `<p>Log in or type a temporary<br>name, then press enter</p>
+          <svg
+            fill="#FFFFFF"
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+            />
+          </svg>`;
+
+const helperContent3 = `<svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.7071 4.29289C12.0976 4.68342 12.0976 5.31658 11.7071 5.70711L6.41421 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H6.41421L11.7071 18.2929C12.0976 18.6834 12.0976 19.3166 11.7071 19.7071C11.3166 20.0976 10.6834 20.0976 10.2929 19.7071L3.29289 12.7071C3.10536 12.5196 3 12.2652 3 12C3 11.7348 3.10536 11.4804 3.29289 11.2929L10.2929 4.29289C10.6834 3.90237 11.3166 3.90237 11.7071 4.29289Z" fill="#FFFFFF"/>
+</svg><p>Click on the name of<br>an opponent, then on<br>the challenge button</p>
+          <svg
+            fill="#FFFFFF"
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+            />
+          </svg>`;

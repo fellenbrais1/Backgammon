@@ -1,39 +1,59 @@
-<! CODE START -->
+<!-- CODE START -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <! META -->
+    <!-- META -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <! TITLE -->
+    <!-- TITLE -->
     <title>Fresh Version</title>
-    <! STYLESHEETS -->
+    <!-- STYLESHEETS -->
     <link rel="stylesheet" href="style3.css" />
-    <! FAVICON -->
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon2/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon2/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon2/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon2/site.webmanifest">
+    <!-- FAVICON -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon2/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon2/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon2/favicon-16x16.png"
+    />
+    <link rel="manifest" href="img/favicon2/site.webmanifest" />
   </head>
   <body>
-    <! MAIN PAGE ELEMENTS -->
+    <!-- MAIN PAGE ELEMENTS -->
     <div class="pagebox">
-      <! MAIN GAMEBXOX -->
+      <!-- MAIN GAMEBXOX -->
       <div class="main_display">
         <div class="intro_display">
           <p class="intro_text">Backgammon</p>
-          <img class="intro_image focus_element_thick" src="img/bagammnon.png" />
+          <img
+            class="intro_image focus_element_thick"
+            src="img/bagammnon.png"
+            alt="Backgammon Logo"
+          />
         </div>
-        <! GAMESTART BLOCK -->
+        <!-- GAMESTART BLOCK -->
         <div class="gamestart_block">
           <p class="gamestart_text step 1">1. Choose a game type</p>
           <div class="gamestart_buttons">
-            <p class="gamestart_button_fun step1">Fun</p>
-            <p class="gamestart_button_pro step1">Professional</p>
+            <p class="gamestart_button_fun step1 no_pointer_events">Fun</p>
+            <p class="gamestart_button_pro step1 no_pointer_events">
+              Professional
+            </p>
           </div>
           <p class="gamestart_text step2">2. Choose your identity:</p>
           <div class="gamestart_identity_div step2">
-            <form class="gamestart_player_name">
+            <form class="gamestart_player_name no_pointer_events">
               <input
                 type="text"
                 id="gamestart_name_input"
@@ -42,9 +62,8 @@
                 autocomplete="off"
               />
             </form>
-              <!-- <p class="gamestart_player_name">Guest001</p> -->
-              <p class="gamestart_button_login" title="Log in">
-                <svg
+            <p class="gamestart_button_login no_pointer_events" title="Log in">
+              <svg
                 width="36px"
                 height="36px"
                 viewBox="0 0 24 24"
@@ -59,62 +78,97 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              </p>
             </p>
           </div>
-          <p class="gamestart_text step2">Alternatively, please log in.<svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 18L18 6M18 6H10M18 6V14" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg></p>
           <p class="gamestart_text step3">3. Challenge an opponent</p>
           <div class="gamestart_opponent_div step3">
-            <p class="gamestart_opponent_name"></p>
-            <p class="gamestart_button_challenge" title="Challenge">
-              <svg width="30px" height="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="#FFFFFF" d="M19.75 14.438c59.538 112.29 142.51 202.35 232.28 292.718l3.626 3.75.063-.062c21.827 21.93 44.04 43.923 66.405 66.25-18.856 14.813-38.974 28.2-59.938 40.312l28.532 28.53 68.717-68.717c42.337 27.636 76.286 63.646 104.094 105.81l28.064-28.06c-42.47-27.493-79.74-60.206-106.03-103.876l68.936-68.938-28.53-28.53c-11.115 21.853-24.413 42.015-39.47 60.593-43.852-43.8-86.462-85.842-130.125-125.47-.224-.203-.432-.422-.656-.625C183.624 122.75 108.515 63.91 19.75 14.437zm471.875 0c-83.038 46.28-154.122 100.78-221.97 161.156l22.814 21.562 56.81-56.812 13.22 13.187-56.438 56.44 24.594 23.186c61.802-66.92 117.6-136.92 160.97-218.72zm-329.53 125.906l200.56 200.53c-4.36 4.443-8.84 8.793-13.405 13.032L148.875 153.53l13.22-13.186zm-76.69 113.28l-28.5 28.532 68.907 68.906c-26.29 43.673-63.53 76.414-106 103.907l28.063 28.06c27.807-42.164 61.758-78.174 104.094-105.81l68.718 68.717 28.53-28.53c-20.962-12.113-41.08-25.5-59.937-40.313 17.865-17.83 35.61-35.433 53.157-52.97l-24.843-25.655-55.47 55.467c-4.565-4.238-9.014-8.62-13.374-13.062l55.844-55.844-24.53-25.374c-18.28 17.856-36.602 36.06-55.158 54.594-15.068-18.587-28.38-38.758-39.5-60.625z"/></svg>
+            <p class="gamestart_opponent_name no_pointer_events"></p>
+            <p
+              class="gamestart_button_challenge no_pointer_events"
+              title="Challenge"
+            >
+              <svg
+                width="30px"
+                height="30px"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#FFFFFF"
+                  d="M19.75 14.438c59.538 112.29 142.51 202.35 232.28 292.718l3.626 3.75.063-.062c21.827 21.93 44.04 43.923 66.405 66.25-18.856 14.813-38.974 28.2-59.938 40.312l28.532 28.53 68.717-68.717c42.337 27.636 76.286 63.646 104.094 105.81l28.064-28.06c-42.47-27.493-79.74-60.206-106.03-103.876l68.936-68.938-28.53-28.53c-11.115 21.853-24.413 42.015-39.47 60.593-43.852-43.8-86.462-85.842-130.125-125.47-.224-.203-.432-.422-.656-.625C183.624 122.75 108.515 63.91 19.75 14.437zm471.875 0c-83.038 46.28-154.122 100.78-221.97 161.156l22.814 21.562 56.81-56.812 13.22 13.187-56.438 56.44 24.594 23.186c61.802-66.92 117.6-136.92 160.97-218.72zm-329.53 125.906l200.56 200.53c-4.36 4.443-8.84 8.793-13.405 13.032L148.875 153.53l13.22-13.186zm-76.69 113.28l-28.5 28.532 68.907 68.906c-26.29 43.673-63.53 76.414-106 103.907l28.063 28.06c27.807-42.164 61.758-78.174 104.094-105.81l68.718 68.717 28.53-28.53c-20.962-12.113-41.08-25.5-59.937-40.313 17.865-17.83 35.61-35.433 53.157-52.97l-24.843-25.655-55.47 55.467c-4.565-4.238-9.014-8.62-13.374-13.062l55.844-55.844-24.53-25.374c-18.28 17.856-36.602 36.06-55.158 54.594-15.068-18.587-28.38-38.758-39.5-60.625z"
+                />
+              </svg>
             </p>
           </div>
         </div>
         <div class="grey_overlay"></div>
-        <img class="game_board" src="img/backgammon.jpg" />
-        <div class="pointer_div">
+        <img
+          class="game_board"
+          src="img/backgammon.jpg"
+          alt="Backgammon Game Board"
+        />
+        <div class="helper_div">
           <p>Click one</p>
-          <svg fill="#FFFFFF" width="60px" height="60px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"/></svg>
+          <svg
+            fill="#FFFFFF"
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+            />
+          </svg>
         </div>
       </div>
-      <! FLOATING BUTTONS -->
+      <!-- FLOATING BUTTONS -->
       <div class="floating_buttons_main">
         <div class="round_button button_forfeit" title="Forfeit Game">
-          <svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 21.1111V16.1111M4 16.1111V4.11109C4 4.11109 7 1.61112 12 4.11112C17 6.61112 20 4.11112 20 4.11112V16.1111C20 16.1111 17 18.6111 12 16.1111C7 13.6111 4 16.1111 4 16.1111Z" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="round_button button_settings" title="Settings">
-            <svg
-              width="60px"
-              height="60px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="Interface / Settings">
-                <g id="Vector">
-                  <path
-                    d="M20.3499 8.92293L19.9837 8.7192C19.9269 8.68756 19.8989 8.67169 19.8714 8.65524C19.5983 8.49165 19.3682 8.26564 19.2002 7.99523C19.1833 7.96802 19.1674 7.93949 19.1348 7.8831C19.1023 7.82677 19.0858 7.79823 19.0706 7.76998C18.92 7.48866 18.8385 7.17515 18.8336 6.85606C18.8331 6.82398 18.8332 6.79121 18.8343 6.72604L18.8415 6.30078C18.8529 5.62025 18.8587 5.27894 18.763 4.97262C18.6781 4.70053 18.536 4.44993 18.3462 4.23725C18.1317 3.99685 17.8347 3.82534 17.2402 3.48276L16.7464 3.1982C16.1536 2.85658 15.8571 2.68571 15.5423 2.62057C15.2639 2.56294 14.9765 2.56561 14.6991 2.62789C14.3859 2.69819 14.0931 2.87351 13.5079 3.22396L13.5045 3.22555L13.1507 3.43741C13.0948 3.47091 13.0665 3.48779 13.0384 3.50338C12.7601 3.6581 12.4495 3.74365 12.1312 3.75387C12.0992 3.7549 12.0665 3.7549 12.0013 3.7549C11.9365 3.7549 11.9024 3.7549 11.8704 3.75387C11.5515 3.74361 11.2402 3.65759 10.9615 3.50224C10.9334 3.48658 10.9056 3.46956 10.8496 3.4359L10.4935 3.22213C9.90422 2.86836 9.60915 2.69121 9.29427 2.62057C9.0157 2.55807 8.72737 2.55634 8.44791 2.61471C8.13236 2.68062 7.83577 2.85276 7.24258 3.19703L7.23994 3.1982L6.75228 3.48124L6.74688 3.48454C6.15904 3.82572 5.86441 3.99672 5.6517 4.23614C5.46294 4.4486 5.32185 4.69881 5.2374 4.97018C5.14194 5.27691 5.14703 5.61896 5.15853 6.3027L5.16568 6.72736C5.16676 6.79166 5.16864 6.82362 5.16817 6.85525C5.16343 7.17499 5.08086 7.48914 4.92974 7.77096C4.9148 7.79883 4.8987 7.8267 4.86654 7.88237C4.83436 7.93809 4.81877 7.96579 4.80209 7.99268C4.63336 8.26452 4.40214 8.49186 4.12733 8.65572C4.10015 8.67193 4.0715 8.68752 4.01521 8.71871L3.65365 8.91908C3.05208 9.25245 2.75137 9.41928 2.53256 9.65669C2.33898 9.86672 2.19275 10.1158 2.10349 10.3872C2.00259 10.6939 2.00267 11.0378 2.00424 11.7255L2.00551 12.2877C2.00706 12.9708 2.00919 13.3122 2.11032 13.6168C2.19979 13.8863 2.34495 14.134 2.53744 14.3427C2.75502 14.5787 3.05274 14.7445 3.64974 15.0766L4.00808 15.276C4.06907 15.3099 4.09976 15.3266 4.12917 15.3444C4.40148 15.5083 4.63089 15.735 4.79818 16.0053C4.81625 16.0345 4.8336 16.0648 4.8683 16.1255C4.90256 16.1853 4.92009 16.2152 4.93594 16.2452C5.08261 16.5229 5.16114 16.8315 5.16649 17.1455C5.16707 17.1794 5.16658 17.2137 5.16541 17.2827L5.15853 17.6902C5.14695 18.3763 5.1419 18.7197 5.23792 19.0273C5.32287 19.2994 5.46484 19.55 5.65463 19.7627C5.86915 20.0031 6.16655 20.1745 6.76107 20.5171L7.25478 20.8015C7.84763 21.1432 8.14395 21.3138 8.45869 21.379C8.73714 21.4366 9.02464 21.4344 9.30209 21.3721C9.61567 21.3017 9.90948 21.1258 10.4964 20.7743L10.8502 20.5625C10.9062 20.5289 10.9346 20.5121 10.9626 20.4965C11.2409 20.3418 11.5512 20.2558 11.8695 20.2456C11.9015 20.2446 11.9342 20.2446 11.9994 20.2446C12.0648 20.2446 12.0974 20.2446 12.1295 20.2456C12.4484 20.2559 12.7607 20.3422 13.0394 20.4975C13.0639 20.5112 13.0885 20.526 13.1316 20.5519L13.5078 20.7777C14.0971 21.1315 14.3916 21.3081 14.7065 21.3788C14.985 21.4413 15.2736 21.4438 15.5531 21.3855C15.8685 21.3196 16.1657 21.1471 16.7586 20.803L17.2536 20.5157C17.8418 20.1743 18.1367 20.0031 18.3495 19.7636C18.5383 19.5512 18.6796 19.3011 18.764 19.0297C18.8588 18.7252 18.8531 18.3858 18.8417 17.7119L18.8343 17.2724C18.8332 17.2081 18.8331 17.1761 18.8336 17.1445C18.8383 16.8247 18.9195 16.5104 19.0706 16.2286C19.0856 16.2007 19.1018 16.1726 19.1338 16.1171C19.166 16.0615 19.1827 16.0337 19.1994 16.0068C19.3681 15.7349 19.5995 15.5074 19.8744 15.3435C19.9012 15.3275 19.9289 15.3122 19.9838 15.2818L19.9857 15.2809L20.3472 15.0805C20.9488 14.7472 21.2501 14.5801 21.4689 14.3427C21.6625 14.1327 21.8085 13.8839 21.8978 13.6126C21.9981 13.3077 21.9973 12.9658 21.9958 12.2861L21.9945 11.7119C21.9929 11.0287 21.9921 10.6874 21.891 10.3828C21.8015 10.1133 21.6555 9.86561 21.463 9.65685C21.2457 9.42111 20.9475 9.25526 20.3517 8.92378L20.3499 8.92293Z"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M8.00033 12C8.00033 14.2091 9.79119 16 12.0003 16C14.2095 16 16.0003 14.2091 16.0003 12C16.0003 9.79082 14.2095 7.99996 12.0003 7.99996C9.79119 7.99996 8.00033 9.79082 8.00033 12Z"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </g>
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 21.1111V16.1111M4 16.1111V4.11109C4 4.11109 7 1.61112 12 4.11112C17 6.61112 20 4.11112 20 4.11112V16.1111C20 16.1111 17 18.6111 12 16.1111C7 13.6111 4 16.1111 4 16.1111Z"
+              stroke="#FFFFFF"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="round_button button_settings" title="Settings">
+          <svg
+            width="60px"
+            height="60px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="interface_Settings">
+              <g id="Vector">
+                <path
+                  d="M20.3499 8.92293L19.9837 8.7192C19.9269 8.68756 19.8989 8.67169 19.8714 8.65524C19.5983 8.49165 19.3682 8.26564 19.2002 7.99523C19.1833 7.96802 19.1674 7.93949 19.1348 7.8831C19.1023 7.82677 19.0858 7.79823 19.0706 7.76998C18.92 7.48866 18.8385 7.17515 18.8336 6.85606C18.8331 6.82398 18.8332 6.79121 18.8343 6.72604L18.8415 6.30078C18.8529 5.62025 18.8587 5.27894 18.763 4.97262C18.6781 4.70053 18.536 4.44993 18.3462 4.23725C18.1317 3.99685 17.8347 3.82534 17.2402 3.48276L16.7464 3.1982C16.1536 2.85658 15.8571 2.68571 15.5423 2.62057C15.2639 2.56294 14.9765 2.56561 14.6991 2.62789C14.3859 2.69819 14.0931 2.87351 13.5079 3.22396L13.5045 3.22555L13.1507 3.43741C13.0948 3.47091 13.0665 3.48779 13.0384 3.50338C12.7601 3.6581 12.4495 3.74365 12.1312 3.75387C12.0992 3.7549 12.0665 3.7549 12.0013 3.7549C11.9365 3.7549 11.9024 3.7549 11.8704 3.75387C11.5515 3.74361 11.2402 3.65759 10.9615 3.50224C10.9334 3.48658 10.9056 3.46956 10.8496 3.4359L10.4935 3.22213C9.90422 2.86836 9.60915 2.69121 9.29427 2.62057C9.0157 2.55807 8.72737 2.55634 8.44791 2.61471C8.13236 2.68062 7.83577 2.85276 7.24258 3.19703L7.23994 3.1982L6.75228 3.48124L6.74688 3.48454C6.15904 3.82572 5.86441 3.99672 5.6517 4.23614C5.46294 4.4486 5.32185 4.69881 5.2374 4.97018C5.14194 5.27691 5.14703 5.61896 5.15853 6.3027L5.16568 6.72736C5.16676 6.79166 5.16864 6.82362 5.16817 6.85525C5.16343 7.17499 5.08086 7.48914 4.92974 7.77096C4.9148 7.79883 4.8987 7.8267 4.86654 7.88237C4.83436 7.93809 4.81877 7.96579 4.80209 7.99268C4.63336 8.26452 4.40214 8.49186 4.12733 8.65572C4.10015 8.67193 4.0715 8.68752 4.01521 8.71871L3.65365 8.91908C3.05208 9.25245 2.75137 9.41928 2.53256 9.65669C2.33898 9.86672 2.19275 10.1158 2.10349 10.3872C2.00259 10.6939 2.00267 11.0378 2.00424 11.7255L2.00551 12.2877C2.00706 12.9708 2.00919 13.3122 2.11032 13.6168C2.19979 13.8863 2.34495 14.134 2.53744 14.3427C2.75502 14.5787 3.05274 14.7445 3.64974 15.0766L4.00808 15.276C4.06907 15.3099 4.09976 15.3266 4.12917 15.3444C4.40148 15.5083 4.63089 15.735 4.79818 16.0053C4.81625 16.0345 4.8336 16.0648 4.8683 16.1255C4.90256 16.1853 4.92009 16.2152 4.93594 16.2452C5.08261 16.5229 5.16114 16.8315 5.16649 17.1455C5.16707 17.1794 5.16658 17.2137 5.16541 17.2827L5.15853 17.6902C5.14695 18.3763 5.1419 18.7197 5.23792 19.0273C5.32287 19.2994 5.46484 19.55 5.65463 19.7627C5.86915 20.0031 6.16655 20.1745 6.76107 20.5171L7.25478 20.8015C7.84763 21.1432 8.14395 21.3138 8.45869 21.379C8.73714 21.4366 9.02464 21.4344 9.30209 21.3721C9.61567 21.3017 9.90948 21.1258 10.4964 20.7743L10.8502 20.5625C10.9062 20.5289 10.9346 20.5121 10.9626 20.4965C11.2409 20.3418 11.5512 20.2558 11.8695 20.2456C11.9015 20.2446 11.9342 20.2446 11.9994 20.2446C12.0648 20.2446 12.0974 20.2446 12.1295 20.2456C12.4484 20.2559 12.7607 20.3422 13.0394 20.4975C13.0639 20.5112 13.0885 20.526 13.1316 20.5519L13.5078 20.7777C14.0971 21.1315 14.3916 21.3081 14.7065 21.3788C14.985 21.4413 15.2736 21.4438 15.5531 21.3855C15.8685 21.3196 16.1657 21.1471 16.7586 20.803L17.2536 20.5157C17.8418 20.1743 18.1367 20.0031 18.3495 19.7636C18.5383 19.5512 18.6796 19.3011 18.764 19.0297C18.8588 18.7252 18.8531 18.3858 18.8417 17.7119L18.8343 17.2724C18.8332 17.2081 18.8331 17.1761 18.8336 17.1445C18.8383 16.8247 18.9195 16.5104 19.0706 16.2286C19.0856 16.2007 19.1018 16.1726 19.1338 16.1171C19.166 16.0615 19.1827 16.0337 19.1994 16.0068C19.3681 15.7349 19.5995 15.5074 19.8744 15.3435C19.9012 15.3275 19.9289 15.3122 19.9838 15.2818L19.9857 15.2809L20.3472 15.0805C20.9488 14.7472 21.2501 14.5801 21.4689 14.3427C21.6625 14.1327 21.8085 13.8839 21.8978 13.6126C21.9981 13.3077 21.9973 12.9658 21.9958 12.2861L21.9945 11.7119C21.9929 11.0287 21.9921 10.6874 21.891 10.3828C21.8015 10.1133 21.6555 9.86561 21.463 9.65685C21.2457 9.42111 20.9475 9.25526 20.3517 8.92378L20.3499 8.92293Z"
+                  stroke="#fff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.00033 12C8.00033 14.2091 9.79119 16 12.0003 16C14.2095 16 16.0003 14.2091 16.0003 12C16.0003 9.79082 14.2095 7.99996 12.0003 7.99996C9.79119 7.99996 8.00033 9.79082 8.00033 12Z"
+                  stroke="#fff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </g>
-            </svg>
-          </div>
+            </g>
+          </svg>
+        </div>
         <div class="round_button button_players" title="Players">
           <svg
             width="60px"
@@ -169,7 +223,6 @@
             />
           </svg>
         </div>
-        <div class="chat_notifications hidden">0</div>
         <div class="round_button button_other_games" title="Other Games">
           <svg
             width="60px"
@@ -217,28 +270,44 @@
             <img
               class="cls_logo"
               src="img/cls_logo.png"
-              height="70px"
-              width="70px"
+              height="70"
+              width="70"
+              alt="Clever Little Software Logo"
             />
           </a>
         </div>
       </div>
       <div class="floating_buttons_toggle" title="Show Menu Buttons">
         <!-- <p class="floating_buttons_toggler">== MENU ==</p> -->
-        <p class="floating_buttons_toggler_arrow"><svg width="40px" height="40px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M903.232 768l56.768-50.432L512 256l-448 461.568 56.768 50.432L512 364.928z" fill="#FFFFFF" /></svg></p>
+        <p class="floating_buttons_toggler_arrow">
+          <svg
+            width="40px"
+            height="40px"
+            viewBox="0 0 1024 1024"
+            class="icon"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M903.232 768l56.768-50.432L512 256l-448 461.568 56.768 50.432L512 364.928z"
+              fill="#FFFFFF"
+            />
+          </svg>
+        </p>
       </div>
-      <! DICE SECTION -->
+      <!-- DICE SECTION -->
       <section class="dice_section">
         <p class="dice_result_display" title="Roll">6</p>
         <div class="dice_button_block">
-        <div class="dice_img_block">
-          <img class="dice_img1" src="img/dice-six.png" />
-        </div>
-        <div class="dice_img_block">
-          <img class="dice_img2" src="img/dice-six.png" />
+          <div class="dice_img_block">
+            <img class="dice_img1" src="img/dice-six.png" alt="Dice Face 6" />
+          </div>
+          <div class="dice_img_block">
+            <img class="dice_img2" src="img/dice-six.png" alt="Dice Face 6" />
+          </div>
         </div>
       </section>
-      <! CHAT SECTION -->
+      <!-- CHAT SECTION -->
       <section class="chatbox_section">
         <div class="chatbox_display">
           <p class="chatbox_entry_d">Start chatting!</p>
@@ -254,7 +323,7 @@
         </form>
         <!-- <div class="chat_x_button x_button">X</div> -->
       </section>
-      <! PLAYERS SECTION -->
+      <!-- PLAYERS SECTION -->
       <section class="players_section">
         <div class="player_filters">
           <strong>FILTERS</strong>
@@ -310,9 +379,11 @@
           <strong>CURRENTLY ACTIVE</strong>
           <div class="players_display players_currently_active"></div>
         </div>
-        <div class="players_x_button x_button hidden removed no_pointer_events">X</div>
+        <div class="players_x_button x_button hidden removed no_pointer_events">
+          X
+        </div>
       </section>
-      <! RULES SECTION -->
+      <!-- RULES SECTION -->
       <section class="rules_section hidden removed no_pointer_events">
         <div class="rules_info">
           <p><strong>RULES OF BACKGAMMON</strong></p>
@@ -354,7 +425,11 @@
             position for all the pieces are as follows:
           </p>
           <div class="rules_image_box">
-            <img class="rules_backgammon" src="img/rules_backgammon.webp" />
+            <img
+              class="rules_backgammon"
+              src="img/rules_backgammon.webp"
+              alt="Backgammon Example Board"
+            />
           </div>
           <p>
             Players move their checkers to their home quadrant to remove them
@@ -409,7 +484,7 @@
         </div>
         <div class="rules_x_button x_button">X</div>
       </section>
-      <! LOGIN SECTION -->
+      <!-- LOGIN SECTION -->
       <section class="login_section hidden removed no_pointer_events">
         <div class="login_info_div">
           <p class="login_title">LOG IN</p>
@@ -437,10 +512,9 @@
           <p class="signup_title">Not already a member?</p>
           <p class="signup_button">SIGN UP</p>
           <div class="login_section_submit_button">GO</div>
-          <div class="login_x_button x_button">X</div>
         </div>
       </section>
-      <! SIGNUP SECTION -->
+      <!-- SIGNUP SECTION -->
       <section class="signup_section hidden removed no_pointer_events">
         <div class="signup_info_div">
           <p class="signup_title">SIGN UP</p>
@@ -468,16 +542,16 @@
           <p class="back_to_login_title">Already a member?</p>
           <p class="back_to_login_button">LOG IN</p>
         </div>
-        <div class="signup_x_button x_button">X</div>
         <div class="signup_section_submit_button">GO</div>
       </section>
-      <! SETTINGS SECTION -->
+      <!-- SETTINGS SECTION -->
       <section class="settings_section hidden removed no_pointer_events">
         <div class="settings_info_div">
           <p class="settings_title">SETTINGS</p>
-        <div class="settings_x_button x_button">X</div>
+          <div class="settings_x_button x_button">X</div>
+        </div>
       </section>
-      <! OTHER GAMES SECTION -->
+      <!-- OTHER GAMES SECTION -->
       <section class="other_games_section hidden removed no_pointer_events">
         <div class="other_games_info">
           <p>TRY SOME OF OUR OTHER GREAT GAMES</p>
@@ -485,33 +559,69 @@
         </div>
         <div class="other_games_x_button x_button">X</div>
       </section>
-      <! NAME PLAYER 1 SECTION -->
-      <section class='name_section player1'>
-        <img class="player_portrait1" src='img/portrait_male.png' alt="Player Portrait" />
+      <!-- NAME PLAYER 1 SECTION -->
+      <section class="name_section player1">
+        <img
+          class="player_portrait1"
+          src="img/portrait_male.png"
+          alt="Player Portrait"
+        />
         <p class="name_player1">Guest</p>
         <div class="player_level">
-          <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path opacity="0.5" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" fill="#FFD700"/>
-            <path d="M10.4127 8.49812L10.5766 8.20419C11.2099 7.06807 11.5266 6.5 12 6.5C12.4734 6.5 12.7901 7.06806 13.4234 8.20419L13.5873 8.49813C13.7672 8.82097 13.8572 8.98239 13.9975 9.0889C14.1378 9.19541 14.3126 9.23495 14.6621 9.31402L14.9802 9.38601C16.2101 9.66428 16.825 9.80341 16.9713 10.2739C17.1176 10.7443 16.6984 11.2345 15.86 12.215L15.643 12.4686C15.4048 12.7472 15.2857 12.8865 15.2321 13.0589C15.1785 13.2312 15.1965 13.4171 15.2325 13.7888L15.2653 14.1272C15.3921 15.4353 15.4554 16.0894 15.0724 16.3801C14.6894 16.6709 14.1137 16.4058 12.9622 15.8756L12.6643 15.7384C12.337 15.5878 12.1734 15.5124 12 15.5124C11.8266 15.5124 11.663 15.5878 11.3357 15.7384L11.0378 15.8756C9.88633 16.4058 9.31059 16.6709 8.92757 16.3801C8.54456 16.0894 8.60794 15.4353 8.7347 14.1272L8.76749 13.7888C8.80351 13.4171 8.82152 13.2312 8.76793 13.0589C8.71434 12.8865 8.59521 12.7472 8.35696 12.4686L8.14005 12.215C7.30162 11.2345 6.88241 10.7443 7.02871 10.2739C7.17501 9.80341 7.78994 9.66427 9.01977 9.38601L9.33794 9.31402C9.68743 9.23495 9.86217 9.19541 10.0025 9.0889C10.1428 8.98239 10.2328 8.82097 10.4127 8.49812Z" fill="#FFD700"/>
-            </svg>
+          <svg
+            width="50px"
+            height="50px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.5"
+              d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+              fill="#FFD700"
+            />
+            <path
+              d="M10.4127 8.49812L10.5766 8.20419C11.2099 7.06807 11.5266 6.5 12 6.5C12.4734 6.5 12.7901 7.06806 13.4234 8.20419L13.5873 8.49813C13.7672 8.82097 13.8572 8.98239 13.9975 9.0889C14.1378 9.19541 14.3126 9.23495 14.6621 9.31402L14.9802 9.38601C16.2101 9.66428 16.825 9.80341 16.9713 10.2739C17.1176 10.7443 16.6984 11.2345 15.86 12.215L15.643 12.4686C15.4048 12.7472 15.2857 12.8865 15.2321 13.0589C15.1785 13.2312 15.1965 13.4171 15.2325 13.7888L15.2653 14.1272C15.3921 15.4353 15.4554 16.0894 15.0724 16.3801C14.6894 16.6709 14.1137 16.4058 12.9622 15.8756L12.6643 15.7384C12.337 15.5878 12.1734 15.5124 12 15.5124C11.8266 15.5124 11.663 15.5878 11.3357 15.7384L11.0378 15.8756C9.88633 16.4058 9.31059 16.6709 8.92757 16.3801C8.54456 16.0894 8.60794 15.4353 8.7347 14.1272L8.76749 13.7888C8.80351 13.4171 8.82152 13.2312 8.76793 13.0589C8.71434 12.8865 8.59521 12.7472 8.35696 12.4686L8.14005 12.215C7.30162 11.2345 6.88241 10.7443 7.02871 10.2739C7.17501 9.80341 7.78994 9.66427 9.01977 9.38601L9.33794 9.31402C9.68743 9.23495 9.86217 9.19541 10.0025 9.0889C10.1428 8.98239 10.2328 8.82097 10.4127 8.49812Z"
+              fill="#FFD700"
+            />
+          </svg>
           <p class="player_rating1">0</p>
         </div>
       </section>
-      <! VERSUS BOX SECTION -->
-      <section class='versus_section'><img src="img/versus.png" alt="Versus image"/></section>
-      <! NAME PLAYER 2 SECTION -->
-      <section class='name_section player2'>
-        <img class="player_portrait2" src='img/portrait_male.png' alt="Player Portrait" />
+      <!-- VERSUS BOX SECTION -->
+      <section class="versus_section">
+        <img src="img/versus.png" alt="Versus image" />
+      </section>
+      <!-- NAME PLAYER 2 SECTION -->
+      <section class="name_section player2">
+        <img
+          class="player_portrait2"
+          src="img/portrait_male.png"
+          alt="Player Portrait"
+        />
         <p class="name_player2">Guest</p>
         <div class="player_level">
-          <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path opacity="0.5" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" fill="#FFD700"/>
-            <path d="M10.4127 8.49812L10.5766 8.20419C11.2099 7.06807 11.5266 6.5 12 6.5C12.4734 6.5 12.7901 7.06806 13.4234 8.20419L13.5873 8.49813C13.7672 8.82097 13.8572 8.98239 13.9975 9.0889C14.1378 9.19541 14.3126 9.23495 14.6621 9.31402L14.9802 9.38601C16.2101 9.66428 16.825 9.80341 16.9713 10.2739C17.1176 10.7443 16.6984 11.2345 15.86 12.215L15.643 12.4686C15.4048 12.7472 15.2857 12.8865 15.2321 13.0589C15.1785 13.2312 15.1965 13.4171 15.2325 13.7888L15.2653 14.1272C15.3921 15.4353 15.4554 16.0894 15.0724 16.3801C14.6894 16.6709 14.1137 16.4058 12.9622 15.8756L12.6643 15.7384C12.337 15.5878 12.1734 15.5124 12 15.5124C11.8266 15.5124 11.663 15.5878 11.3357 15.7384L11.0378 15.8756C9.88633 16.4058 9.31059 16.6709 8.92757 16.3801C8.54456 16.0894 8.60794 15.4353 8.7347 14.1272L8.76749 13.7888C8.80351 13.4171 8.82152 13.2312 8.76793 13.0589C8.71434 12.8865 8.59521 12.7472 8.35696 12.4686L8.14005 12.215C7.30162 11.2345 6.88241 10.7443 7.02871 10.2739C7.17501 9.80341 7.78994 9.66427 9.01977 9.38601L9.33794 9.31402C9.68743 9.23495 9.86217 9.19541 10.0025 9.0889C10.1428 8.98239 10.2328 8.82097 10.4127 8.49812Z" fill="#FFD700"/>
-            </svg>
+          <svg
+            width="50px"
+            height="50px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.5"
+              d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+              fill="#FFD700"
+            />
+            <path
+              d="M10.4127 8.49812L10.5766 8.20419C11.2099 7.06807 11.5266 6.5 12 6.5C12.4734 6.5 12.7901 7.06806 13.4234 8.20419L13.5873 8.49813C13.7672 8.82097 13.8572 8.98239 13.9975 9.0889C14.1378 9.19541 14.3126 9.23495 14.6621 9.31402L14.9802 9.38601C16.2101 9.66428 16.825 9.80341 16.9713 10.2739C17.1176 10.7443 16.6984 11.2345 15.86 12.215L15.643 12.4686C15.4048 12.7472 15.2857 12.8865 15.2321 13.0589C15.1785 13.2312 15.1965 13.4171 15.2325 13.7888L15.2653 14.1272C15.3921 15.4353 15.4554 16.0894 15.0724 16.3801C14.6894 16.6709 14.1137 16.4058 12.9622 15.8756L12.6643 15.7384C12.337 15.5878 12.1734 15.5124 12 15.5124C11.8266 15.5124 11.663 15.5878 11.3357 15.7384L11.0378 15.8756C9.88633 16.4058 9.31059 16.6709 8.92757 16.3801C8.54456 16.0894 8.60794 15.4353 8.7347 14.1272L8.76749 13.7888C8.80351 13.4171 8.82152 13.2312 8.76793 13.0589C8.71434 12.8865 8.59521 12.7472 8.35696 12.4686L8.14005 12.215C7.30162 11.2345 6.88241 10.7443 7.02871 10.2739C7.17501 9.80341 7.78994 9.66427 9.01977 9.38601L9.33794 9.31402C9.68743 9.23495 9.86217 9.19541 10.0025 9.0889C10.1428 8.98239 10.2328 8.82097 10.4127 8.49812Z"
+              fill="#FFD700"
+            />
+          </svg>
           <p class="player_rating2">0</p>
         </div>
       </section>
-      <! AD SECTION -->
+      <!-- AD SECTION -->
       <p class="ad_notification">Advertisement</p>
       <section class="ad_section">
         <div class="adbox">
@@ -525,16 +635,15 @@
               src="img/cash4gold.jpg"
               alt="Cash 4 Gold Advertisement"
               title="Cash 4 Gold Online"
-              target="_blank"
           /></a>
         </div>
       </section>
-      <! COOKIE SECTION -->
+      <!-- COOKIE SECTION -->
       <aside class="cookie_permission">
         <div>
           <p class="cookie_permission_text">
-            This site uses cookies to remember your login details, do you agree to
-            their use?
+            This site uses cookies to remember your login details, do you agree
+            to their use?
           </p>
         </div>
         <div class="cookie_permission_button_grid">
@@ -567,7 +676,7 @@
           </div>
         </div>
       </aside>
-      <! DEBUG BUTTONS -->
+      <!-- DEBUG BUTTONS -->
       <aside class="testing_buttons">
         <button class="toggle_ads_button">Toggle Ads - TEST</button>
         <button class="toggle_game_button">Toggle Game - TEST</button>
@@ -575,23 +684,23 @@
         <button class="ask_jack_button">Ask Jack - TEST</button>
       </aside>
     </div>
+    <!-- SOUNDS -->
+    <audio id="button_click_sound" src="sound/mouse_click.wav"></audio>
+    <audio id="opening_jingle" src="sound/jingle.wav"></audio>
+    <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
+    <audio id="number1" src="sound/number1.wav"></audio>
+    <audio id="number2" src="sound/number2.wav"></audio>
+    <audio id="number3" src="sound/number3.wav"></audio>
+    <audio id="number4" src="sound/number4.wav"></audio>
+    <audio id="number5" src="sound/number5.wav"></audio>
+    <audio id="number6" src="sound/number6.wav"></audio>
+    <audio id="number7" src="sound/number7.wav"></audio>
+    <audio id="number8" src="sound/number8.wav"></audio>
+    <audio id="number9" src="sound/number9.wav"></audio>
+    <audio id="number10" src="sound/number10.wav"></audio>
+    <audio id="number11" src="sound/number11.wav"></audio>
+    <audio id="number12" src="sound/number12.wav"></audio>
+    <audio id="chat_sound" src="sound/chat_notification.wav"></audio>
+    <script src="script3.js"></script>
   </body>
-  <! SOUNDS -->
-  <audio id="button_click_sound" src="sound/mouse_click.wav"></audio>
-  <audio id="opening_jingle" src="sound/jingle.wav"></audio>
-  <audio id="dice_roll_sound" src="sound/rolling-dice-2-102706.mp3"></audio>
-  <audio id="number1" src="sound/number1.wav"></audio>
-  <audio id="number2" src="sound/number2.wav"></audio>
-  <audio id="number3" src="sound/number3.wav"></audio>
-  <audio id="number4" src="sound/number4.wav"></audio>
-  <audio id="number5" src="sound/number5.wav"></audio>
-  <audio id="number6" src="sound/number6.wav"></audio>
-  <audio id="number7" src="sound/number7.wav"></audio>
-  <audio id="number8" src="sound/number8.wav"></audio>
-  <audio id="number9" src="sound/number9.wav"></audio>
-  <audio id="number10" src="sound/number10.wav"></audio>
-  <audio id="number11" src="sound/number11.wav"></audio>
-  <audio id="number12" src="sound/number12.wav"></audio>
-  <audio id="chat_sound" src="sound/chat_notification.wav"></audio>
-  <script src="script3.js"></script>
 </html>
