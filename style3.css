@@ -236,6 +236,11 @@ html {
   transform: translateY(-8px) translateX(-2px);
 }
 
+.gamestart_reset_button svg {
+  padding-top: 4px;
+  transform: scaleX(-1);
+}
+
 .play_button:hover,
 .round_button:hover,
 .gamestart_button_fun:hover,
