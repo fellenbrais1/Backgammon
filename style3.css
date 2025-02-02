@@ -186,6 +186,21 @@ html {
 .gamestart_button_pro {
   background-color: var(--button_dark_teal);
   margin-bottom: 20px;
+  pointer-events: none;
+  position: relative;
+}
+
+.gamestart_button_pro::before {
+  content: "Coming soon";
+  height: 20px;
+  width: 90px;
+  background-color: orange;
+  border: 1px solid white;
+  font-size: 12px;
+  border-radius: 9999px;
+  position: absolute;
+  top: -10px;
+  right: -20px;
 }
 
 .gamestart_opponent_div,
@@ -226,6 +241,25 @@ html {
   width: 40px;
   margin-left: 70px;
   color: white;
+}
+
+.gamestart_button_login {
+  position: relative;
+  pointer-events: none;
+}
+
+.gamestart_button_login::before {
+  content: "Coming soon";
+  height: 20px;
+  width: 90px;
+  background-color: orange;
+  border: 1px solid white;
+  font-size: 12px;
+  border-radius: 9999px;
+  position: absolute;
+  top: -10px;
+  right: -36px;
+  z-index: 9;
 }
 
 .gamestart_button_challenge svg {
