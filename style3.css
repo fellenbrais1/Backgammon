@@ -563,12 +563,12 @@ html {
   width: 450px;
   top: 15%;
   left: 1%;
+  z-index: 3;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 0;
   transform: translateX(-1000px);
   transition: opacity 1s ease-in-out, transform 2s ease-in-out;
-  /* transition: opacity 1s ease-in-out; */
 }
 
 .players_display {
@@ -698,12 +698,12 @@ html {
   height: 630px;
   width: 450px;
   top: 17%;
-  left: 0%;
+  left: -0.25%;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 0;
-  /* transition: opacity 1s ease-in-out; */
   transform: translateX(-1000px);
+  z-index: 4;
   transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
@@ -853,12 +853,11 @@ html {
   row-gap: 48px;
   background-color: brown;
   position: absolute;
-  top: 17%;
-  left: 0%;
+  top: 15.5%;
+  left: 0.75%;
   border-radius: 25px;
   border: 2px solid white;
   opacity: 0;
-  /* transition: opacity 1s ease-in-out; */
   z-index: 2;
   transform: translateX(-1000px);
   transition: opacity 1s ease-in-out, transform 2s ease-in-out;
@@ -879,7 +878,7 @@ html {
   border: solid 2px white;
   opacity: 1;
   /* transition: opacity 1s ease-in-out; */
-  z-index: 3;
+  z-index: 5;
   transform: translateX(-1000px);
   transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
@@ -1269,13 +1268,13 @@ html {
 
 /* HELPER CLASSES */
 
-.scroll_on_horizontal {
-  transform: translateX(0);
+.scroll_on {
+  transform: translate(0);
 }
 
-.scroll_on_vertical {
+/* .scroll_on_vertical {
   transform: translateY(0);
-}
+} */
 
 .hidden {
   opacity: 0;

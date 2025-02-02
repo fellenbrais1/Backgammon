@@ -220,7 +220,7 @@ floatingButtonsToggle.addEventListener("click", () => {
   }
   setTimeout(() => {
     toggleClass(floatingButtonsMain, "show");
-    toggleClass(floatingButtonsMain, "scroll_on_vertical");
+    toggleClass(floatingButtonsMain, "scroll_on");
   }, 10);
 });
 
@@ -234,12 +234,12 @@ chatboxInput.addEventListener("keydown", (event) => {
 playersButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(playersSection, "show");
-  toggleClass(playersSection, "scroll_on_horizontal");
+  toggleClass(playersSection, "scroll_on");
   toggleClass(playersXButton, "hidden");
   toggleClass(playersXButton, "no_pointer_events");
   playersSection.classList.remove("focus_element_thick");
-  playersSection.style.top = "17%";
-  playersSection.style.left = "0%";
+  playersSection.style.top = "16.25%";
+  playersSection.style.left = "0.25%";
   setTimeout(() => {
     playersFriends.innerHTML = "";
     playersPlayedBefore.innerHTML = "";
@@ -252,7 +252,7 @@ playersButton.addEventListener("click", () => {
 
 playersXButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(playersSection, "scroll_on_horizontal");
+  toggleClass(playersSection, "scroll_on");
   setTimeout(() => {
     playersSection.classList.remove("show");
     toggleClass(playersXButton, "hidden");
@@ -277,7 +277,7 @@ freePlayersToggleButton.addEventListener("click", () => {
 rulesButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(rulesSection, "show");
-  toggleClass(rulesSection, "scroll_on_horizontal");
+  toggleClass(rulesSection, "scroll_on");
   setTimeout(() => {
     toggleClass(rulesSection, "no_pointer_events");
   }, 60);
@@ -288,7 +288,7 @@ rulesXButton.addEventListener("click", () => {
   toggleClass(rulesSection, "no_pointer_events");
   setTimeout(() => {
     toggleClass(rulesSection, "show");
-    toggleClass(rulesSection, "scroll_on_horizontal");
+    toggleClass(rulesSection, "scroll_on");
   }, 60);
 });
 
@@ -420,7 +420,7 @@ settingsButton.addEventListener("click", () => {
   toggleClass(settingsSection, "show");
   setTimeout(() => {
     toggleClass(settingsSection, "no_pointer_events");
-    toggleClass(settingsSection, "scroll_on_horizontal");
+    toggleClass(settingsSection, "scroll_on");
   }, 60);
 });
 
@@ -429,7 +429,7 @@ settingsXButton.addEventListener("click", () => {
   toggleClass(settingsSection, "show");
   setTimeout(() => {
     toggleClass(settingsSection, "no_pointer_events");
-    toggleClass(settingsSection, "scroll_on_horizontal");
+    toggleClass(settingsSection, "scroll_on");
   }, 60);
 });
 
@@ -437,7 +437,7 @@ otherGamesButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(otherGamesSection, "show");
   setTimeout(() => {
-    toggleClass(otherGamesSection, "scroll_on_horizontal");
+    toggleClass(otherGamesSection, "scroll_on");
     toggleClass(otherGamesSection, "no_pointer_events");
     populateOtherGames(otherGamesHTML);
     addCurrentGameClass(currentGameFlag);
@@ -450,7 +450,7 @@ otherGamesXButton.addEventListener("click", () => {
   toggleClass(otherGamesSection, "show");
   setTimeout(() => {
     toggleClass(otherGamesSection, "no_pointer_events");
-    toggleClass(otherGamesSection, "scroll_on_horizontal");
+    toggleClass(otherGamesSection, "scroll_on");
   }, 60);
 });
 
@@ -804,6 +804,29 @@ const togglerUpArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024" 
 
 // DOWN ARROW
 const togglerDownArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#FFFFFF" /></svg>`;
+
+const hideElementsList = [
+  diceSection,
+  chatboxSection,
+  floatingButtonsMain,
+  adSection,
+  settingsSection,
+  otherGamesSection,
+  playersSection,
+  player1NameSection,
+  player2NameSection,
+  adNotification,
+  forfeitSection,
+  helperBox,
+  buttonGamestartFun,
+  buttonGamestartPro,
+  buttonGamestartOpponent,
+  gameBoard,
+  introDisplay,
+  gameStartButtonChallenge,
+  gameStartButtonLogin,
+  playerNameForm,
+];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -1910,7 +1933,7 @@ function step2Process() {
     });
     changeHelper(3);
     playersSection.classList.add("show");
-    playersSection.classList.add("scroll_on_horizontal");
+    playersSection.classList.add("scroll_on");
     console.log(gameStartButtonLogin);
     gameStartButtonLogin.classList.add("button_greenify");
     playerNameElement.classList.remove("focus_element");
@@ -1929,19 +1952,19 @@ function step3Process() {
   if (buttonGamestartOpponent.textContent != "") {
     chatboxSection.classList.add("show");
     playersSection.classList.remove("show");
-    playersSection.classList.remove("scroll_on_horizontal");
+    playersSection.classList.remove("scroll_on");
     player1NameSection.classList.add("show");
-    player1NameSection.classList.add("scroll_on_vertical");
+    player1NameSection.classList.add("scroll_on");
     player2NameSection.classList.add("show");
-    player2NameSection.classList.add("scroll_on_vertical");
+    player2NameSection.classList.add("scroll_on");
     gamestartBox.classList.remove("show");
     introDisplay.classList.add("hidden");
     diceSection.classList.add("show");
-    diceSection.classList.add("scroll_on_vertical");
+    diceSection.classList.add("scroll_on");
     diceSection.classList.add("focus_element_thick");
     diceSection.classList.remove("no_pointer_events");
     adSection.classList.add("show");
-    adSection.classList.add("scroll_on_horizontal");
+    adSection.classList.add("scroll_on");
     adSection.classList.remove("no_pointer_events");
     forfeitButton.classList.remove("grey_button");
     settingsButton.classList.remove("grey_button");
@@ -1956,7 +1979,7 @@ function step3Process() {
     helperBox.classList.remove("show");
     helperBox.classList.add("removed");
     setTimeout(() => {
-      chatboxSection.classList.add("scroll_on_horizontal");
+      chatboxSection.classList.add("scroll_on");
       adNotification.classList.add("show");
       greyOverlay.classList.remove("show");
     }, 1000);
@@ -1986,51 +2009,68 @@ function changeHelper(step) {
 }
 
 function resetSite() {
-  diceSection.classList.remove("show");
+  hideElements(hideElementsList);
   diceSection.classList.add("no_pointer_events");
-  diceSection.classList.remove("scroll_on_vertical");
-  chatboxSection.classList.remove("show");
-  chatboxSection.classList.remove("no_pointer_events");
-  chatboxSection.classList.remove("scroll_on_horizontal");
   chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
-  floatingButtonsMain.classList.remove("show");
-  floatingButtonsMain.classList.remove("scroll_on_vertical");
-  adSection.classList.remove("show");
   adSection.classList.add("no_pointer_events");
-  adSection.classList.remove("scroll_on_horizontal");
-  playersSection.classList.remove("show");
-  playersSection.classList.remove("scroll_on_horizontal");
-  player1NameSection.classList.remove("show");
-  player1NameSection.classList.remove("scroll_on_vertical");
-  player2NameSection.classList.remove("show");
-  player2NameSection.classList.remove("scroll_on_vertical");
-  adNotification.classList.remove("show");
-  forfeitSection.classList.remove("show");
   forfeitSection.classList.add("no_pointer_events");
   changeHelper(1);
-  helperBox.classList.remove("removed");
   helperBox.innerHTML = helperContent1;
-  buttonGamestartFun.classList.remove("focus_button");
-  buttonGamestartPro.classList.remove("focus_button");
   buttonGamestartOpponent.textContent = "";
-  gameBoard.classList.remove("show");
-  introDisplay.classList.remove("hidden");
-  buttonGamestartOpponent.classList.remove("focus_element");
-  gameStartButtonChallenge.classList.remove("focus_element");
-  gameStartButtonLogin.classList.remove("focus_element");
-  playerNameForm.classList.remove("focus_element");
   forfeitButton.classList.add("grey_button");
   settingsButton.classList.add("grey_button");
   playersButton.classList.add("grey_button");
   playersSection.style.top = "15%";
   playersSection.style.left = "1%";
-  buttonGamestartFun.classList.remove("inactive_button");
-  buttonGamestartFun.classList.remove("activated_button");
-  buttonGamestartPro.classList.remove("inactive_button");
-  buttonGamestartPro.classList.remove("activated_button");
-  gameStartButtonChallenge.classList.remove("activated_button");
   startLoading();
 }
+
+// function resetSite() {
+//   diceSection.classList.remove("show");
+//   diceSection.classList.add("no_pointer_events");
+//   diceSection.classList.remove("scroll_on");
+//   chatboxSection.classList.remove("show");
+//   chatboxSection.classList.remove("no_pointer_events");
+//   chatboxSection.classList.remove("scroll_on");
+//   chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
+//   floatingButtonsMain.classList.remove("show");
+//   floatingButtonsMain.classList.remove("scroll_on");
+//   adSection.classList.remove("show");
+//   adSection.classList.add("no_pointer_events");
+//   adSection.classList.remove("scroll_on");
+//   playersSection.classList.remove("show");
+//   playersSection.classList.remove("scroll_on");
+//   player1NameSection.classList.remove("show");
+//   player1NameSection.classList.remove("scroll_on");
+//   player2NameSection.classList.remove("show");
+//   player2NameSection.classList.remove("scroll_on");
+//   adNotification.classList.remove("show");
+//   forfeitSection.classList.remove("show");
+//   forfeitSection.classList.add("no_pointer_events");
+//   changeHelper(1);
+//   helperBox.classList.remove("removed");
+//   helperBox.innerHTML = helperContent1;
+//   buttonGamestartFun.classList.remove("focus_button");
+//   buttonGamestartPro.classList.remove("focus_button");
+//   buttonGamestartOpponent.textContent = "";
+//   gameBoard.classList.remove("show");
+//   introDisplay.classList.remove("hidden");
+//   buttonGamestartOpponent.classList.remove("focus_element");
+//   gameStartButtonChallenge.classList.remove("focus_element");
+//   gameStartButtonLogin.classList.remove("focus_element");
+//   playerNameForm.classList.remove("focus_element");
+//   forfeitButton.classList.add("grey_button");
+//   settingsButton.classList.add("grey_button");
+//   playersButton.classList.add("grey_button");
+//   playersSection.style.top = "15%";
+//   playersSection.style.left = "1%";
+//   buttonGamestartFun.classList.remove("inactive_button");
+//   buttonGamestartFun.classList.remove("activated_button");
+//   buttonGamestartPro.classList.remove("inactive_button");
+//   buttonGamestartPro.classList.remove("activated_button");
+//   gameStartButtonChallenge.classList.remove("activated_button");
+//   startLoading();
+// }
 
 const helperContent1 = `<p>Click one</p>
           <svg
@@ -2087,3 +2127,62 @@ function startLoading() {
 function stopLoading() {
   document.getElementById("overlay").style.display = "none";
 }
+
+function hideElements(elementList) {
+  elementList.forEach((current) => {
+    current.classList.remove("show");
+    current.classList.remove("scroll_on");
+    current.classList.remove("no_pointer_events");
+    current.classList.remove("show");
+    current.classList.remove("removed");
+    current.classList.remove("focus_button");
+    current.classList.remove("focus_element");
+    current.classList.remove("hidden");
+    current.classList.remove("inactive_button");
+    current.classList.remove("activated_button");
+  });
+}
+
+// diceSection.classList.remove("show");
+diceSection.classList.add("no_pointer_events");
+//   diceSection.classList.remove("scroll_on");
+//   chatboxSection.classList.remove("show");
+//   chatboxSection.classList.remove("no_pointer_events");
+//   chatboxSection.classList.remove("scroll_on");
+chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
+//   floatingButtonsMain.classList.remove("show");
+//   floatingButtonsMain.classList.remove("scroll_on");
+//   adSection.classList.remove("show");
+//   adSection.classList.add("no_pointer_events");
+//   adSection.classList.remove("scroll_on");
+//   playersSection.classList.remove("show");
+//   playersSection.classList.remove("scroll_on");
+//   player1NameSection.classList.remove("show");
+//   player1NameSection.classList.remove("scroll_on");
+//   player2NameSection.classList.remove("show");
+//   player2NameSection.classList.remove("scroll_on");
+//   adNotification.classList.remove("show");
+//   forfeitSection.classList.remove("show");
+forfeitSection.classList.add("no_pointer_events");
+changeHelper(1);
+//   helperBox.classList.remove("removed");
+helperBox.innerHTML = helperContent1;
+//   buttonGamestartFun.classList.remove("focus_button");
+//   buttonGamestartPro.classList.remove("focus_button");
+buttonGamestartOpponent.textContent = "";
+//   gameBoard.classList.remove("show");
+introDisplay.classList.remove("hidden");
+//   buttonGamestartOpponent.classList.remove("focus_element");
+//   gameStartButtonChallenge.classList.remove("focus_element");
+//   gameStartButtonLogin.classList.remove("focus_element");
+//   playerNameForm.classList.remove("focus_element");
+forfeitButton.classList.add("grey_button");
+settingsButton.classList.add("grey_button");
+playersButton.classList.add("grey_button");
+playersSection.style.top = "15%";
+playersSection.style.left = "1%";
+//   buttonGamestartFun.classList.remove("inactive_button");
+//   buttonGamestartFun.classList.remove("activated_button");
+//   buttonGamestartPro.classList.remove("inactive_button");
+//   buttonGamestartPro.classList.remove("activated_button");
+//   gameStartButtonChallenge.classList.remove("activated_button");
