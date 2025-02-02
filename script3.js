@@ -519,6 +519,14 @@ playerNameForm.addEventListener("keydown", (event) => {
 gameStartButtonChallenge.addEventListener("click", () => {
   playClickSound();
   if (buttonGamestartOpponent.textContent !== "") {
+    loginSection.classList.add("removed");
+    signupSection.classList.add("removed");
+    setTimeout(() => {
+      loginSection.classList.add("hidden");
+      signupSection.classList.add("hidden");
+      loginSection.classList.add("no_pointer_events");
+      signupSection.classList.add("no_pointer_events");
+    }, 60);
     buttonGamestartOpponent.classList.remove("focus_element");
     gameStartButtonChallenge.classList.remove("focus_element");
     gameStartButtonChallenge.classList.add("activated_button");
@@ -571,11 +579,12 @@ buttonForfeitYes.addEventListener("click", () => {
       resetSite();
       setTimeout(() => {
         showMain();
+        resetDice();
         stopLoading();
-        buttonForfeitYes.classList.remove("no_pointer_events");
-        buttonForfeitNo.classList.remove("no_pointer_events");
-        forfeitXButton.classList.remove("no_pointer_events");
-        floatingButtonsMain.classList.remove("no_pointer_events");
+        // buttonForfeitYes.classList.remove("no_pointer_events");
+        // buttonForfeitNo.classList.remove("no_pointer_events");
+        // forfeitXButton.classList.remove("no_pointer_events");
+        // floatingButtonsMain.classList.remove("no_pointer_events");
       }, 1000);
     }, 5000);
   });
@@ -830,11 +839,16 @@ const hideElementsList = [
   buttonGamestartFun,
   buttonGamestartPro,
   buttonGamestartOpponent,
+  buttonForfeitYes,
+  buttonForfeitNo,
+  forfeitXButton,
   gameBoard,
   introDisplay,
   gameStartButtonChallenge,
   gameStartButtonLogin,
   playerNameForm,
+  step2Elements,
+  step3Elements,
 ];
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2034,53 +2048,6 @@ function resetSite() {
   startLoading();
 }
 
-// function resetSite() {
-//   diceSection.classList.remove("show");
-//   diceSection.classList.add("no_pointer_events");
-//   diceSection.classList.remove("scroll_on");
-//   chatboxSection.classList.remove("show");
-//   chatboxSection.classList.remove("no_pointer_events");
-//   chatboxSection.classList.remove("scroll_on");
-//   chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
-//   floatingButtonsMain.classList.remove("show");
-//   floatingButtonsMain.classList.remove("scroll_on");
-//   adSection.classList.remove("show");
-//   adSection.classList.add("no_pointer_events");
-//   adSection.classList.remove("scroll_on");
-//   playersSection.classList.remove("show");
-//   playersSection.classList.remove("scroll_on");
-//   player1NameSection.classList.remove("show");
-//   player1NameSection.classList.remove("scroll_on");
-//   player2NameSection.classList.remove("show");
-//   player2NameSection.classList.remove("scroll_on");
-//   adNotification.classList.remove("show");
-//   forfeitSection.classList.remove("show");
-//   forfeitSection.classList.add("no_pointer_events");
-//   changeHelper(1);
-//   helperBox.classList.remove("removed");
-//   helperBox.innerHTML = helperContent1;
-//   buttonGamestartFun.classList.remove("focus_button");
-//   buttonGamestartPro.classList.remove("focus_button");
-//   buttonGamestartOpponent.textContent = "";
-//   gameBoard.classList.remove("show");
-//   introDisplay.classList.remove("hidden");
-//   buttonGamestartOpponent.classList.remove("focus_element");
-//   gameStartButtonChallenge.classList.remove("focus_element");
-//   gameStartButtonLogin.classList.remove("focus_element");
-//   playerNameForm.classList.remove("focus_element");
-//   forfeitButton.classList.add("grey_button");
-//   settingsButton.classList.add("grey_button");
-//   playersButton.classList.add("grey_button");
-//   playersSection.style.top = "15%";
-//   playersSection.style.left = "1%";
-//   buttonGamestartFun.classList.remove("inactive_button");
-//   buttonGamestartFun.classList.remove("activated_button");
-//   buttonGamestartPro.classList.remove("inactive_button");
-//   buttonGamestartPro.classList.remove("activated_button");
-//   gameStartButtonChallenge.classList.remove("activated_button");
-//   startLoading();
-// }
-
 const helperContent1 = `<p>Click one</p>
           <svg
             fill="#FFFFFF"
@@ -2129,8 +2096,6 @@ const helperContent3 = `<svg
 
 function startLoading() {
   document.getElementById("overlay").style.display = "flex";
-  // Simulate loading delay (replace with your actual loading logic)
-  // setTimeout(stopLoading, 3000); // 3 seconds
 }
 
 function stopLoading() {
@@ -2139,59 +2104,35 @@ function stopLoading() {
 
 function hideElements(elementList) {
   elementList.forEach((current) => {
-    current.classList.remove("show");
-    current.classList.remove("scroll_on");
-    current.classList.remove("no_pointer_events");
-    current.classList.remove("show");
-    current.classList.remove("removed");
-    current.classList.remove("focus_button");
-    current.classList.remove("focus_element");
-    current.classList.remove("hidden");
-    current.classList.remove("inactive_button");
-    current.classList.remove("activated_button");
+    if (current instanceof NodeList) {
+      current.forEach((current2) => {
+        console.log(current2);
+        removeMassClasses(current2);
+      });
+    } else {
+      console.log(current);
+      removeMassClasses(current);
+    }
   });
 }
 
-// diceSection.classList.remove("show");
-diceSection.classList.add("no_pointer_events");
-//   diceSection.classList.remove("scroll_on");
-//   chatboxSection.classList.remove("show");
-//   chatboxSection.classList.remove("no_pointer_events");
-//   chatboxSection.classList.remove("scroll_on");
-chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
-//   floatingButtonsMain.classList.remove("show");
-//   floatingButtonsMain.classList.remove("scroll_on");
-//   adSection.classList.remove("show");
-//   adSection.classList.add("no_pointer_events");
-//   adSection.classList.remove("scroll_on");
-//   playersSection.classList.remove("show");
-//   playersSection.classList.remove("scroll_on");
-//   player1NameSection.classList.remove("show");
-//   player1NameSection.classList.remove("scroll_on");
-//   player2NameSection.classList.remove("show");
-//   player2NameSection.classList.remove("scroll_on");
-//   adNotification.classList.remove("show");
-//   forfeitSection.classList.remove("show");
-forfeitSection.classList.add("no_pointer_events");
-changeHelper(1);
-//   helperBox.classList.remove("removed");
-helperBox.innerHTML = helperContent1;
-//   buttonGamestartFun.classList.remove("focus_button");
-//   buttonGamestartPro.classList.remove("focus_button");
-buttonGamestartOpponent.textContent = "";
-//   gameBoard.classList.remove("show");
-introDisplay.classList.remove("hidden");
-//   buttonGamestartOpponent.classList.remove("focus_element");
-//   gameStartButtonChallenge.classList.remove("focus_element");
-//   gameStartButtonLogin.classList.remove("focus_element");
-//   playerNameForm.classList.remove("focus_element");
-forfeitButton.classList.add("grey_button");
-settingsButton.classList.add("grey_button");
-playersButton.classList.add("grey_button");
-playersSection.style.top = "15%";
-playersSection.style.left = "1%";
-//   buttonGamestartFun.classList.remove("inactive_button");
-//   buttonGamestartFun.classList.remove("activated_button");
-//   buttonGamestartPro.classList.remove("inactive_button");
-//   buttonGamestartPro.classList.remove("activated_button");
-//   gameStartButtonChallenge.classList.remove("activated_button");
+function removeMassClasses(element) {
+  element.classList.remove("show");
+  element.classList.remove("scroll_on");
+  element.classList.remove("no_pointer_events");
+  element.classList.remove("show");
+  element.classList.remove("removed");
+  element.classList.remove("focus_button");
+  element.classList.remove("focus_element");
+  element.classList.remove("hidden");
+  element.classList.remove("inactive_button");
+  element.classList.remove("activated_button");
+}
+
+function resetDice() {
+  diceFace1.src = "img/dice-six.png";
+  diceFace2.src = "img/dice-six.png";
+  diceFace2.style.opacity = 0;
+  diceRollResult.textContent = 6;
+  firstTurn = true;
+}
