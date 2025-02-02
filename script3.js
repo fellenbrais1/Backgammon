@@ -30,6 +30,8 @@ const playerNameForm = document.getElementById("gamestart_name_input");
 const helperBox = document.querySelector(".helper_div");
 const gameStartResetButton = document.querySelector(".gamestart_reset_button");
 const loginButton = document.querySelector(".gamestart_button_login");
+const loginXButton = document.querySelector(".login_x_button");
+const signupXButton = document.querySelector(".signup_x_button");
 
 // Game board elements
 const gameBoard = document.querySelector(".game_board");
@@ -293,6 +295,18 @@ rulesXButton.addEventListener("click", () => {
 loginButton.addEventListener("click", () => {
   playClickSound();
   toggleClass(loginSection, "removed");
+  signupSection.classList.add("removed");
+  setTimeout(() => {
+    toggleClass(loginSection, "hidden");
+    signupSection.classList.add("hidden");
+    toggleClass(loginSection, "no_pointer_events");
+    signupSection.classList.add("no_pointer_events");
+  }, 60);
+});
+
+loginXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(loginSection, "removed");
   setTimeout(() => {
     toggleClass(loginSection, "hidden");
     toggleClass(loginSection, "no_pointer_events");
@@ -343,6 +357,18 @@ signupButton.addEventListener("click", () => {
   toggleClass(signupSection, "removed");
   setTimeout(() => {
     toggleClass(signupSection, "hidden");
+    toggleClass(signupSection, "no_pointer_events");
+  }, 60);
+});
+
+signupXButton.addEventListener("click", () => {
+  playClickSound();
+  toggleClass(loginSection, "removed");
+  toggleClass(signupSection, "removed");
+  setTimeout(() => {
+    toggleClass(loginSection, "hidden");
+    toggleClass(signupSection, "hidden");
+    toggleClass(loginSection, "no_pointer_events");
     toggleClass(signupSection, "no_pointer_events");
   }, 60);
 });
