@@ -1954,6 +1954,8 @@ function step3Process() {
     chatboxSection.classList.add("show");
     playersSection.classList.remove("show");
     playersSection.classList.remove("scroll_on");
+    playersXButton.classList.add("hidden");
+    playersXButton.classList.add("no_pointer_events");
     player1NameSection.classList.add("show");
     player1NameSection.classList.add("scroll_on");
     player2NameSection.classList.add("show");
@@ -2011,8 +2013,13 @@ function changeHelper(step) {
 
 function resetSite() {
   hideElements(hideElementsList);
+  gameStartButtonLogin.classList.remove("button_greenify");
   diceSection.classList.add("no_pointer_events");
   chatBoxDisplay.innerHTML = `<p class="chatbox_entry_d">Start chatting!</p>`;
+  settingsSection.classList.add("no_pointer_events");
+  rulesSection.classList.add("no_pointer_events");
+  otherGamesSection.classList.add("no_pointer_events");
+  // settingsSection.classList.add('no_pointer_events');
   adSection.classList.add("no_pointer_events");
   forfeitSection.classList.add("no_pointer_events");
   changeHelper(1);
