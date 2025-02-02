@@ -41,7 +41,7 @@ html {
   height: 630px;
   margin: auto;
   position: relative;
-  z-index: 1;
+  z-index: 9;
   /* overflow: hidden; */
 }
 
@@ -302,7 +302,7 @@ html {
   position: absolute;
   top: 23.5%;
   left: 13%;
-  z-index: 9;
+  z-index: 999;
   background-color: var(--active_button_gold);
   color: black;
   font-size: 24px;
