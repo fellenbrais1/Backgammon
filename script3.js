@@ -238,8 +238,7 @@ playersButton.addEventListener("click", () => {
   toggleClass(playersXButton, "hidden");
   toggleClass(playersXButton, "no_pointer_events");
   playersSection.classList.remove("focus_element_thick");
-  playersSection.style.top = "16.25%";
-  playersSection.style.left = "0.25%";
+  playersSection.style.top = "calc(15% + 64px)";
   setTimeout(() => {
     playersFriends.innerHTML = "";
     playersPlayedBefore.innerHTML = "";
@@ -562,6 +561,7 @@ forfeitXButton.addEventListener("click", () => {
 buttonForfeitYes.addEventListener("click", () => {
   playClickSound();
   forfeitMessage();
+  hideElements(hideSlideInsList);
   buttonForfeitYes.classList.add("no_pointer_events");
   buttonForfeitNo.classList.add("no_pointer_events");
   forfeitXButton.classList.add("no_pointer_events");
@@ -805,6 +805,14 @@ const togglerUpArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024" 
 // DOWN ARROW
 const togglerDownArrow = `<svg width="40px" height="40px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#FFFFFF" /></svg>`;
 
+const hideSlideInsList = [
+  forfeitSection,
+  settingsSection,
+  playersSection,
+  rulesSection,
+  otherGamesSection,
+];
+
 const hideElementsList = [
   diceSection,
   chatboxSection,
@@ -812,6 +820,7 @@ const hideElementsList = [
   adSection,
   settingsSection,
   otherGamesSection,
+  rulesSection,
   playersSection,
   player1NameSection,
   player2NameSection,

@@ -41,7 +41,7 @@ html {
   height: 630px;
   margin: auto;
   position: relative;
-  z-index: 9;
+  z-index: 6;
   /* overflow: hidden; */
 }
 
@@ -302,7 +302,7 @@ html {
   position: absolute;
   top: 23.5%;
   left: 13%;
-  z-index: 999;
+  z-index: 9;
   background-color: var(--active_button_gold);
   color: black;
   font-size: 24px;
@@ -697,8 +697,9 @@ html {
   position: absolute;
   height: 630px;
   width: 450px;
-  top: 17%;
-  left: -0.25%;
+  top: calc(15% + 108px);
+  left: 1%;
+  /* left: -0.25%; */
   border-radius: 25px;
   border: solid 2px white;
   opacity: 0;
@@ -853,8 +854,8 @@ html {
   row-gap: 48px;
   background-color: brown;
   position: absolute;
-  top: 15.5%;
-  left: 0.75%;
+  top: calc(15% + 20px);
+  left: 1%;
   border-radius: 25px;
   border: 2px solid white;
   opacity: 0;
@@ -872,8 +873,8 @@ html {
   position: absolute;
   height: 630px;
   width: 450px;
-  top: 17%;
-  left: 0%;
+  top: calc(15% + 152px);
+  left: 1%;
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
@@ -1359,7 +1360,7 @@ html {
 
 .pointer_step3 {
   top: 67%;
-  left: -6.5%;
+  left: -5.5%;
   z-index: 9;
   font-size: 24px;
   grid-template-columns: 50px auto 60px;
