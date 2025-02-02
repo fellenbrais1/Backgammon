@@ -192,6 +192,8 @@ const number12 = document.getElementById("number12");
 // Chat sounds
 const chatPop = document.getElementById("chat_sound");
 
+let loggedInFlag = false;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENT LISTENERS
 
@@ -210,7 +212,6 @@ diceRollResult.addEventListener("click", () => {
 
 floatingButtonsToggle.addEventListener("click", () => {
   playClickSound();
-  console.log(`RUNNING`);
   if (floatingButtonsMain.classList.contains("show")) {
     floatingButtonsArrow.innerHTML = togglerUpArrow;
     floatingButtonsToggle.title = `Show Menu Buttons`;
@@ -505,13 +506,31 @@ cookieClearer.addEventListener("click", () => {
 playerNameForm.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
+    playClickSound();
+    let userObjectHere;
     if (playerNameForm.value !== "") {
-      playClickSound();
+      console.log(loggedInFlag);
+      if (loggedInFlag === true) {
+        console.log(currentUserObject);
+        userObjectHere = currentUserObject;
+        console.log(userObjectHere);
+        addPlayerDetails(1, userObjectHere);
+        step2Process();
+        return;
+      } else {
+        userObjectHere = guestUserObject;
+        const userDisplayName = playerNameForm.value;
+        userObjectHere.displayName = userDisplayName;
+        console.log(userObjectHere);
+      }
+      addPlayerDetails(1, userObjectHere);
       step2Process();
+      return;
     } else {
       window.alert(
         `Please enter a display name to use temporarily or sign up or log in`
       );
+      return;
     }
   }
 });
@@ -650,7 +669,7 @@ let userDisplayName;
 
 let cookiesAcceptedFlag = false;
 
-let lastUsedDisplayName = "Guest";
+// let lastUsedDisplayName = "Guest";
 
 const experimentalFriends = [
   "Bob",
@@ -784,9 +803,21 @@ const playersObjectArr = [
   },
 ];
 
+let guestUserObject = {
+  username: "Guest",
+  password: "Guest",
+  displayName: "Guest",
+  playerPortrait: "img/portrait_male.png",
+  portraitColour: "#FFFFFF",
+  playerRating: 0,
+  member: false,
+  languages: ["english"],
+  friends: [],
+};
+
 let toggleOnlineOnlyFlag = false;
 let toggleFreeOnlyFlag = false;
-let playersPopulatedFlag = false;
+// let playersPopulatedFlag = false;
 let otherGamesPopulatedFlag = false;
 
 const otherGamesBackgammonButtonHTML = `<div class="game_button_backgammon" title="Backgammon">
@@ -851,6 +882,8 @@ const hideElementsList = [
   step3Elements,
 ];
 
+let currentUserObject = "";
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
@@ -882,12 +915,9 @@ function showMain() {
 }
 
 function toggleClass(pageElement, property) {
-  console.log(`This code is running`);
-  console.log(pageElement);
   pageElement.classList.contains(property)
     ? pageElement.classList.remove(property)
     : pageElement.classList.add(property);
-  console.log(pageElement.classList);
 }
 
 // Displays the fun game board - To be changed later to the fun game logic, can use the standard dice roller
@@ -914,7 +944,6 @@ function toggleClass(pageElement, property) {
 // Gets the name of the other player for use in the chatbox display messages
 // Called by displayFunBoard(), displayProBoard()
 function getOpponentName() {
-  console.log(`This code is running - getOpponentName()`);
   const opponentName = buttonGamestartOpponent.textContent;
   return opponentName;
 }
@@ -945,7 +974,6 @@ function rollOneDie() {
   rollingAnimation(target1);
   setTimeout(() => {
     const roll1 = diceRoller();
-    console.log(`Roll 1: `, roll1);
     cycleDieFaces(roll1, "set", target1);
     diceRollResult.textContent = roll1;
     Number((diceResult = roll1));
@@ -974,9 +1002,7 @@ function rollTwoDice() {
     const roll2 = diceRoller();
     cycleDieFaces(roll1, "set", target1);
     cycleDieFaces(roll2, "set", target2);
-    console.log(`Roll 1: ${roll1}, Roll 2: ${roll2}`);
     const totalRoll = roll1 + roll2;
-    console.log(`Total: ${totalRoll}`);
     diceRollResult.textContent = totalRoll;
     Number((diceResult = totalRoll));
   }, 1010);
@@ -1001,8 +1027,6 @@ function rollingAnimation(target) {
 }
 
 function playDiceSound(result) {
-  console.log(`RUNNING`);
-  console.log(result);
   let sound;
   switch (result) {
     case 1:
@@ -1042,7 +1066,6 @@ function playDiceSound(result) {
       sound = number12;
       break;
   }
-  console.log(sound);
   sound.play();
 }
 
@@ -1084,7 +1107,6 @@ function cycleDieFaces(result = null, flag = "random", target) {
 // Called by an eventHandler when pressing enter in the chat input box
 function addChatMessage() {
   const message = chatboxInput.value;
-  console.log(message);
   chatboxInput.value = "";
   const messageHTML = createChatMessage(message);
   postChatMessage(messageHTML);
@@ -1099,10 +1121,8 @@ function createChatMessage(message) {
     ? "chatbox_entry_a"
     : "chatbox_entry_b";
   const displayName = getUserDisplayName();
-  console.log(displayName);
   const messageHTML = `<p class='${messageClass}'><strong class='player_name'>${displayName}:</strong> ${message} - ${timeStamp}</p>`;
   userMessageStyleToggle = userMessageStyleToggle ? false : true;
-  console.log(messageHTML);
   return messageHTML;
 }
 
@@ -1120,7 +1140,6 @@ function getTimeStamp() {
 // Called by addChatMessage()
 function postChatMessage(messageHTML, position = "beforeend") {
   chatBoxDisplay.insertAdjacentHTML(position, messageHTML);
-  console.log(`Message content: ${messageHTML}`);
 }
 
 // Scrolls the chat box display down to the lcoation of the latest message - could be annoying when trying to look back through chats later? - UX?
@@ -1151,7 +1170,6 @@ function pretendOpponentMessage() {
 }
 
 function forfeitMessage() {
-  console.log(`This code is running - forfeitMessage()`);
   let chatHTML, chatHTML2;
   const displayName = getUserDisplayName();
   const opponentName = getOpponentName();
@@ -1171,7 +1189,6 @@ function createOpponentMessage(opponentName, message) {
     : "chatbox_entry_f";
   const messageHTML = `<p class='${messageClass}'><strong class='opponent_name'>${opponentName}:</strong> ${message} - ${timeStamp}</p>`;
   opponentMessageStyleToggle = opponentMessageStyleToggle ? false : true;
-  console.log(messageHTML);
   return messageHTML;
 }
 
@@ -1185,7 +1202,6 @@ function playClickSound() {
 // Displays information messages in the chatbox when starting a new game
 // Called by displayFunBoard(), displayProBoard()
 function startGameMessages(mode, userDisplayName, opponentName) {
-  console.log(`This code is running - startGameMessages()`);
   let chatHTML, chatHTML2;
   if (mode === "fun") {
     chatHTML = `<p class='chatbox_entry_c'>Starting a fun mode game.</p>`;
@@ -1206,13 +1222,11 @@ function addGameNotification(HTML) {
 }
 
 function addChatNotification() {
-  console.log(chatNotification);
   chatPop.play();
 }
 
 function populatePlayers(playerList, section) {
   const newPlayerList = playerList.toSorted().reverse();
-  console.log(section);
   let HTML;
   newPlayerList.forEach((player) => {
     const specificClass = "player_is_" + player;
@@ -1255,7 +1269,6 @@ function populatePlayers(playerList, section) {
 
 function checkPlayerOnline(player, playersOnline) {
   if (playersOnline.includes(player)) {
-    console.log(`playersOnline includes ${player}!`);
     return true;
   } else {
     return false;
@@ -1264,7 +1277,6 @@ function checkPlayerOnline(player, playersOnline) {
 
 function checkPlayerInGame(player, playersInGame) {
   if (playersInGame.includes(player)) {
-    console.log(`playersInGame includes ${player}!`);
     return true;
   } else {
     return false;
@@ -1273,7 +1285,6 @@ function checkPlayerInGame(player, playersInGame) {
 
 function sortPlayerDisplay(element) {
   const container = element;
-  console.log(container);
   const playersArray = Array.from(container.children);
 
   playersArray.sort((a, b) => {
@@ -1302,11 +1313,8 @@ function sortPlayerDisplay(element) {
 
 function addPlayerEventListeners(playerList) {
   playerList.forEach((player) => {
-    console.log(player);
     const element = ".player_is_" + player;
-    console.log(element);
     const DOMElement = document.querySelectorAll(element);
-    console.log(DOMElement);
     DOMElement.forEach((current) => {
       current.addEventListener("click", () => {
         displayPlayer2Name(current.textContent);
@@ -1326,7 +1334,6 @@ function displayPlayer2Name(playerName) {
 }
 
 function toggleOnlinePlayersOnly() {
-  console.log(`This code is running - TOGGLEONLINEPLAYERSONLY`);
   const container = playersFriends;
   const playersArray = Array.from(container.children);
   const container2 = playersPlayedBefore;
@@ -1365,7 +1372,6 @@ function addOfflinePlayers(playersArrays) {
 }
 
 function toggleFreePlayersOnly() {
-  console.log(`This code is running - TOGGLEFREEPLAYERSONLY`);
   const container = playersFriends;
   const playersArray = Array.from(container.children);
   const container2 = playersPlayedBefore;
@@ -1438,8 +1444,6 @@ function addCurrentGameClass(currentGameFlag) {
 }
 
 function userLogin(usernameValue, passwordValue) {
-  console.log(`USERNAME VALUE: ${usernameValue}`);
-  console.log(`PASSWORD VALUE: ${passwordValue}`);
   const userObject = playersObjectArr.find(
     (current) => current.username === usernameValue
   );
@@ -1447,27 +1451,27 @@ function userLogin(usernameValue, passwordValue) {
 
   if (userObject) {
     if (userObject.password === passwordValue) {
-      console.log(`Password is correct!`);
       loginInfoDisplay.textContent = `Welcome ${userObject.displayName}!`;
+      loggedInFlag = true;
+      currentUserObject = userObject;
+      playerNameForm.value = userObject.displayName;
       setTimeout(() => {
         clearLoginInputFields();
         loginSection.classList.add("hidden");
         setTimeout(() => {
           loginSection.classList.add("removed");
-          addPlayerDetails(1, userObject);
           if (cookiesAcceptedFlag === true) {
             const data = setNewCookieData(userObject);
             updateCookie(data);
             if (playerNameForm.classList.contains("show")) {
+              addPlayerDetails(1, userObject);
               step2Process();
             }
           }
-          // nameChangeCheck(lastUsedDisplayName, userObject.displayName);
           loginInfoDisplay.textContent = `Please enter your details to log in.`;
         }, 60);
       }, 1000);
     } else {
-      console.log(`Password is not correct!`);
       loginInfoDisplay.textContent = `That password is not correct.`;
       setTimeout(() => {
         clearPasswordField();
@@ -1475,7 +1479,6 @@ function userLogin(usernameValue, passwordValue) {
       }, 1000);
     }
   } else {
-    console.log(`User not found!`);
     loginInfoDisplay.textContent = `User not found, please try again.`;
     setTimeout(() => {
       loginInfoDisplay.textContent = `Please enter your details to log in.`;
@@ -1495,12 +1498,13 @@ function setNewCookieData(userObject) {
 }
 
 function addPlayerDetails(player, userObject) {
+  console.log(userObject);
   if (player === 1) {
     player1Name.textContent = userObject.displayName;
     player1Portait.src = userObject.playerPortrait;
     player1Portait.style.backgroundColor = userObject.portraitColour;
     player1Rating.textContent = userObject.playerRating;
-    playerNameForm.value = userObject.displayName;
+    // playerNameForm.value = userObject.displayName;
   } else {
     player2Name.textContent = userObject.displayName;
     player2Portait.src = userObject.playerPortrait;
@@ -1519,16 +1523,12 @@ function clearLoginInputFields() {
 }
 
 function userSignup(usernameValue, passwordValue) {
-  console.log(`USERNAME VALUE: ${usernameValue}`);
-  console.log(`PASSWORD VALUE: ${passwordValue}`);
-
   const userObject = playersObjectArr.find(
     (current) => current.username === usernameValue
   );
   console.log(userObject);
 
   if (userObject) {
-    console.log(`The username ${usernameValue} is already taken.`);
     signupInfoDisplay.textContent = `The username '${usernameValue}' is already taken.`;
     setTimeout(() => {
       signupInfoDisplay.textContent = `Please choose both a username and password.`;
@@ -1548,7 +1548,6 @@ function userSignup(usernameValue, passwordValue) {
     };
     // TODO - Re-enable later as in the note above
     // playersObjectArr.push(newUserObject);
-    console.log(playersObjectArr);
     signupInfoDisplay.textContent = `Welcome ${newUserObject.displayName}!`;
     setTimeout(() => {
       clearSignupInputFields();
@@ -1587,7 +1586,6 @@ function clearSignupInputFields() {
 // Checks if a particular cookie already exists and either parses its values if existing, or shows the cookies permission bar if it does not yet exist
 // Called by an eventHandler linked to the loading of the window
 function cookieCheck(cookieName) {
-  console.log(`Cookie check is running!`);
   const cookie = document.cookie
     .split(";")
     .find((row) => row.startsWith(`${cookieName}=`));
@@ -1597,37 +1595,31 @@ function cookieCheck(cookieName) {
     console.log(`COOKIE - RUNNING`);
     [userIP, userUsername, userPassword, userDisplayName] =
       readCookie(cookieName);
-    console.log(`COOKIE - ${userIP}`);
-    console.log(`COOKIE - ${userUsername}`);
-    console.log(`COOKIE - ${userPassword}`);
-    console.log(`COOKIE - ${userDisplayName}`);
     console.log(`User has previously enabled cookies!`);
     if (userUsername !== "Guest" && userPassword !== "") {
       userLogin(userUsername, userPassword);
-      lastUsedDisplayName = userDisplayName;
+      // lastUsedDisplayName = userDisplayName;
     }
   } else {
     setTimeout(() => {
       showCookieBar();
+      loggedInFlag = false;
       const displayName = getUserDisplayName();
       const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${displayName}!</strong></p>`;
       postChatMessage(chatHTML, "afterbegin");
-      lastUsedDisplayName = "Guest";
+      // lastUsedDisplayName = "Guest";
     }, 3000);
   }
 }
 
 function initializeCookie() {
   setUpUserData();
-  setTimeout(() => {
-    console.log(`userObject: `, userObject);
-  }, 1000);
+  setTimeout(() => {}, 1000);
 }
 
 // Fetches the user's IP address and assigns it to the userObject object for use in the rest of the program
 // Called by initializeCookie()
 function setUpUserData() {
-  console.log(`Set up running...`);
   fetchData(); // Calls the async function
   setUserIP(); // Assigns the fetched value to the userObject
 
@@ -1646,7 +1638,6 @@ async function getUserIP() {
     const response = await fetch("https://api.ipify.org?format=json");
     const data = await response.json();
     userIPAddress = data.ip;
-    console.log(`Success fetching IP Address of User`);
     return userIPAddress;
   } catch (error) {
     console.error("Error fetching IP:", error);
@@ -1683,14 +1674,10 @@ function setCookieUserDetails() {
 // Facilitates the creation of the 'userDetails' cookie and assigns its data to variables
 // Called by setCookieUserDetails()
 function acceptCookies() {
-  console.log(`Cookies enabled!`);
   const cookieValues = createCookieDefaultValues();
   createCookie("userDetails", cookieValues, 1);
   [userIP, userUsername, userPassword, userDisplayName] =
     readCookie("userDetails");
-  console.log(`COOKIE - ${userIP}`);
-  console.log(`COOKIE - ${userUsername}`);
-  console.log(`COOKIE - ${userDisplayName}`);
   ipTest(); // TEST FUNCTION - COULD BE REMOVED
   cookiesAcceptedFlag = true;
   hideCookieBar();
@@ -1721,10 +1708,6 @@ function updateCookie(data) {
   createCookie("userDetails", cookieString, 1);
   [userIP, userUsername, userPassword, userDisplayName] =
     readCookie("userDetails");
-  console.log(`COOKIE - ${userIP}`);
-  console.log(`COOKIE - ${userUsername}`);
-  console.log(`COOKIE - ${userPassword}`);
-  console.log(`COOKIE - ${userDisplayName}`);
   ipTest(); // TEST FUNCTION - COULD BE REMOVED
   // return [userUsername, userPassword];
 }
@@ -1747,16 +1730,15 @@ function readCookie(cookieName) {
     userUsername,
     userPassword,
     userDisplayName = "";
-  console.log(`Cookie string: ${JSON.stringify(document.cookie)}`);
   const retrievedValues = retrieveCookieValues(cookieName);
   if (retrievedValues) {
     userIP = retrievedValues.userIP;
     userUsername = retrievedValues.userUsername;
     userPassword = retrievedValues.userPassword;
     userDisplayName = retrievedValues.userDisplayName;
-    deleteGuestMessage();
-    const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
-    postChatMessage(chatHTML);
+    // deleteGuestMessage();
+    // const chatHTML = `<p class='chatbox_entry_c disposable_message'>Welcome <strong>${userDisplayName}!</strong></p>`;
+    // postChatMessage(chatHTML);
     console.log(`FROM COOKIE: User IP: ${userIP}`);
     console.log(`FROM COOKIE: User Username: ${userUsername}`);
     console.log(`FROM COOKIE: User Password: ${userPassword}`);
@@ -1827,7 +1809,7 @@ function nameChangeCheck(oldName, newName) {
     const message = `Name changed to <strong>${newName}</strong></>`;
     const changeNameHTML = createChatMessage(message);
     postChatMessage(changeNameHTML);
-    lastUsedDisplayName = newName;
+    // lastUsedDisplayName = newName;
     return;
   } else {
     return;
@@ -1929,7 +1911,6 @@ function imgAdCycler() {
 }
 
 function step1Process() {
-  console.log(`RUNNING`);
   if (
     buttonGamestartFun.classList.contains("focus_button") ||
     buttonGamestartPro.classList.contains("focus_button")
@@ -1949,15 +1930,13 @@ function step1Process() {
 }
 
 function step2Process() {
-  console.log(`RUNNING`);
-  if (playerNameForm.value != "") {
+  if (playerNameForm.value !== "") {
     step3Elements.forEach((element) => {
       element.classList.add("show");
     });
     changeHelper(3);
     playersSection.classList.add("show");
     playersSection.classList.add("scroll_on");
-    console.log(gameStartButtonLogin);
     gameStartButtonLogin.classList.add("button_greenify");
     playerNameElement.classList.remove("focus_element");
     gameStartButtonLogin.classList.remove("focus_element");
@@ -1971,7 +1950,6 @@ function step2Process() {
 }
 
 function step3Process() {
-  console.log(`RUNNING`);
   if (buttonGamestartOpponent.textContent != "") {
     chatboxSection.classList.add("show");
     playersSection.classList.remove("show");
@@ -2106,11 +2084,9 @@ function hideElements(elementList) {
   elementList.forEach((current) => {
     if (current instanceof NodeList) {
       current.forEach((current2) => {
-        console.log(current2);
         removeMassClasses(current2);
       });
     } else {
-      console.log(current);
       removeMassClasses(current);
     }
   });
