@@ -274,19 +274,19 @@ freePlayersToggleButton.addEventListener("click", () => {
 
 rulesButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(rulesSection, "removed");
+  toggleClass(rulesSection, "show");
+  toggleClass(rulesSection, "scroll_on_horizontal");
   setTimeout(() => {
-    toggleClass(rulesSection, "hidden");
     toggleClass(rulesSection, "no_pointer_events");
   }, 60);
 });
 
 rulesXButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(rulesSection, "hidden");
+  toggleClass(rulesSection, "no_pointer_events");
   setTimeout(() => {
-    toggleClass(rulesSection, "no_pointer_events");
-    toggleClass(rulesSection, "removed");
+    toggleClass(rulesSection, "show");
+    toggleClass(rulesSection, "scroll_on_horizontal");
   }, 60);
 });
 
@@ -391,27 +391,27 @@ backToLoginButton.addEventListener("click", () => {
 
 settingsButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(settingsSection, "removed");
+  toggleClass(settingsSection, "show");
   setTimeout(() => {
-    toggleClass(settingsSection, "hidden");
     toggleClass(settingsSection, "no_pointer_events");
+    toggleClass(settingsSection, "scroll_on_horizontal");
   }, 60);
 });
 
 settingsXButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(settingsSection, "hidden");
+  toggleClass(settingsSection, "show");
   setTimeout(() => {
     toggleClass(settingsSection, "no_pointer_events");
-    toggleClass(settingsSection, "removed");
+    toggleClass(settingsSection, "scroll_on_horizontal");
   }, 60);
 });
 
 otherGamesButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(otherGamesSection, "removed");
+  toggleClass(otherGamesSection, "show");
   setTimeout(() => {
-    toggleClass(otherGamesSection, "hidden");
+    toggleClass(otherGamesSection, "scroll_on_horizontal");
     toggleClass(otherGamesSection, "no_pointer_events");
     populateOtherGames(otherGamesHTML);
     addCurrentGameClass(currentGameFlag);
@@ -421,10 +421,10 @@ otherGamesButton.addEventListener("click", () => {
 
 otherGamesXButton.addEventListener("click", () => {
   playClickSound();
-  toggleClass(otherGamesSection, "hidden");
+  toggleClass(otherGamesSection, "show");
   setTimeout(() => {
     toggleClass(otherGamesSection, "no_pointer_events");
-    toggleClass(otherGamesSection, "removed");
+    toggleClass(otherGamesSection, "scroll_on_horizontal");
   }, 60);
 });
 
@@ -433,6 +433,8 @@ clsButton.addEventListener("click", playClickSound);
 buttonGamestartFun.addEventListener("click", () => {
   playClickSound();
   buttonGamestartFun.classList.add("focus_button");
+  buttonGamestartFun.classList.add("activated_button");
+  buttonGamestartPro.classList.add("inactive_button");
   buttonGamestartPro.classList.remove("focus_button");
   step1Process();
 });
@@ -440,6 +442,8 @@ buttonGamestartFun.addEventListener("click", () => {
 buttonGamestartPro.addEventListener("click", () => {
   playClickSound();
   buttonGamestartPro.classList.add("focus_button");
+  buttonGamestartPro.classList.add("activated_button");
+  buttonGamestartFun.classList.add("inactive_button");
   buttonGamestartFun.classList.remove("focus_button");
   step1Process();
 });
@@ -492,6 +496,7 @@ gameStartButtonChallenge.addEventListener("click", () => {
   if (buttonGamestartOpponent.textContent !== "") {
     buttonGamestartOpponent.classList.remove("focus_element");
     gameStartButtonChallenge.classList.remove("focus_element");
+    gameStartButtonChallenge.classList.add("activated_button");
     challengeInformation.textContent = "Waiting for a response...";
     challengeSection.style.backgroundColor = "var(--youtube_red)";
     challengeXButton.classList.remove("hidden");
@@ -531,12 +536,23 @@ forfeitXButton.addEventListener("click", () => {
 buttonForfeitYes.addEventListener("click", () => {
   playClickSound();
   forfeitMessage();
+  buttonForfeitYes.classList.add("no_pointer_events");
+  buttonForfeitNo.classList.add("no_pointer_events");
+  forfeitXButton.classList.add("no_pointer_events");
+  floatingButtonsMain.classList.add("no_pointer_events");
   setTimeout(() => {
-    resetSite();
     setTimeout(() => {
-      showMain();
-    }, 1000);
-  }, 5000);
+      resetSite();
+      setTimeout(() => {
+        showMain();
+        stopLoading();
+        buttonForfeitYes.classList.remove("no_pointer_events");
+        buttonForfeitNo.classList.remove("no_pointer_events");
+        forfeitXButton.classList.remove("no_pointer_events");
+        floatingButtonsMain.classList.remove("no_pointer_events");
+      }, 1000);
+    }, 5000);
+  });
 });
 
 buttonForfeitNo.addEventListener("click", () => {
@@ -550,6 +566,7 @@ buttonChallengeCancel.addEventListener("click", () => {
   challengeInformation.textContent = "Cancelling challenge...";
   setTimeout(() => {
     challengeSection.classList.add("no_pointer_events");
+    gameStartButtonChallenge.classList.remove("activated_button");
     challengeSection.classList.remove("show");
   }, 2000);
 });
@@ -559,6 +576,7 @@ challengeXButton.addEventListener("click", () => {
   challengeInformation.textContent = "Cancelling challenge...";
   setTimeout(() => {
     challengeSection.classList.add("no_pointer_events");
+    gameStartButtonChallenge.classList.remove("activated_button");
     challengeSection.classList.remove("show");
   }, 2000);
 });
@@ -1895,8 +1913,10 @@ function step3Process() {
     diceSection.classList.add("show");
     diceSection.classList.add("scroll_on_vertical");
     diceSection.classList.add("focus_element_thick");
+    diceSection.classList.remove("no_pointer_events");
     adSection.classList.add("show");
     adSection.classList.add("scroll_on_horizontal");
+    adSection.classList.remove("no_pointer_events");
     forfeitButton.classList.remove("grey_button");
     settingsButton.classList.remove("grey_button");
     playersButton.classList.remove("grey_button");
@@ -1971,13 +1991,19 @@ function resetSite() {
   introDisplay.classList.remove("hidden");
   buttonGamestartOpponent.classList.remove("focus_element");
   gameStartButtonChallenge.classList.remove("focus_element");
-  gameStartButtonLogin.classList.remove(".focus_element");
-  playerNameForm.classList.remove(".focus_element");
+  gameStartButtonLogin.classList.remove("focus_element");
+  playerNameForm.classList.remove("focus_element");
   forfeitButton.classList.add("grey_button");
   settingsButton.classList.add("grey_button");
   playersButton.classList.add("grey_button");
   playersSection.style.top = "15%";
   playersSection.style.left = "1%";
+  buttonGamestartFun.classList.remove("inactive_button");
+  buttonGamestartFun.classList.remove("activated_button");
+  buttonGamestartPro.classList.remove("inactive_button");
+  buttonGamestartPro.classList.remove("activated_button");
+  gameStartButtonChallenge.classList.remove("activated_button");
+  startLoading();
 }
 
 const helperContent1 = `<p>Click one</p>
@@ -2025,3 +2051,13 @@ const helperContent3 = `<svg
               d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
             />
           </svg>`;
+
+function startLoading() {
+  document.getElementById("overlay").style.display = "flex";
+  // Simulate loading delay (replace with your actual loading logic)
+  // setTimeout(stopLoading, 3000); // 3 seconds
+}
+
+function stopLoading() {
+  document.getElementById("overlay").style.display = "none";
+}

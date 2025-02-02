@@ -244,14 +244,18 @@ html {
 .play_button:hover,
 .round_button:hover,
 .gamestart_button_fun:hover,
-.gamestart_button_pro:hover {
+.gamestart_button_pro:hover,
+.gamestart_button_login:hover,
+.gamestart_button_challenge:hover {
   box-shadow: 0px 0px 20px white;
 }
 
 .play_button:active,
 .round_button:active,
 .gamestart_button_fun:active,
-.gamestart_button_pro:active {
+.gamestart_button_pro:active,
+.gamestart_button_login:active,
+.gamestart_button_challenge:active {
   background-color: var(--active_button_gold);
 }
 
@@ -697,8 +701,10 @@ html {
   left: 0%;
   border-radius: 25px;
   border: solid 2px white;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  /* transition: opacity 1s ease-in-out; */
+  transform: translateX(-1000px);
+  transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
 .rules_info {
@@ -851,9 +857,11 @@ html {
   left: 0%;
   border-radius: 25px;
   border: 2px solid white;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  /* transition: opacity 1s ease-in-out; */
   z-index: 2;
+  transform: translateX(-1000px);
+  transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
 /* OTHER GAMES SECTION */
@@ -870,8 +878,10 @@ html {
   border-radius: 25px;
   border: solid 2px white;
   opacity: 1;
-  transition: opacity 1s ease-in-out;
+  /* transition: opacity 1s ease-in-out; */
   z-index: 3;
+  transform: translateX(-1000px);
+  transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
 .other_games_section p {
@@ -1317,8 +1327,21 @@ html {
 
 .focus_button {
   background-color: var(--active_button_gold);
-  box-shadow: 0px 0px 20px var(--active_button_gold);
+  box-shadow: 0px 0px 20px white;
 }
+
+.activated_button {
+  pointer-events: none;
+}
+
+.inactive_button {
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* .inactive_button:active {
+  background-color: initial;
+} */
 
 .button_yellowify {
   background-color: var(--active_button_gold);
@@ -1347,4 +1370,37 @@ html {
 .grey_button {
   pointer-events: none;
   filter: grayscale(50%);
+}
+
+#overlay {
+  position: fixed; /* Cover the entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  display: flex;
+  justify-content: center; /* Center the loading indicator */
+  align-items: center;
+  pointer-events: auto; /* Ensure the overlay itself is clickable, if needed (see below) */
+  z-index: 9999; /* Ensure it's on top of everything */
+}
+
+.loader {
+  /* Example loading spinner */
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
